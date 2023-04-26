@@ -13,11 +13,11 @@ function App() {
   const [loading, setLoading] = useState(false)
   setTimeout(() => {
     setLoading(true)
-  }, 10000);
+  }, 0);
   return (
 
     <div>
-        <div className='h-screen bg-light z-50 w-full'>
+        <div className='h-full bg-light z-50 w-full'>
           <div className='grid grid-cols-7'>
             <div className='h-screen'>
               <Sidebar/>
@@ -39,9 +39,14 @@ function App() {
                 </Routes>
                   
                   :
-               <Skeleton width={"99%"} height={700} sx={{ bgcolor: '#424242' , mx: 1, mt: '-160px'}} animation="wave"/>
+               <Skeleton width={"99%"} height={700} sx={{ bgcolor: '#424242' , mx: 1, mt: '-140px'}} animation="wave"/>
 
                 }
+                <div className='flex' >
+                  {!loading && <Skeleton width={"50%"} height={740} sx={{ bgcolor: '#424242' , mx: 1, mt : '-275px'}} animation="wave"/> }
+                  {!loading && <Skeleton width={"50%"} height={740} sx={{ bgcolor: '#424242' , mx: 1, mt : '-275px'}} animation="wave"/> }
+
+                </div>
 
               </div>
             </div>
