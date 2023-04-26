@@ -1,0 +1,8 @@
+a.active  .span{
+    background : linear-gradient(to bottom , #3b3bc933 , #00519c);
+    
+}
+a.active > div{
+    background-color: #3333334d;
+    backdrop-filter: blur(10px);
+}
