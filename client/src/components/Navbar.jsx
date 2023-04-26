@@ -13,7 +13,7 @@ const Navbar = () => {
 	return (
 
     <React.Fragment>
-      		<div className="w-full flex bg-transparent text-white h-16 rounded-2xl justify-around">
+      		<div className="w-full flex bg-transparent text-white h-16 rounded-2xl justify-between px-10">
       {loading ?
           <div className="flex items-center">
             <Paper
