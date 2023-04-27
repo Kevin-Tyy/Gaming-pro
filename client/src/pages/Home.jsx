@@ -10,15 +10,7 @@ import slider4 from "./images/545935.jpg";
 import { Typography } from "@mui/material";
 
 const Home = () => {
-	const options = {
-		dots: false,
-		infinite: true,
-		speed: 500,
-		slidesToShow: 1,
-		slidesToScroll: 1,
-		autoplay: true,
-		pauseOnVisisbility: true,
-	};
+
 	const sliderImages = [slider1, slider2, slider3, slider4];
 
 	const [gamesArray, setGamesArray] = useState([]);
@@ -27,7 +19,7 @@ const Home = () => {
 	const imagePosterObj = [
 		{poster : poster1 , title : "Battle Field 4"},
 		{poster : poster2 , title : "Destiny 2 Forsaken"},
-		{poster : poster3 , title : "Call of Duty: Modern Warfare2 "},
+		{poster : poster3 , title : "Call of Duty: Modern Warfare 2 "},
 	];
 
 	useEffect(() => {
@@ -55,12 +47,12 @@ const Home = () => {
 						className="w-full h-full object-cover rounded-lg"
 					/>
 				</div>
-				<div className="w-1/5 flex flex-col gap-3 bg-neutral-800/50 px-5 pb-5 pt-2 rounded-xl">
+				<div className="w-1/5 flex flex-col gap-3 bg-neutral-800/50 px-5 pb-5 pt-2 rounded-xl h-700">
 					<Typography variant="body1" sx={{ color : 'white', ml: 2 }} className="border-b-2  border-blue-700 w-32 ">
 						Popular games
 					</Typography>
 					{imagePosterObj.map((posterObj, index) => (
-						<div className="relative flex flex-col items-center">
+						<div className="relative flex flex-col items-center h-1/3">
 							<img
 								src={posterObj.poster}
 								alt="Loading..."
@@ -72,6 +64,16 @@ const Home = () => {
 						</div>
 					))}
 				</div>
+			</div>
+			<div className="grid grid-cols-5 gap-3 mt-10">
+				{games.map((game)=>(
+					<div className="relative">
+						<img src={game.thumbnail} alt={game.title} className="h-52 object-cover"/>
+						<Typography className="text-white/90 absolute top-36 bg-black/30 backdrop-blur-lg w-full h-16 flex items-center justify-center rounded-b-lg">
+							{game.title}
+						</Typography>
+					</div>
+				))}
 			</div>
 		</div>
 	);

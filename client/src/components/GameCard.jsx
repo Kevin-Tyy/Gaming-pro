@@ -52,18 +52,18 @@ const GameCard = ({ games }) => {
 	}
 
 	return (
-		<div>
-			<div className="grid grid-cols-4 items-center justify-center text-white font-extrabold">
+		<div className="m-3">
+			<div className="grid grid-cols-5 items-center justify-center text-white font-extrabold gap-5">
 				{currentArray.map((item) => (
-					<div key={item.id} className="text">
-						<img src={item.thumbnail} alt={item.title} />
+					<div key={item.id} className="text relative">
+						<img src={item.thumbnail} alt={item.title} className="rounded-lg h-64 object-cover"/>
 
-						<Typography className="text-white">{item.title}</Typography>
+						<Typography className="text-white absolute bottom-0 bg-black/70 w-full h-16 flex flex-col  items-center backdrop-blur-lg rounded-b-lg">{item.title}</Typography>
 					</div>
 				))}
 			</div>
 			<div className="flex justify-center items-center">
-				<div className="bg-black p-4 rounded-lg flex">
+				<div className="bg-black p-4 rounded-lg flex mt-9">
 					<button
 						onClick={() => {
 							currentPage > 1 && setCurrentPage(currentPage - 1);
