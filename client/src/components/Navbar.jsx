@@ -13,7 +13,7 @@ const Navbar = () => {
 	return (
 
     <React.Fragment>
-      		<div className="w-full flex bg-transparent text-white h-16 rounded-2xl justify-between px-10">
+      		<div className="w-full flex bg-neutral-950 text-white h-16  justify-between px-10 sticky top-0 z-50">
       {loading ?
           <div className="flex items-center">
             <Paper
@@ -28,7 +28,7 @@ const Navbar = () => {
                 alignItems: "center",
                 borderRadius: "50px",
                 px: 2,
-                py: "12px",
+                py: "9px",
               }}>
               <SearchIcon className="text-white" />
               <input

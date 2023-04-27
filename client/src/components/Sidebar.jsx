@@ -4,6 +4,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import PeopleIcon from "@mui/icons-material/People";
 import CollectionsIcon from "@mui/icons-material/Collections";
 import CallIcon from "@mui/icons-material/Call";
+import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import { Typography, Skeleton } from "@mui/material";
 import Logo from "./Logo";
 import "./activeClass.css";
@@ -25,6 +26,11 @@ const SidebarContent = [
 		title: "Collection",
 		link: "/collections",
 	},
+	{
+		icon : <SportsEsportsIcon/>,
+		title : "Games",
+		link : "/games"
+	}
 ];
 
 const Sidebar = () => {
@@ -36,9 +42,11 @@ const Sidebar = () => {
 
 	return (
 		<>
-			<div className="w-full h-full bg-dark flex flex-col justify-center  shadow-2xl text-black">
+			<div className="w-full h-full flex flex-row md:flex-col justify-center mx-auto shadow-2xl ">
 				{loading ? (
-					<Logo />
+					<div className="hidden md:block">
+						<Logo />
+					</div>
 				) : (
 					<Skeleton
 						variant="rectangular"
@@ -55,17 +63,17 @@ const Sidebar = () => {
 				)}
 
 				{loading ? (
-					<div className="mb-44">
+					<div className="md:mb-80 flex items-center md:block"> 
 						{SidebarContent.map((content) => (
 							<NavLink to={content.link} key={content.link}>
-								<div className="flex gap-2 my-3 items-center py-2 pl-2 mx-3 rounded-3xl">
-									<span className="span text-white p-2 rounded-2xl">
+								<div className="flex gap-2 my-3 items-center md:py-2 md:pl-2 mx-3 rounded-lg hover:bg-neutral-800/60 ">
+									<span className="span text-white py-2 px-3 md:p-2 rounded-lg">
 										{content.icon}
 									</span>
 									<Typography
 										variant="caption"
 										sx={{ mt: "5px" }}
-										className="text-white">
+										className="text-white hidden xl:block">
 										{content.title}
 									</Typography>
 								</div>

@@ -6,3 +6,8 @@ a.active > div{
     background-color: #3333334d;
     backdrop-filter: blur(10px);
 }
+@media screen and (max-width : 1270px){
+    a.active > div{
+        background-color: transparent;
+    }
+}

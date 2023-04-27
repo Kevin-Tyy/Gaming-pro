@@ -1,22 +1,8 @@
-import React, {useEffect, useState} from 'react'
-import { fetchFromAPI } from '../utils/apiFetch'
-import GameCard from '../components/GameCard'
+import React from 'react'
+
 const Home = () => {
-	const [games, setgames ] = useState([])
-  useEffect(()=>{
-    fetchFromAPI('games').then((data)=>{
-		setgames(data)
-
-	}
-    )
-	
-  }, [])
-//   console.log(games);
-
   return (
-    <div className=''>
-		<GameCard games={games}/>
-	</div>
+    <div className='flex items-center justify-center text-white font-extrabold'>Home</div>
   )
 }
 
