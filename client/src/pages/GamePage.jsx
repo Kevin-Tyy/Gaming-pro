@@ -16,7 +16,10 @@ const Home = () => {
 
   return (
     <div className=''>
-		<GameCard games={games}/>
+    <div className=''>
+
+    </div>
+	  	<GameCard games={games}/>
 	</div>
   )
 }
