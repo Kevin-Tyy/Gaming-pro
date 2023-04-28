@@ -3,11 +3,12 @@ import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import Community from "./pages/Community";
 import Collections from "./pages/Collections";
-import Contacts from "./pages/Contacts";
+import News from "./pages/News";
 import Home from "./pages/Home";
 import GamePage from "./pages/GamePage";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Skeleton } from "@mui/material";
+import GameDetails from "./pages/GameDetails";
 function App() {
 	return (
 		<div>
@@ -25,8 +26,11 @@ function App() {
 								<Route path="/home" element={<Home />} />
 								<Route path="/community" element={<Community />} />
 								<Route path="/collections" element={<Collections />} />
-								<Route path="/contacts" element={<Contacts />} />
+								<Route path="/news" element={<News />} />
 								<Route path="/games" element={<GamePage />} />
+								<Route path="/game/:id" element={<GameDetails/>}/>
+								<Route path="/home/game/:id" element=
+								{<GameDetails/>}/>
 
 							</Routes>
 						</div>

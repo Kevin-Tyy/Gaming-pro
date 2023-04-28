@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
 import PeopleIcon from "@mui/icons-material/People";
 import CollectionsIcon from "@mui/icons-material/Collections";
-import CallIcon from "@mui/icons-material/Call";
+import FeedIcon from '@mui/icons-material/Feed';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import { Typography, Skeleton } from "@mui/material";
 import Logo from "./Logo";
@@ -17,9 +17,9 @@ const SidebarContent = [
 		link: "/community",
 	},
 	{
-		icon: <CallIcon fontSize="small" />,
-		title: "Contact",
-		link: "/contacts",
+		icon: <FeedIcon fontSize="small" />,
+		title: "Feed",
+		link: "/news",
 	},
 	{
 		icon: <CollectionsIcon fontSize="small" />,
@@ -66,7 +66,7 @@ const Sidebar = () => {
 					<div className="md:mb-80 flex items-center md:block"> 
 						{SidebarContent.map((content) => (
 							<NavLink to={content.link} key={content.link}>
-								<div className="flex gap-2 my-3 items-center md:py-2 md:pl-2 mx-3 rounded-lg hover:bg-neutral-800/60 ">
+								<div className="flex gap-2 my-3 items-center md:py-2 md:pl-2 mx-3 rounded-lg transition duration-300 hover:bg-neutral-800/60 ">
 									<span className="span text-white py-2 px-3 md:p-2 rounded-lg">
 										{content.icon}
 									</span>

@@ -1,1 +1,1 @@
-export const categoryBtns = [ "action", "adventure" , "simulation","Racing", "sports", "puzzle", "Shooter", "Strategy", "card", "MMPORG",  "Fighting", "role playing" ]
+export const categoryBtns = [ "Action", "Adventure" , "Simulation","Racing", "Sports", "Puzzle", "Shooter", "Strategy", "MMPORG",  "Fighting" ]

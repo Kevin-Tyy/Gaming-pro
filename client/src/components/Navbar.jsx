@@ -3,21 +3,31 @@ import React, { useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import { Send } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 
 const Navbar = () => {
   const [loading , setLoading] = useState(false);
+  const [searchString , setSearchString] = useState("")
   setTimeout(()=>{
     setLoading(true);
   }, 0)
-	return (
+  console.log(searchString);
+  const navigate = useNavigate()
 
+  const handleSubmit = () => {
+    navigate(`search/${searchString}`);
+    setSearchString("");
+  }
+
+	return (
     <React.Fragment>
       		<div className="w-full flex bg-neutral-950 text-white h-16  justify-between px-10 sticky top-0 z-50">
       {loading ?
           <div className="flex items-center">
             <Paper
               component="form"
+              onSubmit={handleSubmit}
               sx={{
                 bgcolor: "#3333334d",
                 border: "none",
@@ -34,6 +44,7 @@ const Navbar = () => {
               <input
                 className="bg-transparent w-full oultine outline-0 text-white pl-2 "
                 placeholder="Search for your favorite games"
+                onChange={(e)=> setSearchString(e.target.value)}
               />
             </Paper>
           </div>
@@ -48,7 +59,7 @@ const Navbar = () => {
             </span> :  <Skeleton animation="wave" variant="circular" width={40} height={40} sx={{
 							bgcolor: "#424242",
 							
-							
+
 						}}/>}
 
             {loading ?  <span className="bg-gradient-to-b from-blue-800 to-indigo-950/20 rounded-full cursor-pointer hover:from-blue-700">
@@ -60,7 +71,7 @@ const Navbar = () => {
 						}}/>  }
 
             {loading ? 
-            <Avatar className="cursor-pointer">
+            <Avatar sx={{ bgcolor : "purple"}}className="cursor-pointe">
               J
             </Avatar>
             :
