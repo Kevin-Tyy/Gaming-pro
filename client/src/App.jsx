@@ -9,6 +9,7 @@ import GamePage from "./pages/GamePage";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Skeleton } from "@mui/material";
 import GameDetails from "./pages/GameDetails";
+import SearchPage from "./pages/SearchPage";
 function App() {
 	return (
 		<div>
@@ -31,7 +32,7 @@ function App() {
 								<Route path="/game/:id" element={<GameDetails/>}/>
 								<Route path="/home/game/:id" element=
 								{<GameDetails/>}/>
-
+								<Route path="/search/:searchQuery" element={<SearchPage/>}/>
 							</Routes>
 						</div>
 					</div>

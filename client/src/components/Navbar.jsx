@@ -12,7 +12,6 @@ const Navbar = () => {
   setTimeout(()=>{
     setLoading(true);
   }, 0)
-  console.log(searchString);
   const navigate = useNavigate()
 
   const handleSubmit = () => {

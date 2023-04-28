@@ -14,7 +14,11 @@ export default {
       },
       height: {
         '700' : '700px'
+      },
+      boxShadow : {
+        '5xl' : '0 0 30px' 
       }
+
     },
   },
   plugins: [],

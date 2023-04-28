@@ -66,8 +66,8 @@ const Sidebar = () => {
 					<div className="md:mb-80 flex items-center md:block"> 
 						{SidebarContent.map((content) => (
 							<NavLink to={content.link} key={content.link}>
-								<div className="flex gap-2 my-3 items-center md:py-2 md:pl-2 mx-3 rounded-lg transition duration-300 hover:bg-neutral-800/60 ">
-									<span className="span text-white py-2 px-3 md:p-2 rounded-lg">
+								<div className="flex gap-2 my-3 items-center md:py-2 md:pl-2 mx-3 rounded-lg transition duration-300 hover:bg-neutral-800/60 shadow-neutral-900 shadow-md">
+									<span className="span text-white py-3 px-4 md:p-2 rounded-md">
 										{content.icon}
 									</span>
 									<Typography
