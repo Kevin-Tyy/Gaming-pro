@@ -4,34 +4,16 @@ import GameCard from "../components/GameCard";
 import { categoryBtns } from "../utils/UtilityObjects";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import { Typography } from "@mui/material";
-import { useParams } from "react-router-dom";
-
-import axios from "axios";
-
 const Home = () => {
-	const [games, setGames] = useState([]);
+	const [games, setgames] = useState([]);
 	const [url, setUrl] = useState("games");
-	const [pageNum, setPageNum] = useState(1)
-	const [nextPage, setNextPage] = useState(null);
-	const [prevPage, setprevPage] = useState(null);
 
 	useEffect(() => {
-		fetchFromAPI(url,pageNum).then((data) => {
-			setGames(data.results);
+		fetchFromAPI(url).then((data) => {
+			setgames(data.results);
 			console.log(data);
-			
-			const { next, previous } = response.data;
-			setNextPage(next);
-			setprevPage(previous);
-			
 		});
-
-	}, [pageNum]);
-
-	console.log("next" + nextPage)
-	console.log("prev" + prevPage)
-
-
+	}, [url]);
 
 	return (
 		<div className="">
@@ -43,7 +25,9 @@ const Home = () => {
 						</button>
 					</li>
 					{categoryBtns.map((name, index) => (
-						<li className="text-white capitalize m-2 bg-transparent border border-violet-700 px-6  py-1 rounded-3xl cursor-pointer transition duration-300 hover:bg-violet-800 shadow-violet-600 shadow-sm" key={index}>
+						<li
+							className="text-white capitalize m-2 bg-transparent border border-violet-700 px-6  py-1 rounded-3xl cursor-pointer transition duration-300 hover:bg-violet-800 shadow-violet-600 shadow-sm"
+							key={index}>
 							<button onClick={() => setUrl(`games?category=${name}`)}>
 								<Typography variant="caption">{name}</Typography>
 							</button>
@@ -56,16 +40,16 @@ const Home = () => {
 				<div className="bg-black p-4 rounded-lg flex mt-9">
 					<button
 						onClick={() => {
-							pageNum(pageNum - 1)
-						}} disabled={!prevPage}
+							fetchPrevPage();
+						}}
 						className="bg-gradient-to-b from-violet-950 to-indigo-600 py-2 px-7 text-white rounded-lg mr-1">
 						Prev
 					</button>
 					{/* <ul className="flex text-white">{pageNumbers}</ul> */}
 					<button
 						onClick={() => {
-							setPageNum(pageNum + 1)
-						}} disabled={!nextPage}
+							fetchNextPage();
+						}}
 						className="bg-gradient-to-b from-violet-950 to-indigo-600 py-2 px-7 text-white rounded-lg ml-1">
 						Next
 					</button>

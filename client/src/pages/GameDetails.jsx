@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
 const GameDetails = () => {
 	const [gameDetails, setGameDetails] = useState([]);
-	const [expanded, setExpanded] = React.useState(false);
+	const [expanded, setExpanded] = useState(false);
 
 	const { id } = useParams();
 
@@ -148,7 +148,7 @@ const GameDetails = () => {
 						</Typography>
 					</div>
 				) : (
-					<div className="flex justify-center">
+					<div className="flex just	ify-center">
 						<Skeleton
 							sx={{ width: 350, height: 80, bgcolor: "#222222" }}
 							animation="wave"
