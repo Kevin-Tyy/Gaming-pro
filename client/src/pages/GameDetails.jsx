@@ -3,28 +3,34 @@ import { fetchFromAPI } from "../utils/apiFetch";
 import { useParams } from "react-router-dom";
 import { Skeleton, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
+// import RedditIcon from '@mui/icons-material/Reddit';
 import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
+import SkeletonComponent from "../components/SkeletonComponent";
 const GameDetails = () => {
 	const [gameDetails, setGameDetails] = useState([]);
-	const [expanded, setExpanded] = useState(false);
-
+	const [suggested, setSuggested] = useState([]);
 	const { id } = useParams();
 
-	const url = `game?id=${id}`;
 	useEffect(() => {
-		fetchFromAPI(url).then((data) => {
+		fetchFromAPI(`games/${id}`).then((data) => {
 			console.log(data);
 			setGameDetails(data);
 		});
+
+		fetchFromAPI(`games/${id}/suggested`).then((data) => {
+			console.log(data);
+		});
 	}, []);
-	const handleAccordionChange = () => {
-		setExpanded(!expanded);
-	};
+
 	return (
-		<div>
-			<div className="w-full grid grid-cols-2 gap-10 p-10">
-				{gameDetails.thumbnail ? (
-					<img src={gameDetails.thumbnail} className="w-full object-fill rounded-2xl" />
+		<div
+			className={`bg-[url(${GameDetails.background_image_additional})] bg-cover`}>
+			<div className="w-full flex flex-col xl:flex-row items-center justify-center gap-10 p-2">
+				{gameDetails.background_image ? (
+					<img
+						src={gameDetails.background_image}
+						className="w-full object-fill rounded-2xl md:min-w-md max-w-3xl"
+					/>
 				) : (
 					<Skeleton
 						sx={{ width: 850, height: 750, bgcolor: "#222222" }}
@@ -32,39 +38,51 @@ const GameDetails = () => {
 						animation="wave"
 					/>
 				)}
-				{gameDetails.title ? (
+				{gameDetails.name ? (
 					<div className="text-white">
 						<Typography variant="h5" sx={{ mb: 2 }}>
-							{gameDetails.title}
+							{gameDetails.name}
 						</Typography>
-						<Typography className="flex gap-24 p-1">
-							genres : <span className="pl-1">{gameDetails.genre}</span>
+						<Typography className="flex gap-2 p-1">
+							genres :{" "}
+							{gameDetails.genres.map((genre) => (
+								<span className="pl-1">{genre.name}</span>
+							))}
 						</Typography>
-						<Typography className="flex gap-20 p-1">
-							developer : <span>{gameDetails.developer}</span>
+						<Typography className="flex flex-wrap gap-2 p-1">
+							developers :{" "}
+							{gameDetails.developers.map((developer) => (
+								<span>{developer.name}</span>
+							))}
 						</Typography>
-						<Typography className="flex gap-14 p-1">
-							Release date : <span>{gameDetails.release_date}</span>
+
+						<Typography className="flex gap-2 p-1">
+							Publisher :{" "}
+							{gameDetails.publishers.map((publisher) => (
+								<span className="pl-1">{publisher.name}</span>
+							))}
 						</Typography>
-						<Typography className="flex gap-24 p-1">
-							Status : <span className="pl-3">{gameDetails.status}</span>
+						<Typography className="flex flex-wrap gap-2 p-1">
+							Platforms :{" "}
+							{gameDetails.platforms.map((platform) => (
+								<span className="pl-1">{platform.platform.name}</span>
+							))}
 						</Typography>
-						<Typography className="flex gap-8 p-1">
-							<span className="whitespace-nowrap">Short description :</span>{" "}
-							<span>{gameDetails.short_description}</span>
+						<Typography className="flex gap-2 p-1">
+							Released : <span className="pl-1">{gameDetails.released}</span>
 						</Typography>
-						<Typography className="flex gap-20 p-1">
-							Publisher : <span className="pl-1">{gameDetails.publisher}</span>
-						</Typography>
-						<Typography className="flex gap-20 p-1">
-							Platforms : <span className="pl-1">{gameDetails.platform}</span>
+						<Typography className="flex gap-2 p-1">
+							Rating :{" "}
+							<span className="pl-1">
+								{gameDetails.rating}/{gameDetails.rating_top}
+							</span>
 						</Typography>
 						<Typography className="flex gap-3 p-1">
-							FreeTogame Profile:
+							Game Website
 							<span>
-								Click here to view game profile at&nbsp;
+								Click here to view Game Profile&nbsp;
 								<Link
-									to={gameDetails.freetogame_profile_url}
+									to={gameDetails.website}
 									target="_blank"
 									rel="noopener noreferrer"
 									className="text-neutral-500 border-b-2 border-neutral-500">
@@ -74,11 +92,11 @@ const GameDetails = () => {
 						</Typography>
 						<div className="flex gap-4 mt-10 items-center">
 							<button className="bg-violet-900 py-3 px-3 flex items-center gap-3 rounded-lg transition duration-150 hover:bg-violet-800 shadow-violet-600 shadow-sm">
-								<SportsEsportsIcon  />
+								<SportsEsportsIcon />
 								<Typography variant="caption">Add to your games</Typography>
 							</button>
 							<Link
-								to={gameDetails.game_url}
+								to={gameDetails.website}
 								target="_blank"
 								rel="noopener noreferrer">
 								<button className="border-2 border-violet-900 py-3 px-8 flex items-center gap-3 rounded-lg transition duration-300 hover:bg-neutral-800/40">
@@ -90,96 +108,108 @@ const GameDetails = () => {
 					</div>
 				) : (
 					<div>
-						<Skeleton
-							sx={{ width: 500, height: 60, bgcolor: "#222222" }}
-							animation="wave"
-						/>
-						<Skeleton
-							sx={{ width: 500, height: 60, bgcolor: "#222222" }}
-							animation="wave"
-						/>
-						<Skeleton
-							sx={{ width: 500, height: 60, bgcolor: "#222222" }}
-							animation="wave"
-						/>
-						<Skeleton
-							sx={{ width: 500, height: 60, bgcolor: "#222222" }}
-							animation="wave"
-						/>
-						<Skeleton
-							sx={{ width: 500, height: 100, bgcolor: "#222222" }}
-							animation="wave"
-							className="relative top-10"
-						/>
+						<SkeletonComponent width={500} height={60} className={""} />
+						<SkeletonComponent width={500} height={60} className={""} />
+						<SkeletonComponent width={500} height={60} className={""} />
+						<SkeletonComponent width={500} height={60} className={""} />
+						<SkeletonComponent width={500} height={60} className={""} />
 					</div>
 				)}
 			</div>
-			{gameDetails.description ? (
+
+			{gameDetails.description_raw ? (
 				<div className="p-6 ">
 					<div className=" bg-neutral-800/40 rounded-3xl flex justify-center">
-						<Typography sx={{mb: 2}} className="text-white absolute p-2 border-b-4 border-violet-700">Game Description</Typography>
-						<Typography variant="caption" sx={{ mt: 2, lineHeight: 2}} className="text-white p-10">
-							{gameDetails.description}
+						<Typography
+							sx={{ mb: 2 }}
+							className="text-white absolute p-2 border-b-4 border-violet-700">
+							Game Description
 						</Typography>
-
+						<Typography
+							variant="caption"
+							sx={{ mt: 2, lineHeight: 2 }}
+							className="text-white p-10">
+							{gameDetails.description_raw}
+						</Typography>
 					</div>
-
 				</div>
 			) : (
-				<div>
-					<Skeleton
-						sx={{ width: 1700, height: 150, bgcolor: "#222222" }}
-						className="relative bottom-72 left-10"
-						animation="wave"
+				<div className="pl-2">
+					<SkeletonComponent
+						width={""}
+						height={150}
+						className={"relative bottom-72 w-11/12"}
 					/>
-					<Skeleton
-						sx={{ width: 1700, height: 70, bgcolor: "#222222" }}
-						className="relative bottom-80 left-10"
-						animation="wave"
+					<SkeletonComponent
+						width={""}
+						height={70}
+						className={"relative bottom-80 w-11/12"}
 					/>
 				</div>
 			)}
 			<div className="">
-				{gameDetails.screenshots ? (
+				{gameDetails.genres ? (
 					<div className="flex justify-center mt-3">
-						<Typography
-							className="text-white text-center border-b-4 border-violet-800 absolute pb-2">
+						<Typography className="text-white text-center border-b-4 border-violet-800 absolute pb-2">
 							Posters
 						</Typography>
+						<div className="mt-20">
+							<img
+								src={gameDetails.background_image_additional}
+								className="w-80 "
+							/>
+						</div>
 					</div>
 				) : (
-					<div className="flex just	ify-center">
-						<Skeleton
-							sx={{ width: 350, height: 80, bgcolor: "#222222" }}
-							animation="wave"
-							className="relative bottom-72 "
+					<div className="flex justify-center">
+						<SkeletonComponent
+							width={350}
+							height={80}
+							className={"relative bottom-72 "}
 						/>
 					</div>
 				)}
+			</div>
+			<div className="w-full p-10 flex flex-col gap-10">
+				{gameDetails.stores && (
+					<div className="flex text-white flex-wrap">
+						<Typography sx={{ fontWeight : 'bold'}}>
+							Buy the game on :
+						</Typography>
+						{gameDetails.stores.map((store) => (
+							<div className="bg-neutral-800">
+								<span className="pl-1">{store.store.name},</span>
+							</div>
+						))}
+					</div>
+				)}
+				{gameDetails.publishers && (
+					<div className="flex text-white flex-wrap">
+						<Typography sx={{ fontWeight : 'bold'}}>
+							Play the game on :
+						</Typography>
+						{gameDetails.platforms.map((platform) => (
+							<div className="bg-neutral-800">
+								<span className="pl-1 whitespace-nowrap">{platform.platform.name},</span>
+							</div>
+						))}
+					</div>
+				)}
 
-				<div className="mt-20">
-					{gameDetails.screenshots ? (
-						<div className="flex justify-center gap-10 ">
-							{gameDetails.screenshots.map((imagePoster) => (
-								<img src={imagePoster.image} className="w-96" />
-							))}
-						</div>
-					) : (
-						<div className="flex justify-center gap-5 relative bottom-96 ">
-							<Skeleton
-								sx={{ width: 500, height: 500, bgcolor: "#222222" }}
-								animation="wave"
-							/>
-							<Skeleton
-								sx={{ width: 500, height: 500, bgcolor: "#222222" }}
-								animation="wave"
-							/>
-							<Skeleton
-								sx={{ width: 500, height: 500, bgcolor: "#222222" }}
-								animation="wave"
-							/>
-						</div>
-					)}
+				{gameDetails.tags && (
+					<div className=" flex flex-wrap text-white">
+						<Typography sx={{ fontWeight : 'bold'}}>
+							Tags :
+						</Typography>
+						{gameDetails.tags.map((tag) => (
+							<div className="bg-neutral-800">
+								<span className="pl-1 underline">{tag.name},</span>
+							</div>
+						))}
+					</div>
+				)}
+				<div>
+				{/* <RedditIcon className="text-white "/> */}
 				</div>
 			</div>
 		</div>
@@ -187,19 +217,3 @@ const GameDetails = () => {
 };
 
 export default GameDetails;
-
-// new Promise((resolve, reject) => {});
-//
-// :
-// "Dark Knight is a browser-based fantasy MMOARPG wherein players take on the role of a devil hunter descended from the gods battling a dark force and attempting to overthrow seven kingdoms currently run by devils.\r\n\r\nThe game features a total of three professions for players to choose from: Slayer, Sorcerer, and Destroyer. However, Destroyer will not be available as a first choice. Rather, the player must reach a certain level in either of the other two professions and then transfer that progress to the Destroyer profession.\r\n\r\nTo help players along the way, the game provides them with goddesses that may accompany them in their journey. In order to acquire a goddess, players must collect corresponding pieces and summon them. Once summoned they will assist the Dark Knight in battle.\r\n\r\nOf course, this being an MMOARPG, there are plenty of other features to be found in Dark Knight. These include a variety of systems designed to improve the players’ power, such as a relic system, the blood system, mounts, wings, and more."
-//
-
-// game_url
-// :
-// "https://www.freetogame.com/open/dark-knight"
-
-//
-
-// screenshots
-// :
-// Array(0)

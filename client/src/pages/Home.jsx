@@ -10,10 +10,11 @@ import slider4 from "./images/545935.jpg";
 import { Button, Typography } from "@mui/material";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import { Link } from "react-router-dom";
+import GameCard from "../components/GameCard";
 
 const Home = () => {
 	const sliderImages = [slider1, slider2, slider3, slider4];
-
+	const [games, setGames] = useState([]);
 	const [gamesArray, setGamesArray] = useState([]);
 	const [currentSlide, setCurrentSlide] = useState(sliderImages[0]);
 
@@ -34,9 +35,11 @@ const Home = () => {
 	}, [currentSlide, sliderImages]);
 
 	useEffect(() => {
-		fetchFromAPI("games").then((data) => setGamesArray(data));
+		fetchFromAPI("games").then((data) =>{ 
+			console.log(data);
+			setGamesArray(data.results.slice(0, 8))});
 	}, []);
-	const games = gamesArray.slice(35, 45);
+
 
 	return (
 		<div className="p-10">
@@ -103,27 +106,7 @@ const Home = () => {
 				<Typography className="text-white border-b-4 border-violet-700 w-40">
 					Play Games online
 				</Typography>
-				<div className="grid grid-cols-5 gap-3 mt-10">
-					{games.map((game) => (
-						<div className="relative" key={game.id}>
-							<img
-								src={game.thumbnail}
-								alt={game.title}
-								className="h-52 object-cover rounded-lg"
-							/>
-							<div className="p-2 absolute top-36 bg-black/60 backdrop-blur-lg w-full h-16 flex items-center justify-between rounded-b-lg">
-								<Typography className="text-white/90 ">
-									{game.title}
-								</Typography>
-								<Link to={`game/${game.id}`}>
-									<button className="bg-violet-900 text-white p-2 whitespace-nowrap rounded-lg transition duration-100 hover:bg-violet-950 ml-10">
-										View Game
-									</button>
-								</Link>
-							</div>
-						</div>
-					))}
-				</div>
+						<GameCard games={gamesArray}/>
 			</div>
 		</div>
 	);

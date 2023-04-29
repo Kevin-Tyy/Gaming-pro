@@ -29,9 +29,7 @@ function App() {
 								<Route path="/collections" element={<Collections />} />
 								<Route path="/news" element={<News />} />
 								<Route path="/games" element={<GamePage />} />
-								<Route path="/game/:id" element={<GameDetails/>}/>
-								<Route path="/home/game/:id" element=
-								{<GameDetails/>}/>
+								<Route path="/games/:id" element={<GameDetails/>}/>
 								<Route path="/search/:searchQuery" element={<SearchPage/>}/>
 							</Routes>
 						</div>

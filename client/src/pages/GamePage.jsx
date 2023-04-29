@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { fetchFromAPI } from "../utils/apiFetch";
 import GameCard from "../components/GameCard";
 import { categoryBtns } from "../utils/UtilityObjects";
-import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import { Typography } from "@mui/material";
+import SkeletonComponent from "../components/SkeletonComponent";
 const Home = () => {
 	const [games, setgames] = useState([]);
 	const [url, setUrl] = useState("games");
@@ -14,16 +14,24 @@ const Home = () => {
 			console.log(data);
 		});
 	}, [url]);
+	if (!games.length) {
+		return (
+			<div className="grid grid-cols-5 w-full items-center justify-center p-5">
+				{Array(20)
+					.fill()
+					.map((_, index) => (
+						<div key={index} className="w-11/12 p-0">
+							<SkeletonComponent width={"100%"} height={"300px"} />
+						</div>
+					))}
+			</div>
+		);
+	}
 
 	return (
-		<div className="">
+		<div className="xl:m-16">
 			<div className="">
 				<ul className="flex m-3 justify-center">
-					<li className="text-white capitalize m-2 bg-transparent border border-violet-700 px-6 rounded-3xl cursor-pointer transition duration-300 hover:bg-violet-800 shadow-violet-600 shadow-sm">
-						<button>
-							<FilterAltIcon />
-						</button>
-					</li>
 					{categoryBtns.map((name, index) => (
 						<li
 							className="text-white capitalize m-2 bg-transparent border border-violet-700 px-6  py-1 rounded-3xl cursor-pointer transition duration-300 hover:bg-violet-800 shadow-violet-600 shadow-sm"

@@ -17,6 +17,12 @@ export default {
       },
       boxShadow : {
         '5xl' : '0 5px 5px' 
+      },
+      minWidth : {
+        'md' : '500px'
+      },
+      maxHeight : {
+        '3xl' : '800px'
       }
 
     },
