@@ -10,32 +10,23 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { Skeleton } from "@mui/material";
 import GameDetails from "./pages/GameDetails";
 import SearchPage from "./pages/SearchPage";
+import Registration from "./pages/Auth/Registration";
+import Login from "./pages/Auth/Login"
 function App() {
 	return (
 		<div>
-			<div className="h-full bg-light w-full">
-				<div className="grid grid-cols-7 md:grid-cols-8">
-					<div className="h-14 md:h-screen fixed bottom-0 w-full md:w-20 bg-neutral-950 md:sticky md:top-0 xl:w-full z-50">
-						<Sidebar />
-					</div>
-					<div className="col-span-7 h-full">
-						<Navbar />
-
-						<div>
-							<Routes>
-								<Route path="/" element={<Navigate to="/home" />} />
-								<Route path="/home" element={<Home />} />
-								<Route path="/community" element={<Community />} />
-								<Route path="/collections" element={<Collections />} />
-								<Route path="/news" element={<News />} />
-								<Route path="/games" element={<GamePage />} />
-								<Route path="/games/:id" element={<GameDetails/>}/>
-								<Route path="/search/:searchQuery" element={<SearchPage/>}/>
-							</Routes>
-						</div>
-					</div>
-				</div>
-			</div>
+			<Routes>
+				<Route path="/" element={<Navigate to="/home" />} />
+				<Route path="/home" element={<Home />} />
+				<Route path="/community" element={<Community />} />
+				<Route path="/collections" element={<Collections />} />
+				<Route path="/news" element={<News />} />
+				<Route path="/games" element={<GamePage />} />
+				<Route path="/games/:id" element={<GameDetails />} />
+				<Route path="/search/:searchQuery" element={<SearchPage />} />
+				<Route path="/register"  element={<Registration />} />
+				<Route path="/login" element={<Login />} />
+			</Routes>
 		</div>
 	);
 }

@@ -4,6 +4,9 @@ import GameCard from "../components/GameCard";
 import { categoryBtns } from "../utils/UtilityObjects";
 import { Typography } from "@mui/material";
 import SkeletonComponent from "../components/SkeletonComponent";
+import Navbar from "../components/Navbar";
+import Sidebar from "../components/Sidebar";
+
 const Home = () => {
 	const [games, setgames] = useState([]);
 	const [url, setUrl] = useState("games");
@@ -29,38 +32,54 @@ const Home = () => {
 	}
 
 	return (
-		<div className="xl:m-16">
-			<div className="">
-				<ul className="flex m-3 justify-center">
-					{categoryBtns.map((name, index) => (
-						<li
-							className="text-white capitalize m-2 bg-transparent border border-violet-700 px-6  py-1 rounded-3xl cursor-pointer transition duration-300 hover:bg-violet-800 shadow-violet-600 shadow-sm"
-							key={index}>
-							<button onClick={() => setUrl(`games?category=${name}`)}>
-								<Typography variant="caption">{name}</Typography>
-							</button>
-						</li>
-					))}
-				</ul>
-			</div>
-			<GameCard games={games} />
-			<div className="flex justify-center items-center">
-				<div className="bg-black p-4 rounded-lg flex mt-9">
-					<button
-						onClick={() => {
-							fetchPrevPage();
-						}}
-						className="bg-gradient-to-b from-violet-950 to-indigo-600 py-2 px-7 text-white rounded-lg mr-1">
-						Prev
-					</button>
-					{/* <ul className="flex text-white">{pageNumbers}</ul> */}
-					<button
-						onClick={() => {
-							fetchNextPage();
-						}}
-						className="bg-gradient-to-b from-violet-950 to-indigo-600 py-2 px-7 text-white rounded-lg ml-1">
-						Next
-					</button>
+		<div>
+			<div className="h-full bg-light w-full">
+				<div className="grid grid-cols-7 md:grid-cols-8">
+					<div className="h-14 md:h-screen fixed bottom-0 w-full md:w-20 bg-neutral-950 md:sticky md:top-0 xl:w-full z-50">
+						<Sidebar />
+					</div>
+					<div className="col-span-7 h-full">
+						<Navbar />
+
+						<div>
+							<div className="xl:m-16">
+								<div className="">
+									<ul className="flex m-3 justify-center">
+										{categoryBtns.map((name, index) => (
+											<li
+												className="text-white capitalize m-2 bg-transparent border border-violet-700 px-6  py-1 rounded-3xl cursor-pointer transition duration-300 hover:bg-violet-800 shadow-violet-600 shadow-sm"
+												key={index}>
+												<button
+													onClick={() => setUrl(`games?category=${name}`)}>
+													<Typography variant="caption">{name}</Typography>
+												</button>
+											</li>
+										))}
+									</ul>
+								</div>
+								<GameCard games={games} />
+								<div className="flex justify-center items-center">
+									<div className="bg-black p-4 rounded-lg flex mt-9">
+										<button
+											onClick={() => {
+												fetchPrevPage();
+											}}
+											className="bg-gradient-to-b from-violet-950 to-indigo-600 py-2 px-7 text-white rounded-lg mr-1">
+											Prev
+										</button>
+										{/* <ul className="flex text-white">{pageNumbers}</ul> */}
+										<button
+											onClick={() => {
+												fetchNextPage();
+											}}
+											className="bg-gradient-to-b from-violet-950 to-indigo-600 py-2 px-7 text-white rounded-lg ml-1">
+											Next
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
