@@ -14,7 +14,7 @@ import Registration from "./pages/Auth/Registration";
 import Login from "./pages/Auth/Login"
 function App() {
 	return (
-		<div>
+		<div  className="h-screen">
 			<Routes>
 				<Route path="/" element={<Navigate to="/home" />} />
 				<Route path="/home" element={<Home />} />
