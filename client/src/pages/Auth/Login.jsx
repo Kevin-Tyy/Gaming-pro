@@ -1,31 +1,53 @@
 import React, { useState } from "react";
 import { Button, TextField } from "@mui/material";
 import { EmailOutlined, KeyOutlined, PersonOutline } from "@mui/icons-material";
-// import CircularProgress from '@mui/material/CircularProgress';
-import gmail from "./gmail.png";
 import { Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import { useNavigate, Link } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
+import CircularProgress from '@mui/material/CircularProgress';
+import gmail from "./gmail.png";
 import axios from "axios";
 const Login = () => {
-
-	const [username, setUsername ] = useState("");
+	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
-	console.log(username, password);
+	const [loading, setLoading] = useState(false);
 
-	const handleSubmit = (e) => {
-		e.preventDefault()
-		const {data} = axios.post("http://localhost:4000/api/login", {username, password});
-			
-	}
+	const navigate = useNavigate()
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		setLoading(true);
+
+		const { data } = await axios.post("http://localhost:4000/api/login", {
+			username,
+			password,
+		})
+		const token = data.token;
+		if(data.token){
+			localStorage.setItem("access_token", token);
+			localStorage.setItem("logged_in", true)
+			navigate('/home')
+		}
+		toast.success( data.message , {
+			position: toast.POSITION.TOP_RIGHT,
+		});
+		setLoading(false);
+		
+
+
+	};
+
 	return (
-		<div className="h-screen flex items-center justify-center bg-gradient-to-br from-neutral-700 to-neutral-950">
-			<form className="w-400 mb-40 bg-neutral-950/70 px-3 py-8 rounded-xl" onSubmit={handleSubmit}>
+		<div className="h-screen flex items-center justify-center bg-gradient-to-br from-neutral-600 to-black">
+			<form
+				className="w-400 bg-neutral-900/70 px-3 py-8 rounded-xl"
+				onSubmit={handleSubmit}>
 				<div>
 					<Typography
 						variant="h4"
 						sx={{ fontFamily: "cursive", fontWeight: "bold" }}
-						className="text-white text-center"
-						>
+						className="text-white text-center">
 						Logo
 					</Typography>
 				</div>
@@ -36,7 +58,8 @@ const Login = () => {
 						placeholder="Username"
 						className="block bg-transparent text-white outline-0 w-full "
 						value={username}
-						onChange={(e)=> setUsername(e.target.value)}
+						onChange={(e) => setUsername(e.target.value)}
+						required={true}
 					/>
 				</div>
 
@@ -47,28 +70,33 @@ const Login = () => {
 						placeholder="Password"
 						className="block bg-transparent text-white outline-0 w-full"
 						value={password}
-						onChange={(e)=> setPassword(e.target.value)}
+						onChange={(e) => setPassword(e.target.value)}
+						required={true}
 					/>
 				</div>
 				<div className="p-3 flex flex-col gap-3">
-					<button type="submit" className="bg-gradient-to-b from-indigo-800 to-blue-700 text-white w-full py-3 rounded-md">
-						Login
+					<button
+						type="submit"
+						className="bg-gradient-to-b from-indigo-800 to-blue-700 text-white w-full py-3 rounded-md" disabled={loading}>
+						{loading ? <CircularProgress sx= {{color :'#fff' }} size={20}/> : 'Submit'}
 					</button>
-					<Typography className="text-white text-center">
-						Or
-					</Typography>
-					<button className="flex gap-2 w-full bg-neutral-900/70 text-white p-3 justify-center rounded-md transition duration-500  hover:bg-neutral-800">
+					<Typography className="text-white text-center">Or</Typography>
+					<button className="flex gap-2 w-full bg-neutral-900/70 text-white p-3 justify-center rounded-md transition duration-500  hover:bg-neutral-800" disabled={loading}>
 						<img src={gmail} className="w-6" />
 						Continue with Google
 					</button>
 				</div>
 				<Typography className="text-center text-white">
-					Don't have an account? {" "}
+					Don't have an account?{" "}
 					<Link to="/register">
-						<span className="text-gray-400 underline hover:no-underline">Sign up</span>
+						<span className="text-gray-400 underline hover:no-underline">
+							Sign up
+						</span>
 					</Link>
 				</Typography>
 			</form>
+			<ToastContainer toastStyle={{ backgroundColor : '#111'}} />
+			
 		</div>
 	);
 };

@@ -1,30 +1,53 @@
 import React, { useEffect, useState } from "react";
-import poster1 from "./images/callofduty.jpg";
-import poster2 from "./images/destiny.jpg";
-import poster3 from "./images/modernwar.jpeg";
 import { fetchFromAPI } from "../utils/apiFetch";
-import slider1 from "./images/download.jpg";
-import slider2 from "./images/4k-zavod-graveyard-shift-night-operations-battlefield-4-wallpaper-preview.jpg";
-import slider3 from "./images/best-racing-games-f1-22.jpg";
-import slider4 from "./images/545935.jpg";
+import { imagePosterObj, sliderImages } from "../utils/posters";
 import { Button, Typography } from "@mui/material";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
-import { Link } from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
 import GameCard from "../components/GameCard";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
+import axios from "axios";
+import jwt_decode from "jwt-decode";
 
 const Home = () => {
-	const sliderImages = [slider1, slider2, slider3, slider4];
 	const [games, setGames] = useState([]);
 	const [gamesArray, setGamesArray] = useState([]);
 	const [currentSlide, setCurrentSlide] = useState(sliderImages[0]);
+	const navigate = useNavigate()
 
-	const imagePosterObj = [
-		{ poster: poster1, title: "Battle Field 4" },
-		{ poster: poster2, title: "Destiny 2 Forsaken" },
-		{ poster: poster3, title: "Call of Duty: Modern Warfare 2 " },
-	];
+	const populateDashboard = async () => {
+		const token = localStorage.getItem("token");
+		const data = await axios.get("http://localhost:4000/api/protectedroute", {
+			headers: {
+				Authorization: "Bearer " + token,
+			},
+		});
+	};
+
+	useEffect(() => {
+		const token = localStorage.getItem("access_token");
+		if (token) {
+			try {
+				const user = jwt_decode(token);
+
+				if (!user) {
+					localStorage.removeItem("access_token");
+					navigate("/login");
+				} else {
+					populateDashboard();
+
+				}
+			} catch (error) {
+				console.log(error);
+				alert("Wrong Token");
+				localStorage.removeItem("access_token");
+				navigate("/login");
+			}
+		} else {
+			navigate("/login");
+		}
+	}, []);
 
 	useEffect(() => {
 		const interval = setInterval(() => {

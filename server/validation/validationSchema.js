@@ -8,11 +8,10 @@ const registerValidationSchema = Joi.object({
 
 const loginValidationSchema =Joi.object({
     username: Joi.string().required().min(3).max(25).lowercase(),
-    password: Joi.string().required().min(8)
+    password: Joi.string().required()
 })
 
 module.exports = {
     registerValidationSchema,
     loginValidationSchema
 }
-
