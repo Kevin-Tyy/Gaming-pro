@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, TextField } from "@mui/material";
-import { EmailOutlined, KeyOutlined, PersonOutline } from "@mui/icons-material";
+import { EmailOutlined, KeyOutlined, PersonOutline, VisibilityOffOutlined, VisibilityOutlined } from "@mui/icons-material";
 import { Typography } from "@mui/material";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate, Link } from "react-router-dom";
@@ -8,11 +8,12 @@ import "react-toastify/dist/ReactToastify.css";
 import CircularProgress from '@mui/material/CircularProgress';
 import gmail from "./gmail.png";
 import axios from "axios";
+
 const Login = () => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [loading, setLoading] = useState(false);
-
+	const [passwordVisible, setPasswordVisible] = useState(false)
 	const navigate = useNavigate()
 
 	const handleSubmit = async (e) => {
@@ -37,6 +38,11 @@ const Login = () => {
 
 
 	};
+	if(passwordVisible){
+		setTimeout(()=> {
+			setPasswordVisible(false)
+		}, 1000)
+	}
 
 	return (
 		<div className="h-screen flex items-center justify-center bg-gradient-to-br from-neutral-600 to-black">
@@ -66,13 +72,15 @@ const Login = () => {
 				<div className="flex gap-4 border-2  border-white p-2 mx-3 my-5 rounded-md">
 					<KeyOutlined className="text-white " />
 					<input
-						type="password"
+						type={passwordVisible ? 'text' : 'password'}
 						placeholder="Password"
 						className="block bg-transparent text-white outline-0 w-full"
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
 						required={true}
 					/>
+					<button onClick={(e) => {e.preventDefault(); setPasswordVisible(!passwordVisible)}} className="text-white">{ passwordVisible ? <VisibilityOffOutlined/> : <VisibilityOutlined/> }</button>
+					
 				</div>
 				<div className="p-3 flex flex-col gap-3">
 					<button
