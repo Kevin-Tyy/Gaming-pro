@@ -18,6 +18,7 @@ const Navbar = () => {
     navigate(`search/${searchString}`);
     setSearchString("");
   }
+  // localStorage.getItem()
 
 	return (
     <React.Fragment>

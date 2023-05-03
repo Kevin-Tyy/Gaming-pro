@@ -6,28 +6,27 @@ import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import RedditIcon from "@mui/icons-material/Reddit";
-import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
 import SkeletonComponent from "../components/SkeletonComponent";
-import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
+import PosterSlider from "../components/posterSlider";
+import Stores from '../components/Stores'
+import Gamedesc from "../components/gameDesc";
+import Rating from "../components/Rating";
 
 const GameDetails = () => {
 	const [gameDetails, setGameDetails] = useState([]);
 	const [suggested, setSuggested] = useState([]);
-	const [ screenShots , setScreenShots] = useState([]);
+	const [screenShots, setScreenShots] = useState([]);
 	const { id } = useParams();
 	useEffect(() => {
 		fetchFromAPI(`games/${id}`).then((data) => {
 			console.log(data);
 			setGameDetails(data);
 		});
-
-		fetchFromAPI(`games/${id}/suggested`).then((data) => {
-			console.log(data);
-		});
-
 		fetchFromAPI(`games/${id}/screenshots`).then((data) => {
-			setScreenShots(data)
-		})
+			setScreenShots(data.results);
+			console.log(data);
+			console.log(screenShots);
+		});
 	}, []);
 
 	return (
@@ -56,78 +55,7 @@ const GameDetails = () => {
 									/>
 								)}
 								{gameDetails.name ? (
-									<div className="text-white">
-										<Typography variant="h5" sx={{ mb: 2 }}>
-											{gameDetails.name}
-										</Typography>
-										<Typography className="flex gap-2 p-1">
-											genres :{" "}
-											{gameDetails.genres.map((genre) => (
-												<span className="pl-1">{genre.name}</span>
-											))}
-										</Typography>
-										<Typography className="flex flex-wrap gap-2 p-1">
-											developers :{" "}
-											{gameDetails.developers.map((developer) => (
-												<span>{developer.name}</span>
-											))}
-										</Typography>
-
-										<Typography className="flex gap-2 p-1">
-											Publisher :{" "}
-											{gameDetails.publishers.map((publisher) => (
-												<span className="pl-1">{publisher.name}</span>
-											))}
-										</Typography>
-										<Typography className="flex flex-wrap gap-2 p-1">
-											Platforms :{" "}
-											{gameDetails.platforms.map((platform) => (
-												<span className="pl-1">{platform.platform.name}</span>
-											))}
-										</Typography>
-										<Typography className="flex gap-2 p-1">
-											Released :{" "}
-											<span className="pl-1">{gameDetails.released}</span>
-										</Typography>
-										<Typography className="flex gap-2 p-1">
-											Rating :{" "}
-											<span className="pl-1">
-												{gameDetails.rating}/{gameDetails.rating_top}
-											</span>
-										</Typography>
-										<Typography className="flex gap-3 p-1">
-											Game Website
-											<span>
-												Click here to view Game Profile&nbsp;
-												<Link
-													to={gameDetails.website}
-													target="_blank"
-													rel="noopener noreferrer"
-													className="text-neutral-500 border-b-2 border-neutral-500">
-													FreeToGame
-												</Link>
-											</span>
-										</Typography>
-										<div className="flex gap-4 mt-10 items-center">
-											<button className="bg-violet-900 py-3 px-3 flex items-center gap-3 rounded-lg transition duration-150 hover:bg-violet-800 shadow-violet-600 shadow-sm">
-												<SportsEsportsIcon />
-												<Typography variant="caption">
-													Add to your games
-												</Typography>
-											</button>
-											<Link
-												to={gameDetails.website}
-												target="_blank"
-												rel="noopener noreferrer">
-												<button className="border-2 border-violet-900 py-3 px-8 flex items-center gap-3 rounded-lg transition duration-300 hover:bg-neutral-800/40">
-													<SportsEsportsIcon />
-													<Typography variant="caption">
-														Play the game
-													</Typography>
-												</button>
-											</Link>
-										</div>
-									</div>
+									<Gamedesc gameDetails={gameDetails}/>
 								) : (
 									<div>
 										<SkeletonComponent width={500} height={60} className={""} />
@@ -175,11 +103,8 @@ const GameDetails = () => {
 										<Typography className="text-white text-center border-b-4 border-violet-800 absolute pb-2">
 											Posters
 										</Typography>
-										<div className="mt-20">
-											{screenShots && screenShots.map((poster)=> {
-												
-											})}
-										</div>
+
+										<PosterSlider screenShots={screenShots} />
 									</div>
 								) : (
 									<div className="flex justify-center">
@@ -192,43 +117,8 @@ const GameDetails = () => {
 								)}
 							</div>
 							<div className="w-full p-10 flex flex-col gap-10">
-								{gameDetails.stores && (
-									<div className="flex text-white flex-wrap">
-										<Typography sx={{ fontWeight: "bold" }}>
-											Buy the game on :
-										</Typography>
-										{gameDetails.stores.map((store) => (
-											<div className="bg-neutral-800">
-												<span className="pl-1">{store.store.name},</span>
-											</div>
-										))}
-									</div>
-								)}
-								{gameDetails.publishers && (
-									<div className="flex text-white flex-wrap">
-										<Typography sx={{ fontWeight: "bold" }}>
-											Play the game on :
-										</Typography>
-										{gameDetails.platforms.map((platform) => (
-											<div className="bg-neutral-800">
-												<span className="pl-1 whitespace-nowrap">
-													{platform.platform.name},
-												</span>
-											</div>
-										))}
-									</div>
-								)}
-
-								{gameDetails.tags && (
-									<div className=" flex flex-wrap text-white">
-										<Typography sx={{ fontWeight: "bold" }}>Tags :</Typography>
-										{gameDetails.tags.map((tag) => (
-											<div className="bg-neutral-800">
-												<span className="pl-1 underline">{tag.name},</span>
-											</div>
-										))}
-									</div>
-								)}
+								<Stores gameDetails={gameDetails}/>
+							
 								<div>
 									<Link to={gameDetails.reddit_url} target="blank">
 										<RedditIcon className="text-white " />
@@ -236,18 +126,10 @@ const GameDetails = () => {
 								</div>
 								<div className="text-white">
 									<Typography>
-										Ratings: ({gameDetails.ratings_count} total) 
+										Ratings: ({gameDetails.ratings_count} total)
 									</Typography>
 									{gameDetails.ratings && (
-										<div className="flex gap-3 bg-neutral-700 p-6 justify-center">
-											{gameDetails?.ratings.map((rating) => (
-												<div key={rating.id} className="flex gap-2">
-													<span><InsertEmoticonIcon/>{rating.title}</span>
-													<span>{rating.count}</span>
-													<span>{rating.percent}%</span>
-												</div>
-											))}
-										</div>
+										<Rating gameDetails={gameDetails}/>
 									)}
 								</div>
 							</div>
