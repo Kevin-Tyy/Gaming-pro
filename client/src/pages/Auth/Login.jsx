@@ -78,7 +78,7 @@ const Login = () => {
 	return (
 		<div className="h-screen flex items-center justify-center bg-gradient-to-br from-neutral-600 to-black">
 			<form
-				className="w-400 bg-neutral-900/70 px-3 py-8 rounded-xl"
+				className="w-400 bg-neutral-900/70 px-3 py-8 rounded-md  md:rounded-xl"
 				onSubmit={handleSubmit}>
 				<div>
 					<Typography

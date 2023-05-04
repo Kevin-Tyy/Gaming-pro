@@ -12,7 +12,7 @@ const posterSlider = ({ screenShots }) => {
 		Posters.push(screenShots[i].image);
 	}
 	return (
-		<div className="w-full mt-10 p-10">
+		<div className="w-full mt-10 p-4 lg:p-10">
 			<Swiper
 				spaceBetween={20}
 				slidesPerView={1}

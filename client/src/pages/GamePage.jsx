@@ -9,17 +9,30 @@ import Sidebar from "../components/Sidebar";
 
 const Home = () => {
 	const [games, setgames] = useState([]);
+	const [nextPageUrl, setNextPageUrl] = useState("");
+	const [prevPageUrl, setprevPageUrl] = useState("");
+	 
 	const [url, setUrl] = useState("games");
 
 	useEffect(() => {
 		fetchFromAPI(url).then((data) => {
 			setgames(data.results);
 			console.log(data);
+			setprevPageUrl(data.next);
+			setprevPageUrl(data.previous);
 		});
 	}, [url]);
+
+	const fetchNextPage =() => {
+		setUrl(nextPageUrl)
+	}
+	const fetchPrevPage = () => {
+		setUrl(prevPageUrl)
+	} 
+
 	if (!games.length) {
 		return (
-			<div className="grid grid-cols-5 w-full items-center justify-center p-5">
+			<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 items-center justify-center pl-10 ">
 				{Array(20)
 					.fill()
 					.map((_, index) => (
@@ -58,13 +71,13 @@ const Home = () => {
 									</ul>
 								</div>
 								<GameCard games={games} />
-								<div className="flex justify-center items-center">
-									<div className="bg-black p-4 rounded-lg flex mt-9">
+								<div className="flex justify-center items-center mb-20">
+									<div className="w-full bg-black p-4 rounded-lg flex justify-center mt-9">
 										<button
 											onClick={() => {
 												fetchPrevPage();
 											}}
-											className="bg-gradient-to-b from-violet-950 to-indigo-600 py-2 px-7 text-white rounded-lg mr-1">
+												className="border border-white py-2 px-7 text-white rounded-lg mr-1">
 											Prev
 										</button>
 										{/* <ul className="flex text-white">{pageNumbers}</ul> */}
@@ -72,7 +85,7 @@ const Home = () => {
 											onClick={() => {
 												fetchNextPage();
 											}}
-											className="bg-gradient-to-b from-violet-950 to-indigo-600 py-2 px-7 text-white rounded-lg ml-1">
+											className="border border-white py-2 px-7 text-white rounded-lg ml-1">
 											Next
 										</button>
 									</div>

@@ -20,7 +20,7 @@ export default {
         '5xl' : '0 5px 5px' 
       },
       minWidth : {
-        'md' : '500px',
+        'md' : '500px',        
       },
       width : {
         '200' : '200px',
@@ -28,8 +28,10 @@ export default {
       },
       maxHeight : {
         '3xl' : '800px'
-      }
-
+      },
+    
+      
+      
     },
   },
   plugins: [],

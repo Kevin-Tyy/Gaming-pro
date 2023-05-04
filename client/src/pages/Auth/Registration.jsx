@@ -86,7 +86,7 @@ const Login = () => {
 		<div className="h-screen flex items-center justify-center bg-gradient-to-br from-neutral-600 to-black">
 			<form
 				onSubmit={handleSubmit}
-				className="w-400 mb-40 bg-neutral-900/70 px-3 py-8 rounded-xl">
+				className="w-400  bg-neutral-900/70 px-3 py-8 rounded-md md:rounded-xl">
 				<div>
 					<Typography
 						variant="h4"

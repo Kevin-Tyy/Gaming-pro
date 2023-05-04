@@ -3,8 +3,8 @@ import { NavLink } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
 import PeopleIcon from "@mui/icons-material/People";
 import CollectionsIcon from "@mui/icons-material/Collections";
-import FeedIcon from '@mui/icons-material/Feed';
-import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
+import FeedIcon from "@mui/icons-material/Feed";
+import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
 import { Typography, Skeleton } from "@mui/material";
 import Logo from "./Logo";
 import "./activeClass.css";
@@ -27,14 +27,14 @@ const SidebarContent = [
 		link: "/collections",
 	},
 	{
-		icon : <SportsEsportsIcon/>,
-		title : "Games",
-		link : "/games"
-	}
+		icon: <SportsEsportsIcon />,
+		title: "Games",
+		link: "/games",
+	},
 ];
 
 const Sidebar = () => {
-	const [loading, setLoading] = useState(false);
+	const [loading, setLoading] = useState(true);
 
 	setTimeout(() => {
 		setLoading(true);
@@ -56,14 +56,13 @@ const Sidebar = () => {
 							bgcolor: "#424242",
 							mx: 1,
 							borderRadius: "5px",
-							
 						}}
 						animation="wave"
 					/>
 				)}
 
 				{loading ? (
-					<div className="md:mb-80 flex items-center md:block"> 
+					<div className="md:mb-80 flex items-center md:block">
 						{SidebarContent.map((content) => (
 							<NavLink to={content.link} key={content.link}>
 								<div className="flex gap-2 my-3 items-center md:py-2 md:pl-2 mx-3 rounded-lg transition duration-300 hover:bg-neutral-800/60 shadow-neutral-900 shadow-md">
