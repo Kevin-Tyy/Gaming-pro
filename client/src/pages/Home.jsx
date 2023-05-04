@@ -27,7 +27,7 @@ const Home = () => {
 	}, [currentSlide, sliderImages]);
 
 	useEffect(() => {
-		fetchFromAPI("games").then((data) => {
+		fetchFromAPI("games", 1).then((data) => {
 			console.log(data);
 			setGamesArray(data.results.slice(0, 10));
 		});
@@ -52,8 +52,8 @@ const Home = () => {
 											alt="Loading"
 											className="w-full h-full object-cover rounded-lg "
 										/>
-										<div className="hidden lg:block h-3/5 w-1/3 absolute bottom-28 left-14 bg-white/10 backdrop-blur-md rounded-3xl p-10">
-											<Typography variant="h4" className="text-black/30-500 ">
+										<div className="hidden lg:block h-3/5 w-1/3 absolute bottom-28 left-14 bg-black/10 backdrop-blur-md rounded-3xl p-10">
+											<Typography variant="h4" className="text-white ">
 												Lorem ipsum dolor sit amet.
 											</Typography>
 											<Typography className="text-white border-b-2 pb-3 border-white">
@@ -63,7 +63,7 @@ const Home = () => {
 												corporis repudiandae aperiam odit aliquid. Illo maiores
 												recusandae veniam.
 											</Typography>
-											<button className="bg-black/30-700/90 text-white flex gap-4 px-7 py-3 mt-10 rounded-xl backdrop-blur-3xl transition duration-500 hover:bg-black/30-900 shadow-black/30-800 shadow-sm">
+											<button className="bg-blue-600/90 text-white flex gap-4 px-7 py-3 mt-10 rounded-xl backdrop-blur-3xl transition duration-500 hover:bg-black/30-900 shadow-black/30-800 shadow-sm">
 												Play Now
 												<PlayCircleOutlineIcon />
 											</button>

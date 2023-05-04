@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchFromAPI } from "../utils/apiFetch";
+import { fetchDetail, fetchFromAPI } from "../utils/apiFetch";
 import { useParams } from "react-router-dom";
 import { Skeleton, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -18,31 +18,29 @@ const GameDetails = () => {
 	const [suggested, setSuggested] = useState([]);
 	const [screenShots, setScreenShots] = useState([]);
 	const { id } = useParams();
+	const page = 1
 	useEffect(() => {
 		fetchFromAPI(`games/${id}`).then((data) => {
 			console.log(data);
 			setGameDetails(data);
 		});
-		fetchFromAPI(`games/${id}/screenshots`).then((data) => {
+		fetchDetail(`games/${id}/screenshots`).then((data) => {
 			setScreenShots(data.results);
 			console.log(data);
-			console.log(screenShots);
 		});
 	}, []);
-	const bgimage = gameDetails.background_image_additional;
 
 	return (
 		<div>
 			<div
-				className="h-full bg-light w-full"
-				style={{ backgroundImage: bgimage }}>
+				className="h-full bg-light w-full">
 				<div className="grid grid-cols-7 md:grid-cols-8">
 					<div className="h-14 md:h-screen fixed bottom-0 w-full md:w-20 bg-neutral-950 md:sticky md:top-0 xl:w-full z-50">
 						<Sidebar />
 					</div>
 					<div className="col-span-7 h-full">
 						<Navbar />
-						w
+						
 						<div
 							className={`bg-[url(${GameDetails.background_image_additional})] bg-cover`}>
 							<div className="w-full flex flex-col xl:flex-row items-start justify-center gap-10 p-4 md:p-0 ">
