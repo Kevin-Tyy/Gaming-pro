@@ -7,7 +7,7 @@ const Stores = ({ gameDetails }) => {
 				<div className="flex text-white flex-wrap">
 					<Typography sx={{ fontWeight: "bold" }}>Buy the game on :</Typography>
 					{gameDetails.stores.map((store) => (
-						<div className="bg-neutral-800">
+						<div className="bg-neutral-900 text-gray-400">
 							<span className="pl-1">{store.store.name},</span>
 						</div>
 					))}
@@ -19,7 +19,7 @@ const Stores = ({ gameDetails }) => {
 						Play the game on :
 					</Typography>
 					{gameDetails.platforms.map((platform) => (
-							<span className="pl-1 whitespace-nowrap bg-neutral-800">
+							<span className="pl-1 whitespace-nowrap bg-neutral-900 text-gray-400">
 								{platform.platform.name},
 							</span>
 					))}
@@ -29,7 +29,7 @@ const Stores = ({ gameDetails }) => {
 				<div className=" flex flex-wrap text-white">
 					<Typography sx={{ fontWeight: "bold" }}>Tags :</Typography>
 					{gameDetails.tags.map((tag) => (
-							<span className="pl-2 underline bg-neutral-800">{tag.name},</span>
+							<span className="pl-2 underline bg-neutral-900 text-gray-400">{tag.name},</span>
 					))}
 				</div>
 			)}

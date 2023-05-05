@@ -17,17 +17,25 @@ const posterSlider = ({ screenShots }) => {
 				spaceBetween={20}
 				slidesPerView={1}
 				navigation
+
 				pagination={{ clickable: true }}
-				autoplay={{ delay: 5000 }}
+				autoplay={{ delay: 3000 }}
 				breakpoints={{
+					500 : {
+						slidesPerView :1 
+					},
 					768: {
 					  slidesPerView: 2,
 					  spaceBetween: 40,
 					},
-					1024: {
-					  slidesPerView: 3,
-					  spaceBetween: 50,
+					1024 :{
+						slidesPerView : 3,
+						spaceBetween: 45,
 					},
+					1500: {
+					  slidesPerView: 4,
+					  spaceBetween: 50,
+					}
 				  }}>
 					<div className="flex justify-center">
 						{Posters.map((imageUrl, index) => (

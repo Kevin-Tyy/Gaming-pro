@@ -37,7 +37,7 @@ const Home = () => {
 		<div>
 			<div className="h-full bg-light w-full">
 				<div className="grid grid-cols-7 md:grid-cols-8">
-					<div className="h-14 md:h-screen fixed bottom-0 w-full md:w-20 bg-neutral-950 md:sticky md:top-0 xl:w-full z-50">
+					<div className="h-14 md:h-screen fixed bottom-0 w-full md:w-20 bg-gray-950 md:sticky md:top-0 xl:w-full z-50">
 						<Sidebar />
 					</div>
 					<div className="col-span-7 h-full">
@@ -74,7 +74,7 @@ const Home = () => {
 								</Typography>
 							</div> */}
 									</div>
-									<div className="w-full lg:w-1/5 bg-neutral-800/50 px-5 pb-5 pt-2 rounded-xl  border-gradient-to-r">
+									<div className="w-full lg:w-1/5 bg-gra-800/50 px-5 pb-5 pt-2 rounded-xl  border-gradient-to-r">
 										<Typography
 											variant="body1"
 											sx={{ color: "white", ml: 2 }}

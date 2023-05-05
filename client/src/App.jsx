@@ -10,26 +10,26 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import GameDetails from "./pages/GameDetails";
 import SearchPage from "./pages/SearchPage";
 import Registration from "./pages/Auth/Registration";
-import Login from "./pages/Auth/Login"
+import Login from "./pages/Auth/Login";
 function App() {
-	console.info('%c Welcome to GameGeekz', 'color:white;font-size:1.5em;background:indigo');
+	console.info(
+		"%c Welcome to GameGeekz",
+		"color:white;font-size:1.5em;background:indigo"
+	);
 	return (
-		<div  className="h-full">
-			<div className="bg-light h-full">
-				<Routes>
-					<Route path="/" element={<Navigate to="/home" />} />
-					<Route path="/home" element={<Home />} />
-					<Route path="/community" element={<Community />} />
-					<Route path="/collections" element={<Collections />} />
-					<Route path="/news" element={<News />} />
-					<Route path="/games" element={<GamePage />} />
-					<Route path="/games/:id" element={<GameDetails />} />
-					<Route path="/search/:searchQuery" element={<SearchPage />} />
-					<Route path="/register"  element={<Registration />} />
-					<Route path="/login" element={<Login />} />
-				</Routes>
-
-			</div>
+		<div className="h-full">
+			<Routes>
+				<Route path="/" element={<Navigate to="/home" />} />
+				<Route path="/home" element={<Home />} />
+				<Route path="/community" element={<Community />} />
+				<Route path="/collections" element={<Collections />} />
+				<Route path="/news" element={<News />} />
+				<Route path="/games" element={<GamePage />} />
+				<Route path="/games/:id" element={<GameDetails />} />
+				<Route path="/search/:searchQuery" element={<SearchPage />} />
+				<Route path="/register" element={<Registration />} />
+				<Route path="/login" element={<Login />} />
+			</Routes>
 		</div>
 	);
 }

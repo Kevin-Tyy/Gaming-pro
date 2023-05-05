@@ -12,11 +12,14 @@ import Stores from "../components/Stores";
 import Gamedesc from "../components/gameDesc";
 import Rating from "../components/Rating";
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
+import RatingPopup from "../components/RatingPopup";
+import Comments from '../components/Comments'
 
 const GameDetails = () => {
 	const [gameDetails, setGameDetails] = useState([]);
 	const [suggested, setSuggested] = useState([]);
 	const [screenShots, setScreenShots] = useState([]);
+	const [toggleModal, setToggleModal] = useState(false);
 	const { id } = useParams();
 	const page = 1
 	useEffect(() => {
@@ -28,22 +31,27 @@ const GameDetails = () => {
 			setScreenShots(data.results);
 			console.log(data);
 		});
+		// fetchDetail()
 	}, []);
-
+	const token = localStorage.getItem('access_token');
+	
+	const handleToggle = () => {
+		setToggleModal(!toggleModal);
+	}
 	return (
 		<div>
 			<div
 				className="h-full bg-light w-full">
 				<div className="grid grid-cols-7 md:grid-cols-8">
-					<div className="h-14 md:h-screen fixed bottom-0 w-full md:w-20 bg-neutral-950 md:sticky md:top-0 xl:w-full z-50">
+					<div className="h-14 md:h-screen fixed bottom-0 w-full md:w-20 bg-neutral-950 md:sticky md:top-0 xl:w-full z-40">
 						<Sidebar />
 					</div>
 					<div className="col-span-7 h-full">
 						<Navbar />
 						
 						<div
-							className={`bg-[url(${GameDetails.background_image_additional})] bg-cover`}>
-							<div className="w-full flex flex-col xl:flex-row items-start justify-center gap-10 p-4 md:p-0 ">
+							className={`bg-[url(${gameDetails.background_image_additional})] bg-cover`}>
+							<div className="w-full flex flex-col xl:flex-row items-start  gap-10 p-6  mt-6  ">
 								{gameDetails.background_image ? (
 									<img
 										src={gameDetails.background_image}
@@ -117,7 +125,7 @@ const GameDetails = () => {
 									</div>
 								)}
 							</div>
-							<div className="w-full p-4 lg:p-10 flex flex-col gap-10">
+							<div className="w-full bg-black/30  p-4 lg:p-10 flex flex-col gap-10">
 								<Stores gameDetails={gameDetails} />
 								{gameDetails.reddit_url && (
 									<div className="text-white">
@@ -128,17 +136,21 @@ const GameDetails = () => {
 											<RedditIcon className="text-white " />
 											#{gameDetails.reddit_name}
 										</Link>
+			
 									</div>
 								)}
 								{gameDetails.ratings && (
-									<div className="text-white bg-black/30 p-3 pb-10">
-										<Typography className="flex items-start pb-2 gap-2">
+									<div className="text-white p-3 pb-10">
+										<Typography className="flex items-start pb-2 gap-2 text-gray-400">
 											<StarOutlineIcon className="text-yellow-600"/>
-											Ratings: ({gameDetails.ratings_count} total)
+											<StarOutlineIcon className="text-yellow-600"/>
+											Ratings: (<span className="text-purple-600 font-extrabold">{gameDetails.ratings_count}</span> total ratings)
 										</Typography>
-										<Rating gameDetails={gameDetails} />
+										<Rating gameDetails={gameDetails} handleToggle={handleToggle}/>
 									</div>
 								)}
+								<Comments/>
+								{toggleModal && <RatingPopup handleToggle={handleToggle} bgimage={gameDetails.background_image}/>}
 							</div>
 						</div>
 					</div>
