@@ -4,6 +4,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import { Telegram } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
+import {IconButton} from "@mui/material";
 
 const Navbar = () => {
 	const [loading, setLoading] = useState(true);
@@ -16,9 +17,11 @@ const Navbar = () => {
 	const navigate = useNavigate();
 
 	const handleSubmit = () => {
-		navigate(`/games/search/${searchString}`);
+		if(searchString){
+
+			navigate(`/games/search/${searchString}`);
+		}
 			
-		setSearchString("");
 	};
 	
 	const access_token = localStorage.getItem("access_token");
@@ -29,7 +32,7 @@ const Navbar = () => {
 	}, []);
 	return (
 		<React.Fragment>
-			<div className="w-full flex bg-neutral-950 text-white h-16  justify-between md:px-10 sticky top-0 z-40">
+			<div className="w-full flex bg-neutral-950 text-white p-2  justify-between md:px-10 sticky top-0 z-40">
 				{loading ? (
 					<div className="flex items-center">
 						<Paper
@@ -46,16 +49,23 @@ const Navbar = () => {
 								fontSize: "10px",
 								display: "flex",
 								alignItems: "center",
-								borderRadius: "50px",
-								px: 2,
-								py: "9px",
+								borderRadius: "60px",
+								pl: 3,
+								pr: '2px',
+								py: "3px",
 							}}>
-							<SearchIcon className="text-white" />
+								
+
+
 							<input
-								className="bg-transparent w-full oultine outline-0 text-white pl-2 "
+								className="bg-transparent w-full oultine outline-0 text-white pl-2 mr-2.5"
 								placeholder="Search for your favorite games"
 								onChange={(e) => setSearchString(e.target.value)}
 							/>
+								<IconButton sx={{ color: 'white'}} type="submit">
+									<SearchIcon/>
+								</IconButton>
+							
 						</Paper>
 					</div>
 				) : (
@@ -67,9 +77,9 @@ const Navbar = () => {
 					/>
 				)}
 
-				<div className="flex items-center gap-4">
+				<div className="flex items-center">
 					{isLoggedIn ? (
-						<div>
+						<div className="flex gap-2">
 							<span className="bg-gradient-to-b from-neutral-700 to-neutral-900 rounded-full cursor-pointer transition hover:from-neutral-600">
 								<NotificationsNoneIcon
 									sx={{ fontSize: 38 }}

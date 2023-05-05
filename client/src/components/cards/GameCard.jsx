@@ -8,24 +8,23 @@ const GameCard = ({ games }) => {
 		<div className="m-6">
 			<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 items-center justify-center text-white font-extrabold gap-10">
 				{games.map((item) => (
-					<div key={item.id} className="relative shadow-xl shadow-neutral-800">
+					<div key={item.id} className="relative shadow-lg shadow-neutral-950">
 						<img
 							src={item.background_image}
 							alt={item.name}
 							className=" h-72 object-cover w-full rounded-xl"
 						/>
-						<div className=" absolute bottom-0 bg-gray-900/20 w-full h-24 flex justify-between p-3 items-center backdrop-blur-md rounded-b-lg">
+						<div className=" absolute bottom-0 bg-neutral-900/20 w-full flex justify-between p-3 items-center backdrop-blur-md rounded-b-lg">
 							<div>
 								<Typography className="text-white">{item.name}</Typography>
 								<Rating value={item.rating} precision={0.5} readOnly />
-								{/* {console.log(item.rating_count)} */}
 								<Typography className="text-neutral-400">
 									<span className="text-blue-600 font-black">{item.ratings_count} </span>
 									Rating Count
 								</Typography>
 							</div>
 							<Link to={`/games/${item.id}`}>
-								<button className="bg-black py-3 border border-neutral-700  px-3 rounded-sm text-xs font-normal transition duration-100 active:scale-95 whitespace-nowrap">
+								<button className="bg-black py-3 border font-sans text-md border-neutral-700  px-3 rounded-sm  font-normal transition duration-100 active:scale-95 whitespace-nowrap">
 									View Game
 								</button>
 							</Link>

@@ -4,11 +4,24 @@ export default {
     "./src/*.jsx",
     "./src/**/components/*.jsx",
     "./src/**/pages/*.jsx",
-    "./src/**/pages/**/Auth/*.jsx"
+    "./src/**/pages/**/Auth/*.jsx",
+    "./src/**/components/**/Buttons/*.jsx",
+    "./src/**/components/**/Cards/*.jsx",
+    "./src/**/components/**/DetailComponents/*.jsx",
+    "./src/**/components/**/Fixed/*.jsx",
+    "./src/**/components/**/Logo/*.jsx",
+    "./src/**/components/**/Popups  /*.jsx",
+    "./src/**/components/**/Skeletons/*.jsx",
+    "./src/**/components/**/Sliders/*.jsx",
+    "./src/**/components/**/Popups/*.jsx",
+
     
   ],
   theme: {
     extend: {
+      fontFamily : {
+        sans : ['Foldit']
+      },
       backgroundColor :{
         'light': '#181818'
 
@@ -21,6 +34,9 @@ export default {
       },
       minWidth : {
         'md' : '500px',        
+      },
+      maxWidth : {
+        '5xl': '1024px'
       },
       width : {
         '200' : '200px',

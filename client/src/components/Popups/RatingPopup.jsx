@@ -12,10 +12,10 @@ const RatingPopup = ({ handleToggle, bgimage }) => {
 				className="w-screen h-screen top-0 bottom-0 left-0 right-0 fixed bg-neutral-900/90 flex  items-center justify-center"
 				onClick={handleToggle}>
 				<div className="flex flex-col md:flex-row" onClick={(e)=> e.stopPropagation()}>
-					<img src={bgimage} alt="loading" className="w-80 h-80 object-cover rounded-t-2xl md:rounded-l-2xl" />
-					<div className="bg-neutral-800 relative rounded-b-2xl md:rounded-r-2xl" >
+					<img src={bgimage} alt="loading" className="w-80 h-80 object-cover rounded-t-2xl md:rounded-l-2xl md:rounded-tr-none" />
+					<div className="bg-neutral-800 relative rounded-b-2xl md:rounded-r-2xl md:rounded-bl-none" >
 						<CloseRounded className="absolute right-2 top-2 text-white hover:bg-neutral-600 rounded-full cursor-pointer" onClick={handleToggle}/>
-						<Paper component="form" sx={{ backgroundColor: "transparent" }} className="flex flex-col gap-6 w-full h-full p-10">
+						<Paper component="form" sx={{ backgroundColor: "transparent" }} className="flex flex-col gap-6 w-full h-full p-10 ">
 						<Typography className="text-neutral-400">Add your review about this game</Typography>
 							<input
 								type="text"

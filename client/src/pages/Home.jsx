@@ -7,8 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import GameCard from "../components/cards/GameCard";
 import Navbar from "../components/Fixed/Navbar";
 import Sidebar from "../components/Fixed/Sidebar";
-import axios from "axios";
-import jwt_decode from "jwt-decode";
+
 
 const Home = () => {
 	const [games, setGames] = useState([]);
@@ -21,7 +20,7 @@ const Home = () => {
 			const currentIndex = sliderImages.indexOf(currentSlide);
 			const nextIndex = (currentIndex + 1) % sliderImages.length;
 			setCurrentSlide(sliderImages[nextIndex]);
-		}, 10000);
+		}, 5000);
 
 		return () => clearInterval(interval);
 	}, [currentSlide, sliderImages]);
@@ -35,9 +34,16 @@ const Home = () => {
 
 	return (
 		<div>
-			<div className="h-full bg-light w-full">
+			<div className="h-full bg-black w-full">
 				<div className="grid grid-cols-7 md:grid-cols-8">
-					<div className="h-14 md:h-screen fixed bottom-0 w-full md:w-20 bg-gray-950 md:sticky md:top-0 xl:w-full z-50">
+					<img
+						src={currentSlide}
+						alt="Loading"
+						className="w-full h-full object-cover absolute top-0 bottom-0 right-0 left-0"
+					/>
+					<div className="absolute w-full h-full top-0 bottom-0 left-0 right-0 bg-gradient-to-r from-black via-black/80 to-black/0"></div>
+					<div className="absolute w-full h-full bottom-0 left-0 right-0 bg-gradient-to-t from-black to-black/0"></div>
+					<div className="h-14 md:h-screen  fixed bottom-0 w-full md:w-20  md:sticky md:top-0 xl:w-full z-50">
 						<Sidebar />
 					</div>
 					<div className="col-span-7 h-full">
@@ -45,18 +51,13 @@ const Home = () => {
 
 						<div>
 							<div className="lg:p-10">
-								<div className="flex flex-col lg:flex-row justify-center items-center gap-4">
-									<div className="h-96  lg:h-700 w-4/5 relative">
-										<img
-											src={currentSlide}
-											alt="Loading"
-											className="w-full h-full object-cover rounded-lg "
-										/>
-										<div className="hidden lg:block h-3/5 w-1/3 absolute bottom-28 left-14 bg-black/10 backdrop-blur-md rounded-3xl p-10">
-											<Typography variant="h4" className="text-white ">
-												Lorem ipsum dolor sit amet.
+								<div className="h-screen flex flex-col lg:flex-row justify-center items-center gap-4">
+									<div className="h-96  lg:h-700 w-4/5 relative flex items-center">
+				 						<div className="w-full h-3/5 max-w-5xl rounded-3xl p-10">
+											<Typography variant="h2" sx={{ fontFamily : 'fantasy'}} className="text-white  text-center">
+												Games,  unnecessary obstacles that we volunteer to tackle.🎮
 											</Typography>
-											<Typography className="text-white border-b-2 pb-3 border-white">
+											<Typography sx={{ py: 5}} className="text-white border-b-2 pb-3 border-white">
 												Lorem ipsum dolor sit amet consectetur adipisicing elit.
 												Inventore, cum vel. Blanditiis labore vel quaerat
 												repellat ipsam voluptate molestiae sapiente nesciunt,
@@ -107,7 +108,7 @@ const Home = () => {
 										</div>
 									</div>
 								</div>
-								<div className="mt-5">
+								<div >
 									<Typography className="text-white border-b-4 border-black/30-700 w-40">
 										Play Games online
 									</Typography>
