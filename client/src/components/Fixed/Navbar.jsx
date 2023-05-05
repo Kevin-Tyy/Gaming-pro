@@ -16,16 +16,17 @@ const Navbar = () => {
 	const navigate = useNavigate();
 
 	const handleSubmit = () => {
-		navigate(`search/${searchString}`);
+		navigate(`/games/search/${searchString}`);
+			
 		setSearchString("");
 	};
+	
 	const access_token = localStorage.getItem("access_token");
 	useEffect(() => {
 		if (access_token) {
 			setIsLoggedIn(true);
 		}
 	}, []);
-
 	return (
 		<React.Fragment>
 			<div className="w-full flex bg-neutral-950 text-white h-16  justify-between md:px-10 sticky top-0 z-40">
@@ -85,15 +86,14 @@ const Navbar = () => {
 							</Avatar>
 						</div>
 					) : (
-						<div className="flex items-center  gap-1 md:gap-3">
+						<div className="flex items-center  gap-2 md:gap-3">
 							<Link to="/login">
 								<button className="px-5 py-2 bg-gradient-to-b shadow-sm shadow-neutral-700 rounded-sm text-sm transititon duration-300 hover:bg-neutral-900">
 									Login
 								</button>
 							</Link>
-							<Typography className="text-neutral-500">Or</Typography>
 							<Link to="/register">
-								<button className="px-5 py-2 bg-neutral-900 rounded-sm text-sm duration-300 transition hover:bg-neutral-800">
+								<button className="px-5 py-2 bg-neutral-900 rounded-sm text-sm duration-300 transition hover:bg-neutral-800 shadow-sm shadow-neutral-700">
 									Sign Up
 								</button>
 							</Link>

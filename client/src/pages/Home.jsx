@@ -4,9 +4,9 @@ import { imagePosterObj, sliderImages } from "../utils/posters";
 import { Button, Typography } from "@mui/material";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import { Link, useNavigate } from "react-router-dom";
-import GameCard from "../components/GameCard";
-import Navbar from "../components/Navbar";
-import Sidebar from "../components/Sidebar";
+import GameCard from "../components/cards/GameCard";
+import Navbar from "../components/Fixed/Navbar";
+import Sidebar from "../components/Fixed/Sidebar";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 

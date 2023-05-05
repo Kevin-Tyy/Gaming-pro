@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { fetchFromAPI } from "../utils/apiFetch";
-import GameCard from "../components/GameCard";
+import GameCard from "../components/cards/GameCard";
 import { categoryBtns } from "../utils/UtilityObjects";
 import { CircularProgress, Typography } from "@mui/material";
-import SkeletonComponent from "../components/SkeletonComponent";
-import Navbar from "../components/Navbar";
-import Sidebar from "../components/Sidebar";
+import SkeletonComponent from "../components/skeletons/SkeletonComponent";
+import Navbar from "../components/Fixed/Navbar";
+import Sidebar from "../components/Fixed/Sidebar";
 
 const Home = () => {
 	const [games, setgames] = useState([]);
@@ -58,19 +58,19 @@ const Home = () => {
 					<div className="h-14 md:h-screen fixed bottom-0 w-full md:w-20 bg-neutral-950 md:sticky md:top-0 xl:w-full z-50">
 						<Sidebar />
 					</div>
-					<div className="col-span-7 h-full">
+					<div className="col-span-7 h-full ">
 						<Navbar />
 
 						<div>
 							{games.length ? (
 								<div>
 									{loading ? (
-										<div className="flex items-center justify-center h-96 md:h-700">
-											<CircularProgress sx={{ color: "gray" }} />
+										<div className="flex items-center justify-center h-screen">
+											<CircularProgress sx={{ color: "gray", mb: 40 }} />
 										</div>
 									) : (
 										<div className="xl:m-16">
-											<div className="">
+											<div className="overflow-x-scroll md:overflow-x-auto">
 												<ul className="flex m-3 justify-center">
 													{categoryBtns.map((name, index) => (
 														<li

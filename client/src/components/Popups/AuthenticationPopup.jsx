@@ -8,6 +8,7 @@ function AuthPopUp(Component) {
   
 	  if (!accessToken) {
 		alert('Please login to continue');
+		
 	  }
   
 	  return <Component {...props} />;

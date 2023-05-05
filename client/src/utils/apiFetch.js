@@ -11,3 +11,8 @@ export const fetchDetail = async (url)=> {
     const {data} = await axios.get(`${BASE_URL}/${url}?key=${key}`)
     return data;
 }
+export const searchAPI = async (url , query) => {
+    const {data} = await axios.get(`${BASE_URL}/${url}?key=${key}&search=${query}`);
+    return data;
+}
+

@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import Navbar from "../components/Navbar";
-import Sidebar from "../components/Sidebar";
+import Navbar from "../components/Fixed/Navbar";
+import Sidebar from "../components/Fixed/Sidebar";
 import { useNavigate } from "react-router-dom";
-import AuthPopUp from '../components/AuthenticationPopup'
+import AuthPopUp from "../components/Popups/AuthenticationPopup";
 const Collections = (props) => {
 	const navigate = useNavigate();
 	const populateDashboard = async () => {
@@ -14,9 +14,6 @@ const Collections = (props) => {
 		});
 	};
 
-	useEffect(() => {
-		const token = localStorage.getItem("access_token");
-	}, []);
 	return (
 		<div>
 			<div className="h-full bg-light w-full">

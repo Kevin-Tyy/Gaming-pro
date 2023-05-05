@@ -1,4 +1,4 @@
-import React, { useState , useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
 import PeopleIcon from "@mui/icons-material/People";
@@ -6,7 +6,7 @@ import CollectionsIcon from "@mui/icons-material/Collections";
 import FeedIcon from "@mui/icons-material/Feed";
 import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
 import { Typography, Skeleton } from "@mui/material";
-import Logo from "./Logo";
+import Logo from "../Logo/Logo";
 import "./activeClass.css";
 
 const SidebarContent = [
@@ -36,16 +36,14 @@ const SidebarContent = [
 const Sidebar = () => {
 	const [loading, setLoading] = useState(true);
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
-	
-	useEffect(()=> {
-		const token = localStorage.getItem('access_token');
 
-	}, [])
-	
+	useEffect(() => {
+		const token = localStorage.getItem("access_token");
+	}, []);
+
 	setTimeout(() => {
 		setLoading(true);
 	}, 0);
-	
 
 	return (
 		<>
@@ -72,7 +70,7 @@ const Sidebar = () => {
 					<div className="md:mb-80 flex items-center md:block">
 						{SidebarContent.map((content) => (
 							<NavLink to={content.link} key={content.link}>
-								<div className="flex gap-2 my-3 items-center md:py-2 md:pl-2 mx-3 rounded-lg transition duration-300 hover:bg-gray-800/60 shadow-neutral-900 shadow-md">
+								<div className="flex gap-2 my-3 items-center md:py-2 md:pl-2 mx-3 rounded-lg transition duration-300 hover:bg-neutral-800/60 shadow-neutral-900 	shadow-md">
 									<span className="span text-white py-3 px-4 md:p-2 rounded-md">
 										{content.icon}
 									</span>

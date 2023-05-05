@@ -8,7 +8,7 @@ const GameCard = ({ games }) => {
 		<div className="m-6">
 			<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 items-center justify-center text-white font-extrabold gap-10">
 				{games.map((item) => (
-					<div key={item.id} className="relative shadow-2xl shadow-neutral-800">
+					<div key={item.id} className="relative shadow-xl shadow-neutral-800">
 						<img
 							src={item.background_image}
 							alt={item.name}

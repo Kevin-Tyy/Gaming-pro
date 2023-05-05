@@ -3,7 +3,7 @@ import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
 
 const 	Rating = ({ gameDetails, handleToggle }) => {
 	return (
-		<div className="flex flex-col lg:flex-row gap-3 bg-neutral-950 p-10	 justify-center rounded-md">
+		<div className="flex flex-col lg:flex-row gap-3 bg-neutral-950 p-4  md:p-10	 justify-center rounded-md">
 			{gameDetails?.ratings.map((rating) => (
 				<div key={rating.id} className="flex gap-2 bg-black/40 p-3 rounded-md shadow-sm shadow-neutral-600">
 					<span>
