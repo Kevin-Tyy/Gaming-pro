@@ -19,9 +19,7 @@ export default {
   ],
   theme: {
     extend: {
-      fontFamily : {
-        sans : ['Foldit']
-      },
+
       backgroundColor :{
         'light': '#181818'
 
@@ -34,9 +32,6 @@ export default {
       },
       minWidth : {
         'md' : '500px',        
-      },
-      maxWidth : {
-        '5xl': '1024px'
       },
       width : {
         '200' : '200px',

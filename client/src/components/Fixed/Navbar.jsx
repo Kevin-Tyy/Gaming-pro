@@ -16,7 +16,8 @@ const Navbar = () => {
 	}, 0);
 	const navigate = useNavigate();
 
-	const handleSubmit = () => {
+	const handleSubmit = (e) => {
+		e.preventDefault()
 		if(searchString){
 
 			navigate(`/games/search/${searchString}`);
@@ -32,7 +33,7 @@ const Navbar = () => {
 	}, []);
 	return (
 		<React.Fragment>
-			<div className="w-full flex bg-neutral-950 text-white p-2  justify-between md:px-10 sticky top-0 z-40">
+			<div className="w-full flex bg-gradient-to-l from-black via-black/80 to-black/0 backdrop-blur-md text-white p-2  justify-between md:px-10 sticky top-0 z-40">
 				{loading ? (
 					<div className="flex items-center">
 						<Paper

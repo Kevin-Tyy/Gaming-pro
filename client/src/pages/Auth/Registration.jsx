@@ -53,7 +53,7 @@ const Login = () => {
 			});
 
 			setTimeout(() => {
-				navigate('/home')
+				navigate('/uploads')
 			}, 2000);
 
 		}

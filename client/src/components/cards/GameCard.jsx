@@ -19,13 +19,15 @@ const GameCard = ({ games }) => {
 								<Typography className="text-white">{item.name}</Typography>
 								<Rating value={item.rating} precision={0.5} readOnly />
 								<Typography className="text-neutral-400">
-									<span className="text-blue-600 font-black">{item.ratings_count} </span>
+									<span className="text-blue-600 font-black">
+										{item.ratings_count}{" "}
+									</span>
 									Rating Count
 								</Typography>
 							</div>
 							<Link to={`/games/${item.id}`}>
-								<button className="bg-black py-3 border font-sans text-md border-neutral-700  px-3 rounded-sm  font-normal transition duration-100 active:scale-95 whitespace-nowrap">
-									View Game
+								<button className="bg-black py-2 border font-sans text-md border-neutral-700  px-2 rounded-sm  font-normal transition duration-100 active:scale-95 whitespace-nowrap">
+									<Typography sx={{fontFamily : 'fantasy' }}>View Game</Typography>
 								</button>
 							</Link>
 						</div>

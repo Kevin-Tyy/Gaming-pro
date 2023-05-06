@@ -121,10 +121,14 @@ const registerController = async (req, res) => {
 const test = (req, res) => {
 	res.send("Test successful");
 };
+const uploadController = () => {
+
+}
 const protectedroute = (req, res) => {};
 module.exports = {
 	loginController,
 	registerController,
 	test,
 	protectedroute,
+	uploadController
 };

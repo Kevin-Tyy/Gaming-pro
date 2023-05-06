@@ -11,16 +11,16 @@ const Gamedesc = ({ gameDetails }) => {
 			</Typography>
 			<Typography className="flex gap-2 p-1 whitespace-nowrap">
 				<span className="font-bold"> genres :</span>
-				{gameDetails.genres.map((genre) => (
-					<span className="pl-1 text-gray-400 whitespace-nowrap ">
+				{gameDetails.genres.map((genre , index) => (
+					<span key={index} className="pl-1 text-gray-400 whitespace-nowrap ">
 						{genre.name}
 					</span>
 				))}
 			</Typography>
 			<Typography className="flex flex-wrap gap-2 p-1 whitespace-nowrap ">
 				<span className="font-bold">developers :</span>
-				{gameDetails.developers.map((developer) => (
-					<span className="text-gray-400 whitespace-nowrap text-gray">
+				{gameDetails.developers.map((developer , index) => (
+					<span key={index} className="text-gray-400 whitespace-nowrap text-gray">
 						{developer.name}
 					</span>
 				))}
@@ -29,8 +29,8 @@ const Gamedesc = ({ gameDetails }) => {
 			<Typography className="flex flex-wrap gap-2 p-1 whitespace-nowrap">
 				<span className="font-bold">Publisher : </span>
 
-				{gameDetails.publishers.map((publisher) => (
-					<span className="pl-1 text-gray-400 whitespace-nowrap flex flex-wrap">
+				{gameDetails.publishers.map((publisher , index) => (
+					<span key={index} className="pl-1 text-gray-400 whitespace-nowrap flex flex-wrap">
 						{publisher.name}
 					</span>
 				))}
@@ -38,8 +38,8 @@ const Gamedesc = ({ gameDetails }) => {
 			<Typography className="flex flex-wrap gap-2 p-1 whitespace-nowrap">
 				<span className="font-bold">Platforms :</span>
 
-				{gameDetails.platforms.map((platform) => (
-					<span className="pl-1 text-gray-400 whitespace-nowrap">
+				{gameDetails.platforms.map((platform , index) => (
+					<span key={index} className="pl-1 text-gray-400 whitespace-nowrap">
 						{platform.platform.name}
 					</span>
 				))}
