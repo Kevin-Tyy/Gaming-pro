@@ -25,7 +25,8 @@ export default {
 
       },
       height: {
-        '700' : '700px'
+        '700' : '700px',
+        '2': '1px'
       },
       boxShadow : {
         '5xl' : '0 5px 5px' 

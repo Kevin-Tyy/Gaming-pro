@@ -2,6 +2,7 @@ const {
 	registerValidationSchema,
 	loginValidationSchema,
 } = require("../validation/validationSchema");
+const { cloudinary } = require("../utils/cloudinary")
 const UserModel = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 const jwtSecret = process.env.JWT_SCECRET;
@@ -116,14 +117,26 @@ const registerController = async (req, res) => {
 	}
 
 };
-
-
 const test = (req, res) => {
 	res.send("Test successful");
 };
-const uploadController = () => {
+const uploadController = async (req ,res) => {
+	try {
+		const fileStr = req.body.data
+		const uploadedResponse = await cloudinary.v2.uploader.upload(
+			fileStr , {
+				folder : 'user_profiles'
+			}
+		)
+		res.send({ msg : 'yaay'})
+		console.log(uploadedResponse);
+	} catch (error) {
+		console.log(error);		
+		res.status(500).send({ msg : 'Somthing went wrong'})
+	}
 
 }
+
 const protectedroute = (req, res) => {};
 module.exports = {
 	loginController,

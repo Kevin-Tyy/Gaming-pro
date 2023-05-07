@@ -53,16 +53,17 @@ const Home = () => {
 								<div className="h-screen flex flex-col lg:flex-row justify-center items-start gap-4">
 									<div className="h-96  lg:h-700 w-4/5 relative flex items-start md:items-center justify-center">
 										<div className="w-full h-3/5 max-w-5xl rounded-3xl p-10">
-											<Typography
-												variant="h2"
-												sx={{ fontFamily: "fantasy" }}
-												className="text-white  text-center">
-												Games, unnecessary obstacles that we volunteer to
-												tackle.🎮
+											<Typography variant="h2" sx={{ fontFamily: "fantasy" }}>
+												<span className="text-transparent  text-center bg-gradient-to-r from-blue-800 via-sky-400 to-violet-900 bg-clip-text">
+													Games, unnecessary obstacles that we volunteer to
+													tackle.
+												</span> 
+												🎮
 											</Typography>
+
 											<Typography
 												sx={{ py: 5 }}
-												className="text-white border-b-2 pb-3 border-white">
+												className="text-white border-b-2 pb-3 border-white ">
 												Lorem ipsum dolor sit amet consectetur adipisicing elit.
 												Inventore, cum vel. Blanditiis labore vel quaerat
 												repellat ipsam voluptate molestiae sapiente nesciunt,
