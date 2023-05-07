@@ -121,20 +121,27 @@ const test = (req, res) => {
 	res.send("Test successful");
 };
 const uploadController = async (req ,res) => {
+
 	try {
+
 		const fileStr = req.body.data
+
 		const uploadedResponse = await cloudinary.v2.uploader.upload(
 			fileStr , {
 				folder : 'user_profiles'
 			}
 		)
+
 		res.send({ msg : 'yaay'})
 		console.log(uploadedResponse);
+
 	} catch (error) {
 		console.log(error);		
 		res.status(500).send({ msg : 'Somthing went wrong'})
+
 	}
 
+	
 }
 
 const protectedroute = (req, res) => {};
