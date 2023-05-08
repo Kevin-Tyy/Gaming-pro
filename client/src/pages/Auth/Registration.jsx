@@ -6,6 +6,7 @@ import {
 	PersonOutline,
 	VisibilityOutlined,
 	VisibilityOffOutlined,
+	CheckCircleOutlineTwoTone,
 } from "@mui/icons-material";
 import CircularProgress from "@mui/material/CircularProgress";
 import gmail from "./gmail.png";
@@ -14,25 +15,27 @@ import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
-import { auth , provider } from "../../firebase"
+import { auth , provider } from "../../config/firebase"
 import { signInWithPopup } from "firebase/auth";
+import UploadModal from './UploadModal'
 
 const Login = () => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [email, setEmail] = useState("");
+	const [uploadImage , setUploadImage] = useState("");
 	const [loading, setLoading] = useState(false);
 	const [passwordVisible, setPasswordVisible] = useState(false);
+	const [ isModalVisible , setIsModalVisible ] = useState(false);
 	const navigate = useNavigate();
-
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		setLoading(true);
 
 		const response = await axios.post("http://localhost:4000/api/register", {
 			username,
 			email,
 			password,
+			uploadImage
 		});
 		const data = response.data;
 		
@@ -53,11 +56,12 @@ const Login = () => {
 			});
 
 			setTimeout(() => {
-				navigate('/uploads')
+				navigate('/home')
 			}, 2000);
 
 		}
 		else if (data.status === 'bad'){
+			console.log(data.message);
 			toast.error(data.message, {
 				position: toast.POSITION.TOP_RIGHT,
 
@@ -71,7 +75,8 @@ const Login = () => {
 			setPasswordVisible(false);
 		}, 1000);
 	}
-	const signinAuth = () => {
+	const signinAuth = (e) => {
+		e.preventDefault()
 		signInWithPopup(auth , provider).then((data)=> {
 			const user = data?.user;
 			const googleName = user.displayName
@@ -81,7 +86,11 @@ const Login = () => {
 			
 		})
 	}
-
+	const handleToggle = (e) => {
+		e.preventDefault();
+		setIsModalVisible(!isModalVisible)
+	}
+	
 	return (
 		<div className="h-screen flex items-center justify-center bg-gradient-to-br from-neutral-600 to-black">
 			<form
@@ -103,7 +112,7 @@ const Login = () => {
 						value={username}
 						onChange={(e) => setUsername(e.target.value)}
 						required={true}
-						className="block bg-transparent text-white outline-0 "
+						className="block bg-transparent text-white outline-0 w-full "
 					/>
 				</div>
 				<div className="flex border-2 gap-4 border-white p-2 mx-3 my-5 rounded-md">
@@ -140,6 +149,13 @@ const Login = () => {
 						)}
 					</button>
 				</div>
+				<div className="p-3">
+					<button onClick={handleToggle} className="	bg-neutral-950/50 outline-dashed outline-1 outline-neutral-700 text-white w-full py-3 rounded-md flex gap-2 items-center justify-center">
+						{ uploadImage && <CheckCircleOutlineTwoTone className="text-green-500"/>}
+						{ uploadImage ? 'Image Uploaded' : 'Upload a photo' }
+						 
+					</button>	
+				</div>
 				<div className="p-3 flex flex-col gap-3">
 					<button
 						type="submit"
@@ -169,6 +185,9 @@ const Login = () => {
 					</Link>
 				</Typography>
 			</form>
+			{isModalVisible && <UploadModal handleToggle={handleToggle} setUploadImage={setUploadImage}/>}
+			
+
 		</div>
 	);
 };

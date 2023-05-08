@@ -5,7 +5,7 @@ const {
 const { cloudinary } = require("../utils/cloudinary")
 const UserModel = require("../models/user.model");
 const jwt = require("jsonwebtoken");
-const jwtSecret = process.env.JWT_SCECRET;
+const jwtSecret = process.env.JWT_SECRET;
 const bcrypt = require("bcryptjs");
 
 const loginController = async (req, res) => {
@@ -60,12 +60,24 @@ const loginController = async (req, res) => {
 
 const registerController = async (req, res) => {
 	const { error } = registerValidationSchema.validate(req.body);
+
 	if (error) {
 		const errorMessage = error.details[0].message;
+		console.log(error);
 		return res.status(200).send({ message: errorMessage , status : 'bad'});
 	}
+	
 
-	const { username, password, email } = req.body;
+	const { username, password, email, uploadImage } = req.body;
+
+	const fileStr = uploadImage
+
+		const uploadedResponse = await cloudinary.v2.uploader.upload(
+			fileStr , {
+				folder : 'user_profiles'
+			}
+		)
+
 	const hashedPassword = await bcrypt.hash(password, 10);
 	try {
 		const user = await UserModel.findOne({ username: username });
@@ -82,7 +94,9 @@ const registerController = async (req, res) => {
 						email: email,
 						password: hashedPassword,
 						username: username,
+						uploadImage : uploadedResponse.secure_url
 					});
+
 					await createdUser
 						.save()
 						.then(
@@ -117,32 +131,17 @@ const registerController = async (req, res) => {
 	}
 
 };
+
 const test = (req, res) => {
 	res.send("Test successful");
 };
-const uploadController = async (req ,res) => {
-
-	try {
-
-		const fileStr = req.body.data
-
-		const uploadedResponse = await cloudinary.v2.uploader.upload(
-			fileStr , {
-				folder : 'user_profiles'
-			}
-		)
-
-		res.send({ msg : 'yaay'})
-		console.log(uploadedResponse);
-
-	} catch (error) {
-		console.log(error);		
-		res.status(500).send({ msg : 'Somthing went wrong'})
-
-	}
-
-	
+const findUser = async (req, res) => {
+	const {userId} = req.data
+	const user = await UserModel.findOne({  _id : userId })
+	const {username, email, uploadImage} = user
+	res.send({ username : username , email : email , uploadImage : uploadImage });
 }
+
 
 const protectedroute = (req, res) => {};
 module.exports = {
@@ -150,5 +149,5 @@ module.exports = {
 	registerController,
 	test,
 	protectedroute,
-	uploadController
+	findUser
 };

@@ -5,12 +5,13 @@ import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import { Telegram } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
 import {IconButton} from "@mui/material";
+import axios from "axios";
 
 const Navbar = () => {
 	const [loading, setLoading] = useState(true);
 	const [searchString, setSearchString] = useState("");
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+	const [profileImgUrl , setprofileImgUrl] = useState('');
 	setTimeout(() => {
 		setLoading(true);
 	}, 0);
@@ -24,13 +25,30 @@ const Navbar = () => {
 		}
 			
 	};
-	
-	const access_token = localStorage.getItem("access_token");
+	const populateNavbar = async (token) => {
+		const {data} = await axios.get('http://localhost:4000/api/findUser' , {
+			headers : {
+				Authorization : 'Bearer ' + token ,
+			}
+
+		});
+		console.log(data);
+		setprofileImgUrl(data.uploadImage)
+		
+
+	}
+	console.log(profileImgUrl);
 	useEffect(() => {
-		if (access_token) {
-			setIsLoggedIn(true);
+		const token = localStorage.getItem('access_token');
+		console.log(token)
+		if (token) {
+			populateNavbar(token)
+			setIsLoggedIn(true)
 		}
+		
 	}, []);
+
+
 	return (
 		<React.Fragment>
 			<div className="w-full flex bg-gradient-to-l from-black via-black/80 to-black/0 backdrop-blur-md text-white p-2  justify-between md:px-10 sticky top-0 z-40">
@@ -88,13 +106,17 @@ const Navbar = () => {
 								/>
 							</span>
 
-							<span className="bg-gradient-to-b from-blue-800 to-indigo-950/20 rounded-full cursor-pointer hover:from-blue-700">
+							<span className="bg-gradient-to-b from-blue-800 to-indigo-950/20 rounded-full cursor-pointer hover:from-blue-700 flex items-center justify-center">
 								<Telegram sx={{ fontSize: 38 }} className="text-white p-2" />
 							</span>
+							<div className="border-2 border-white rounded-full p-1">
+								<img 
+									src={profileImgUrl}
+									className="w-8 h-8 object-cover rounded-full"
+								/>
 
-							<Avatar sx={{ bgcolor: "purple" }} className="cursor-pointe">
-								J
-							</Avatar>
+							</div>
+							
 						</div>
 					) : (
 						<div className="flex items-center  gap-2 md:gap-3">

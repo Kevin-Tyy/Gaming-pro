@@ -14,7 +14,7 @@ import "react-toastify/dist/ReactToastify.css";
 import CircularProgress from "@mui/material/CircularProgress";
 import gmail from "./gmail.png";
 import axios from "axios";
-import { auth , provider } from "../../firebase"
+import { auth, provider } from "../../config/firebase";
 import { signInWithPopup } from "firebase/auth";
 
 const Login = () => {
@@ -37,11 +37,10 @@ const Login = () => {
 			setLoading(false);
 		}
 		// console.log(data);
-	
-		if(	data.status === 'ok' ){
-			
-			const token =  data.token
-			if(data.token){
+
+		if (data.status === "ok") {
+			const token = data.token;
+			if (data.token) {
 				localStorage.setItem("access_token", token);
 				localStorage.setItem("logged_in", true);
 			}
@@ -49,14 +48,11 @@ const Login = () => {
 				position: toast.POSITION.TOP_RIGHT,
 			});
 			setTimeout(() => {
-				navigate('/home')
+				navigate("/home");
 			}, 2000);
-
-		}
-		else if( data.status === 'bad') {
+		} else if (data.status === "bad") {
 			toast.error(data.message, {
 				position: toast.POSITION.TOP_RIGHT,
-
 			});
 		}
 	};

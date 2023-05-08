@@ -19,6 +19,10 @@ const UserSchema = new mongoose.Schema(
 			required: true,
 			trim: true,
 		},
+		uploadImage : {
+			type: String,
+			trim: true,
+		}
 	},
 	{timestamps : true}
 );
