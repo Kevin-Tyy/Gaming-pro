@@ -36,9 +36,8 @@ const Login = () => {
 		if (data?.message) {
 			setLoading(false);
 		}
-		// console.log(data);
-
 		if (data.status === "ok") {
+
 			const token = data.token;
 			if (data.token) {
 				localStorage.setItem("access_token", token);
@@ -69,6 +68,7 @@ const Login = () => {
 			setUsername(googleName);
 			setEmail(googlemail);
 		});
+		
 	};
 
 	return (

@@ -24,12 +24,12 @@ const Home = () => {
 		return () => clearInterval(interval);
 	}, [currentSlide, sliderImages]);
 
-	// useEffect(() => {
-	// 	fetchFromAPI("games", 1).then((data) => {
-	// 		console.log(data);
-	// 		setGamesArray(data.results.slice(0, 10));
-	// 	});
-	// }, []);
+	useEffect(() => {
+		fetchFromAPI("games", 1).then((data) => {
+			console.log(data);
+			setGamesArray(data.results.slice(0, 10));
+		});
+	}, []);
 	
 
 	return (

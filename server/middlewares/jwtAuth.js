@@ -17,7 +17,6 @@ const jwtAuth = (req, res, next) => {
 				res.status(401).send({ msg: "Invalid token" });
 			} else {
 				req.data = data;
-                console.log('user verified token')
 				next();
 			}
 		}

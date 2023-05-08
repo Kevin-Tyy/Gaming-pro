@@ -13,7 +13,6 @@ app.use(cookieParser())
 app.use(express.urlencoded({ limit : '25mb', extended : false}));
 app.use('/api' , router);
 
-
 app.listen(PORT , ()=> {
     console.log(`server running on port ${PORT}`);
 })

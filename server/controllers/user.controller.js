@@ -12,7 +12,7 @@ const loginController = async (req, res) => {
 	const { error } = loginValidationSchema.validate(req.body);
 	if (error) {
 		const errorMessage = error.details[0].message;
-		return res.status(200).send({ message: errorMessage });
+		res.status(200).send({ message: errorMessage , status : 'bad'});
 	}
 	const { username, password } = req.body;
 
@@ -21,7 +21,6 @@ const loginController = async (req, res) => {
 		
 		if (user) {
 			const hashedPassword = user.password;
-			const userId = user._id;
 			bcrypt
 				.compare(password, hashedPassword)
 				.then((isMatch) => {
@@ -41,7 +40,7 @@ const loginController = async (req, res) => {
 							}
 						);
 					} else {
-						res.send({ message: "Password do not match" , status : 'bad'});
+						res.send({ message: "Incorrect Password" , status : 'bad'});
 					}
 				})
 				.catch((err) => {
@@ -63,25 +62,19 @@ const registerController = async (req, res) => {
 
 	if (error) {
 		const errorMessage = error.details[0].message;
-		console.log(error);
-		return res.status(200).send({ message: errorMessage , status : 'bad'});
+		res.status(200).send({ message: errorMessage , status : 'bad'});
 	}
 	
-
 	const { username, password, email, uploadImage } = req.body;
 
 	const fileStr = uploadImage
 
-		const uploadedResponse = await cloudinary.v2.uploader.upload(
-			fileStr , {
-				folder : 'user_profiles'
-			}
-		)
+		const uploadedResponse = 'hello'
 
 	const hashedPassword = await bcrypt.hash(password, 10);
 	try {
 		const user = await UserModel.findOne({ username: username });
-		
+	
 		if (user) {
 			res.send({ message: `Username ${username} not available` , status : 'bad'});
 		} else {
@@ -132,14 +125,13 @@ const registerController = async (req, res) => {
 
 };
 
-const test = (req, res) => {
-	res.send("Test successful");
-};
+
 const findUser = async (req, res) => {
 	const {userId} = req.data
 	const user = await UserModel.findOne({  _id : userId })
 	const {username, email, uploadImage} = user
 	res.send({ username : username , email : email , uploadImage : uploadImage });
+
 }
 
 
@@ -147,7 +139,7 @@ const protectedroute = (req, res) => {};
 module.exports = {
 	loginController,
 	registerController,
-	test,
 	protectedroute,
 	findUser
+
 };

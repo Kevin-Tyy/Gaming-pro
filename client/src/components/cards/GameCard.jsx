@@ -14,7 +14,7 @@ const GameCard = ({ games }) => {
 							alt={item.name}
 							className=" h-72 object-cover w-full rounded-xl"
 						/>
-						<div className=" absolute bottom-0 bg-neutral-900/20 w-full flex justify-between p-3 items-center backdrop-blur-md rounded-b-lg">
+						<div className=" bg-neutral-900/20 w-full flex justify-between p-3 items-center backdrop-blur-md rounded-b-lg">
 							<div>
 								<Typography className="text-white">{item.name}</Typography>
 								<Rating value={item.rating} precision={0.5} readOnly />

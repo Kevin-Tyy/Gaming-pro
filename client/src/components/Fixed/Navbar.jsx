@@ -25,24 +25,21 @@ const Navbar = () => {
 		}
 			
 	};
-	const populateNavbar = async (token) => {
+	const populateProfile = async (token) => {
 		const {data} = await axios.get('http://localhost:4000/api/findUser' , {
 			headers : {
 				Authorization : 'Bearer ' + token ,
 			}
 
 		});
-		console.log(data);
 		setprofileImgUrl(data.uploadImage)
 		
 
 	}
-	console.log(profileImgUrl);
 	useEffect(() => {
 		const token = localStorage.getItem('access_token');
-		console.log(token)
 		if (token) {
-			populateNavbar(token)
+			populateProfile(token)
 			setIsLoggedIn(true)
 		}
 		

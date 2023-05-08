@@ -27,10 +27,11 @@ const Login = () => {
 	const [loading, setLoading] = useState(false);
 	const [passwordVisible, setPasswordVisible] = useState(false);
 	const [ isModalVisible , setIsModalVisible ] = useState(false);
+	const [errorMessage , setErrorMessage] = useState("");
 	const navigate = useNavigate();
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-
+		setLoading(true);
 		const response = await axios.post("http://localhost:4000/api/register", {
 			username,
 			email,
@@ -39,42 +40,37 @@ const Login = () => {
 		});
 		const data = response.data;
 		
-		if(data?.message){
+		if (data?.message) {
 			setLoading(false);
-			
 		}
-
-		if(	data.status === 'ok' ){
-
-			const token =  data.token
-			if(data.token){
+		console.log(data)
+		console.log(data.message)
+		console.log(data.status)
+		if (data.status === "ok") {
+			setErrorMessage(data.message)
+			const token = data.token;
+			if (data.token) {
 				localStorage.setItem("access_token", token);
 				localStorage.setItem("logged_in", true);
 			}
 			toast.success(data.message, {
 				position: toast.POSITION.TOP_RIGHT,
 			});
-
 			setTimeout(() => {
-				navigate('/home')
+				navigate("/home");
 			}, 2000);
-
-		}
-		else if (data.status === 'bad'){
-			console.log(data.message);
+		} else if (data.status === "bad") {
 			toast.error(data.message, {
 				position: toast.POSITION.TOP_RIGHT,
-
 			});
-
 		}
-		
-	};
+	}
 	if (passwordVisible) {
 		setTimeout(() => {
 			setPasswordVisible(false);
 		}, 1000);
 	}
+	console.log(errorMessage)
 	const signinAuth = (e) => {
 		e.preventDefault()
 		signInWithPopup(auth , provider).then((data)=> {
@@ -150,7 +146,7 @@ const Login = () => {
 					</button>
 				</div>
 				<div className="p-3">
-					<button onClick={handleToggle} className="	bg-neutral-950/50 outline-dashed outline-1 outline-neutral-700 text-white w-full py-3 rounded-md flex gap-2 items-center justify-center">
+					<button onClick={handleToggle} disabled={loading} className="	bg-neutral-950/50 outline-dashed outline-1 outline-neutral-700 text-white w-full py-3 rounded-md flex gap-2 items-center justify-center">
 						{ uploadImage && <CheckCircleOutlineTwoTone className="text-green-500"/>}
 						{ uploadImage ? 'Image Uploaded' : 'Upload a photo' }
 						 
