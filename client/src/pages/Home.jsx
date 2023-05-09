@@ -11,6 +11,7 @@ import UserComponent from "../components/User/UserComponent";
 import CustomCard from "../components/Cards/CustomCard";
 import PostButton from "../components/Buttons/PostButton";
 import PostPopUp from "../components/Popups/PostPopUp.jsx";
+import Feed from '../components/PostFeed/Feed'
 import axios from "axios";
 
 const Home = () => {
@@ -21,7 +22,6 @@ const Home = () => {
 	const [userInfo, setUserInfo] = useState({});
 	const [currentSlide, setCurrentSlide] = useState(sliderImages[0]);
 	const [token, setToken] = useState("");
-	const navigate = useNavigate();
 
 	useEffect(() => {
 		const interval = setInterval(() => {
@@ -33,16 +33,21 @@ const Home = () => {
 		return () => clearInterval(interval);
 	}, [currentSlide, sliderImages]);
 
-	// useEffect(() => {
-	// 	fetchFromAPI("games", 1).then((data) => {
-	// 		console.log(data);
-	// 		setGamesArray(data.results.slice(0, 6));
-	// 	});
-	// }, []);
-	const fetchPosts = () => {
-		const { data } = axios.get('http://localhost:4000/api/getposts')
-		.then(data=> console.log(data));
-	}
+	useEffect(() => {
+		fetchFromAPI("games", 1).then((data) => {
+			console.log(data);
+			setGamesArray(data.results.slice(0, 6));
+		});
+
+		const token = localStorage.getItem("access_token");
+		setToken(token);
+		if (token) {
+			populateProfile(token);
+			setIsLoggedIn(true);
+		}
+		
+	}, []);
+
 	const populateProfile = async (token) => {
 		const { data } = await axios.get("http://localhost:4000/api/getuser", {
 			headers: {
@@ -51,15 +56,7 @@ const Home = () => {
 		});
 		setUserInfo(data);
 	};
-	useEffect(() => {
-		fetchPosts()
-		const token = localStorage.getItem("access_token");
-		setToken(token);
-		if (token) {
-			populateProfile(token);
-			setIsLoggedIn(true);
-		}
-	}, []);
+
 	
 	const handlePostToggle = () => {
 		setPostToggle(!postToggle);
@@ -88,7 +85,7 @@ const Home = () => {
 									<div className="h-96  lg:h-700 w-4/5 relative flex items-start md:items-center justify-center">
 										<div className="w-full h-3/5 max-w-5xl rounded-3xl p-10">
 											<Typography variant="h2" sx={{ fontFamily: "fantasy" }}>
-												<span className="text-transparent  text-center bg-gradient-to-r from-blue-800 via-sky-400 to-violet-900 bg-clip-text">
+												<span className="text-transparent  text-center bg-gradient-to-r from-blue-800 via-sky-700 to-violet-950 bg-clip-text">
 													Games, unnecessary obstacles that we volunteer to
 													tackle.
 												</span>
@@ -104,7 +101,7 @@ const Home = () => {
 												corporis repudiandae aperiam odit aliquid. Illo maiores
 												recusandae veniam.
 											</Typography>
-											<button className="bg-blue-950 text-white flex gap-4 px-7 py-3 mt-10 rounded-md transition duration-500 hover:bg-black hover:outline outline-1 outline-gray-800 shadow-black/30-800 shadow-sm">
+											<button className="bg-transparent border border-white text-white flex gap-4 px-7 py-3 mt-10  transition duration-500 hover:bg-violet-950 hover:border-violet-900">
 												Discover Games 🎮
 											</button>
 										</div>
@@ -143,7 +140,8 @@ const Home = () => {
 										/>
 									)}
 								</div>
-								<div>
+								<div className="w-full flex justify-between mt-16">
+									<Feed/>
 									<UserComponent />
 								</div>
 							</div>

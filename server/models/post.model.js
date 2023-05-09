@@ -4,7 +4,6 @@ const postSchema = new mongoose.Schema({
     postText : {
         type : String,
         required : true,
-        trim : true,
     },
     postImage : {
         type : String,
@@ -14,7 +13,16 @@ const postSchema = new mongoose.Schema({
         type : String,
         trim: true,
         required : true
-    }    
+    },
+    creatorImgUrl : {
+        type : String,
+        trim: true,   
+    },
+    creatorName : {
+        type : String,
+        required : true,
+        trim: true,
+    }  
 
 }, {timestamps : true});
 

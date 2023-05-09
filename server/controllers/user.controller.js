@@ -152,31 +152,38 @@ const fetchUsers = async (req, res) => {
 	res.send(data);
 };
 const createPost = async (req, res) => {
-	const { postTextData, userId, previewSource } = req.body;
-
-	const imagepUloadResponse = await cloudinary.v2.uploader.upload(
-		previewSource,
-		{ folder: "user_posts" }
-	);
-
-	const newPost = new PostModel({
-		creatorId: userId,
-		postText: postTextData,
-		postImage: imagepUloadResponse.secure_url,
-	});
-	newPost
-		.save()
-		.then((savedData) => {
-			res.send({ msg: "Post added successfully" });
-		})
-		.catch((err) => {
-			console.error(err);
+	const { postTextData, userId, previewSource , profileImgUrl, profileName} = req.body;
+	try {
+		
+		const imagepUloadResponse = await cloudinary.v2.uploader.upload(
+			previewSource,
+			{ folder: "user_posts" }
+		);
+	
+		const newPost = new PostModel({
+			creatorId: userId,
+			postText: postTextData,
+			postImage: imagepUloadResponse.secure_url,
+			creatorImgUrl : profileImgUrl,
+			creatorName : profileName
 		});
+		newPost
+			.save()
+			.then((savedData) => {
+				res.send({ msg: "Post added successfully" });
+			})
+			.catch((err) => {
+				console.error(err);
+			});
+	} catch (error) {
+		res.send({ msg : 'Internal server error, please try again later' });
+		console.log(error);
+	}
+
 };
 const fetchPosts = async (req, res) => {
-	const data = await PostModel.find()
+	const data = await PostModel.find().sort({ createdAt : -1});
 	res.send(data)
-
 }
 module.exports = {
 	loginController,

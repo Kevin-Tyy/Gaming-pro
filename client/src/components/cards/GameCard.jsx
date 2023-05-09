@@ -12,9 +12,9 @@ const GameCard = ({ games }) => {
 						<img
 							src={item.background_image}
 							alt={item.name}
-							className=" h-80 object-cover w-full rounded-2xl"
+							className=" h-80 object-cover w-full"
 						/>
-						<div className="w-full flex flex-col gap-4 p-3 justify-center items-start backdrop-blur-md rounded-b-lg">
+						<div className="w-full flex flex-col gap-4 py-3 px-6 justify-center items-start backdrop-blur-md rounded-b-lg">
 							<div>
 								<Typography className="text-white whitespace-nowrap ">{item.name}</Typography>
 								<Rating value={item.rating} precision={0.5} readOnly size='small'/>
@@ -26,7 +26,7 @@ const GameCard = ({ games }) => {
 								</Typography>
 							</div>
 							<Link to={`/games/${item.id}`} className="w-full">
-								<button className="bg-neutral-950 py-2 border font-sans text-md border-neutral-700  w-full rounded-xl transition duration-100 active:scale-95 whitespace-nowrap">
+								<button className="bg-violet-950 py-2 font-sans text-md  w-full transition duration-100 active:scale-95 whitespace-nowrap">
 									<Typography>View Game</Typography>
 								</button>
 							</Link>

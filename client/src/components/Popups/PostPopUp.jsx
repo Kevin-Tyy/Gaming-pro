@@ -31,7 +31,7 @@ const PostPopUp = ({ handlePostToggle, userInfo, token }) => {
 		setLoading(true);
 		const { data } = await axios.post(
 			"http://localhost:4000/api/createpost",
-			{ postTextData, userId, previewSource  },	
+			{ postTextData, userId, previewSource,profileImgUrl,profileName},	
 			{
 				headers : {
 					Authorization : 'Bearer ' + token
@@ -52,7 +52,7 @@ const PostPopUp = ({ handlePostToggle, userInfo, token }) => {
 	return (
 		<div
 			onClick={handlePostToggle}
-			className="h-screen w-screen fixed top-0 bottom-0 right-0 left-0 bg-neutral-950/50 backdrop-blur-sm  flex justify-center items-center z-50">
+			className="h-screen w-screen fixed top-0 bottom-0 right-0 left-0 bg-neutral-950/90   flex justify-center items-center z-50">
 			<div
 				onClick={(e) => e.stopPropagation()}
 				className="bg-neutral-800 w-full max-w-lg h-auto rounded-xl border border-neutral-700 px-5">

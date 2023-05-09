@@ -5,6 +5,7 @@ import GameCard from "../components/cards/GameCard";
 import Sidebar from "../components/Fixed/Sidebar";
 import Navbar from "../components/Fixed/Navbar";
 import SkeletonComponent from "../components/skeletons/SkeletonComponent";
+import { Typography } from "@mui/material";
 const SearchPage = () => {
 	const [loading, setLoading] = useState(false);
 	const [games, setGames] = useState([]);
@@ -58,6 +59,7 @@ const SearchPage = () => {
 
 						<div>
 							{games.length ? (
+								
 								<div>
 									{loading ? (
 										<div className="flex items-center justify-center h-screen">
@@ -65,6 +67,15 @@ const SearchPage = () => {
 										</div>
 									) : (
 										<div className="xl:m-16">
+											<div className="flex justify-center">
+												<Typography variant="h6" sx={{ fontFamily : 'fantasy'}} className="text-white text-center">
+													Search results for {" "}
+													<span className="text-violet-900  ">
+														{searchQuery}
+													</span>
+												</Typography>
+
+											</div>
 											<GameCard games={games} />
 											<div className="flex justify-center items-center mb-14">
 												<div className="w-full bg-black p-4 rounded-md flex justify-center mt-9">

@@ -7,14 +7,29 @@ import { Link, useNavigate } from "react-router-dom";
 import {IconButton} from "@mui/material";
 import placeholderimage from '../../pages/images/placeholder.jpg'
 
-const Navbar = ({ isLoggedIn , userInfo}) => {
+const Navbar = () => {
 	const [loading, setLoading] = useState(true);
 	const [searchString, setSearchString] = useState("");
 	const [profileImgUrl , setprofileImgUrl] = useState("");
-	useEffect(()=> {
-		setprofileImgUrl(userInfo.uploadImage)
-		
-	}, [userInfo])
+	const [isLoggedIn , setIsLoggedIn] = useState(false);
+	const [token , setToken] = useState("");
+
+	const populateProfile = async (token) => {
+		const { data } = await axios.get("http://localhost:4000/api/getuser", {
+			headers: {
+				Authorization: "Bearer " + token,
+			},
+		});
+		setprofileImgUrl(data.uploadImage)
+	};
+	useEffect(() => {
+		const token = localStorage.getItem("access_token");
+		setToken(token);
+		if (token) {
+			populateProfile(token);
+			setIsLoggedIn(true);
+		}
+	}, []);
 
 	const navigate = useNavigate();
 
