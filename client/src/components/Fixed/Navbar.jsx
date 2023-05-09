@@ -2,20 +2,20 @@ import { Avatar, Paper, Skeleton, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
-import { Telegram } from "@mui/icons-material";
+import { Settings } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
 import {IconButton} from "@mui/material";
-import axios from "axios";
 import placeholderimage from '../../pages/images/placeholder.jpg'
 
-const Navbar = () => {
+const Navbar = ({ isLoggedIn , userInfo}) => {
 	const [loading, setLoading] = useState(true);
 	const [searchString, setSearchString] = useState("");
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
-	const [profileImgUrl , setprofileImgUrl] = useState('');
-	setTimeout(() => {
-		setLoading(true);
-	}, 0);
+	const [profileImgUrl , setprofileImgUrl] = useState("");
+	useEffect(()=> {
+		setprofileImgUrl(userInfo.uploadImage)
+		
+	}, [userInfo])
+
 	const navigate = useNavigate();
 
 	const handleSubmit = (e) => {
@@ -26,28 +26,6 @@ const Navbar = () => {
 		}
 			
 	};
-	const populateProfile = async (token) => {
-		const {data} = await axios.get('http://localhost:4000/api/findUser' , {
-			headers : {
-				Authorization : 'Bearer ' + token ,
-			}
-
-		});
-		setprofileImgUrl(data.uploadImage)
-		console.log(data.uploadImage)
-		
-		
-
-	}
-	useEffect(() => {
-		const token = localStorage.getItem('access_token');
-		if (token) {
-			populateProfile(token)
-			setIsLoggedIn(true)
-		}
-		
-	}, []);
-
 
 	return (
 		<React.Fragment>
@@ -98,16 +76,16 @@ const Navbar = () => {
 
 				<div className="flex items-center">
 					{isLoggedIn ? (
-						<div className="flex gap-2">
-							<span className="bg-gradient-to-b from-neutral-700 to-neutral-900 rounded-full cursor-pointer transition hover:from-neutral-600">
+						<div className="flex gap-4">
+							<span className="bg-neutral-800 rounded-full cursor-pointer transition hover:bg-neutral-700 w-10 h-10 flex items-center justify-center">
 								<NotificationsNoneIcon
 									sx={{ fontSize: 38 }}
-									className="text-white p-2"
+									className="text-white px-2"
 								/>
 							</span>
 
-							<span className="bg-gradient-to-b from-blue-800 to-indigo-950/20 rounded-full cursor-pointer hover:from-blue-700 flex items-center justify-center">
-								<Telegram sx={{ fontSize: 38 }} className="text-white p-2" />
+							<span className="bg-blue-800 rounded-full cursor-pointer hover:bg-blue-700  w-10 h-10 flex items-center justify-center">
+								<Settings sx={{ fontSize: 38 }} className="text-white px-2"/>
 							</span>
 							<div className="border-2 border-white rounded-full p-1">
 								<img 

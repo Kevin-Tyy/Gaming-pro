@@ -2,24 +2,24 @@ const {
 	registerValidationSchema,
 	loginValidationSchema,
 } = require("../validation/validationSchema");
-const { cloudinary } = require("../utils/cloudinary")
+const { cloudinary } = require("../utils/cloudinary");
 const UserModel = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 const jwtSecret = process.env.JWT_SECRET;
 const bcrypt = require("bcryptjs");
 const userModel = require("../models/user.model");
-
+const PostModel = require("../models/post.model");
 const loginController = async (req, res) => {
 	const { error } = loginValidationSchema.validate(req.body);
 	if (error) {
 		const errorMessage = error.details[0].message;
-		res.status(200).send({ message: errorMessage , status : 'bad'});
+		res.status(200).send({ message: errorMessage, status: "bad" });
 	}
 	const { username, password } = req.body;
 
 	try {
 		const user = await UserModel.findOne({ username: username });
-		
+
 		if (user) {
 			const hashedPassword = user.password;
 			bcrypt
@@ -35,27 +35,28 @@ const loginController = async (req, res) => {
 							jwtSecret,
 							(err, token) => {
 								if (err) throw err;
-								res
-									.status(200)
-									.send({ message: "Login successful", token: token , status : 'ok'});
+								res.status(200).send({
+									message: "Login successful",
+									token: token,
+									status: "ok",
+								});
 							}
 						);
 					} else {
-						res.send({ message: "Incorrect Password" , status : 'bad'});
+						res.send({ message: "Incorrect Password", status: "bad" });
 					}
 				})
 				.catch((err) => {
 					console.log(err);
-					res.send({ message: "Oops ! Something went wrong" , status : 'bad'});
+					res.send({ message: "Oops ! Something went wrong", status: "bad" });
 				});
 		} else {
-			res.send({ message: "User does not exist" , status : 'bad'});
+			res.send({ message: "User does not exist", status: "bad" });
 		}
 	} catch (error) {
 		console.log(error);
-		res.send({ message : "Something went wrong" , status : 'bad'});
+		res.send({ message: "Something went wrong", status: "bad" });
 	}
-
 };
 
 const registerController = async (req, res) => {
@@ -63,35 +64,40 @@ const registerController = async (req, res) => {
 
 	if (error) {
 		const errorMessage = error.details[0].message;
-		res.status(200).send({ message: errorMessage , status : 'bad'});
+		res.status(200).send({ message: errorMessage, status: "bad" });
 	}
-	
+
 	const { username, password, email, uploadImage } = req.body;
 
-	const fileStr = uploadImage
+	const fileStr = uploadImage;
 
-		const uploadedResponse = 'hello'
+	const uploadedResponse = await cloudinary.v2.uploader.upload(fileStr, {
+		folder: "user_profiles",
+	});
 
 	const hashedPassword = await bcrypt.hash(password, 10);
 	try {
 		const user = await UserModel.findOne({ username: username });
-	
+
 		if (user) {
-			res.send({ message: `Username ${username} not available` , status : 'bad'});
+			res.send({
+				message: `Username ${username} not available`,
+				status: "bad",
+			});
 		} else {
 			try {
 				const user = await UserModel.findOne({ email: email });
 				if (user) {
-					res.send({ message: `Email ${email} already in use` , status : 'bad'});
+					res.send({ message: `Email ${email} already in use`, status: "bad" });
 				} else {
 					const createdUser = new UserModel({
 						email: email,
 						password: hashedPassword,
 						username: username,
-						uploadImage : uploadedResponse.secure_url
+						uploadImage: uploadedResponse.secure_url,
 					});
 
-					await createdUser
+					createdUser
 						.save()
 						.then(
 							jwt.sign(
@@ -105,9 +111,11 @@ const registerController = async (req, res) => {
 									if (err) {
 										throw err;
 									} else {
-										res
-											.status(200)
-											.send({ message: "Registration successful", token: token , status: 'ok'});
+										res.status(200).send({
+											message: "Registration successful",
+											token: token,
+											status: "ok",
+										});
 									}
 								}
 							)
@@ -116,37 +124,66 @@ const registerController = async (req, res) => {
 				}
 			} catch (error) {
 				console.log(error);
-				res.send({ message : "Something went wrong" , status : 'bad'})
+				res.send({ message: "Something went wrong", status: "bad" });
 			}
 		}
 	} catch (error) {
 		console.log(error);
-		res.send({ message : "Something went wrong", status : 'bad'})
+		res.send({ message: "Something went wrong", status: "bad" });
 	}
-
 };
 
-
-const findUser = async (req, res) => {
-	const {userId} = req.data
-	const user = await UserModel.findOne({  _id : userId })
-	const {username, email, uploadImage } = user
-	res.send({ username : username , email : email , uploadImage : uploadImage });
-}
-
+const getUserInfo = async (req, res) => {
+	const { userId } = req.data;
+	const user = await UserModel.findOne({ _id: userId });
+	const { username, email, uploadImage, _id } = user;
+	res.send({
+		_id: _id,
+		username: username,
+		email: email,
+		uploadImage: uploadImage,
+	});
+};
 
 const protectedroute = (req, res) => {};
 
-const fetchUser = async (req, res) => {
+const fetchUsers = async (req, res) => {
 	const data = await userModel.find();
-	// console.log(data);
 	res.send(data);
+};
+const createPost = async (req, res) => {
+	const { postTextData, userId, previewSource } = req.body;
+
+	const imagepUloadResponse = await cloudinary.v2.uploader.upload(
+		previewSource,
+		{ folder: "user_posts" }
+	);
+
+	const newPost = new PostModel({
+		creatorId: userId,
+		postText: postTextData,
+		postImage: imagepUloadResponse.secure_url,
+	});
+	newPost
+		.save()
+		.then((savedData) => {
+			res.send({ msg: "Post added successfully" });
+		})
+		.catch((err) => {
+			console.error(err);
+		});
+};
+const fetchPosts = async (req, res) => {
+	const data = await PostModel.find()
+	res.send(data)
+
 }
 module.exports = {
 	loginController,
 	registerController,
 	protectedroute,
-	findUser,
-	fetchUser
-
+	getUserInfo,
+	fetchUsers,
+	createPost,
+	fetchPosts
 };

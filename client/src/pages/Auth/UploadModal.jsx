@@ -2,15 +2,11 @@ import React, { useState } from "react";
 import placeholderImg from "../images/placeholder.jpg";
 import {
 	ArrowLeftTwoTone,
-	CheckCircleOutline,
 	CloseRounded,
 	PhotoOutlined,
-	UploadFile,
 	UploadOutlined,
-	UploadTwoTone,
 } from "@mui/icons-material";
-import { CircularProgress, Typography } from "@mui/material";
-import axios from "axios";
+import { Typography } from "@mui/material";
 const UploadModal = ({ handleToggle, setUploadImage }) => {
 	const [previewSource, setPreviewSource] = useState("");
 

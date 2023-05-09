@@ -15,6 +15,7 @@ export default {
     "./src/**/components/**/Sliders/*.jsx",
     "./src/**/components/**/Popups/*.jsx",
     "./src/**/components/**/User/*.jsx",
+    "./src/**/components/**/PostFeed/*.jsx",
 
     
   ],

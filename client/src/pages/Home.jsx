@@ -8,11 +8,19 @@ import GameCard from "../components/cards/GameCard";
 import Navbar from "../components/Fixed/Navbar";
 import Sidebar from "../components/Fixed/Sidebar";
 import UserComponent from "../components/User/UserComponent";
+import CustomCard from "../components/Cards/CustomCard";
+import PostButton from "../components/Buttons/PostButton";
+import PostPopUp from "../components/Popups/PostPopUp.jsx";
+import axios from "axios";
 
 const Home = () => {
 	const [games, setGames] = useState([]);
 	const [gamesArray, setGamesArray] = useState([]);
+	const [postToggle, setPostToggle] = useState(false);
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [userInfo, setUserInfo] = useState({});
 	const [currentSlide, setCurrentSlide] = useState(sliderImages[0]);
+	const [token, setToken] = useState("");
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -31,7 +39,31 @@ const Home = () => {
 	// 		setGamesArray(data.results.slice(0, 6));
 	// 	});
 	// }, []);
+	const fetchPosts = () => {
+		const { data } = axios.get('http://localhost:4000/api/getposts')
+		.then(data=> console.log(data));
+	}
+	const populateProfile = async (token) => {
+		const { data } = await axios.get("http://localhost:4000/api/getuser", {
+			headers: {
+				Authorization: "Bearer " + token,
+			},
+		});
+		setUserInfo(data);
+	};
+	useEffect(() => {
+		fetchPosts()
+		const token = localStorage.getItem("access_token");
+		setToken(token);
+		if (token) {
+			populateProfile(token);
+			setIsLoggedIn(true);
+		}
+	}, []);
 	
+	const handlePostToggle = () => {
+		setPostToggle(!postToggle);
+	};
 
 	return (
 		<div>
@@ -48,7 +80,7 @@ const Home = () => {
 						<Sidebar />
 					</div>
 					<div className="col-span-7 h-full">
-						<Navbar />
+						<Navbar userInfo={userInfo} isLoggedIn={isLoggedIn} />
 
 						<div>
 							<div className="lg:p-10">
@@ -59,7 +91,7 @@ const Home = () => {
 												<span className="text-transparent  text-center bg-gradient-to-r from-blue-800 via-sky-400 to-violet-900 bg-clip-text">
 													Games, unnecessary obstacles that we volunteer to
 													tackle.
-												</span> 
+												</span>
 												🎮
 											</Typography>
 
@@ -85,41 +117,36 @@ const Home = () => {
 											Popular games
 										</Typography>
 										<div className=" flex flex-row lg:flex-col gap-3">
-											{imagePosterObj.map((posterObj, index) => (
-												<div
-													className="relative flex flex-col items-center w-full bg-black p-4 rounded-md"
-													key={index}>
-													<img
-														src={posterObj.poster}
-														alt="Loading..."
-														className="h-72 w-full object-cover rounded-2xl block"
-													/>
-													<div className="absolute -bottom-1 bg-black  backdrop-blur-md w-full h-16 flex items-center px-2 justify-between rounded-b-2xl py-10">
-														<Typography
-															sx={{ fontWeight: "cursive" }}
-															variant="body2"
-															className="text-white/90 ">
-															{posterObj.title}
-														</Typography>
-														<Link to={`/games`}>
-															<button className="bg-black/60 text-white py-3 px-3 whitespace-nowrap transition duration-100 hover:bg-black/30-950 ml-10">
-																View Game
-															</button>
-														</Link>
-													</div>
-												</div>
-											))}
+											<CustomCard imagePosterObj={imagePosterObj} />
 										</div>
 									</div>
 								</div>
 								<div>
-									<Typography sx={{ fontSize : '30px' , fontFamily : 'fantasy' , marginLeft : '20px'}} className=" text-transparent w-80 border-l-4 px-4 border-sky-500 bg-gradient-to-r from-sky-600 to-violet-700 bg-clip-text ">
+									<Typography
+										sx={{
+											fontSize: "30px",
+											fontFamily: "fantasy",
+											marginLeft: "20px",
+										}}
+										className=" text-transparent w-80 border-l-4 px-4 border-sky-500 bg-gradient-to-r from-sky-600 to-violet-700 bg-clip-text ">
 										Play Games online
 									</Typography>
 									<GameCard games={gamesArray} />
 								</div>
+								<div className="w-full flex justify-center">
+									<PostButton handlePostToggle={handlePostToggle} />
+									{postToggle && (
+										<PostPopUp
+											handlePostToggle={handlePostToggle}
+											userInfo={userInfo}
+											token={token}
+										/>
+									)}
+								</div>
+								<div>
+									<UserComponent />
+								</div>
 							</div>
-								<UserComponent/>
 						</div>
 					</div>
 				</div>
