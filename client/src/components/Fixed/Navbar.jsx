@@ -6,6 +6,7 @@ import { Telegram } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
 import {IconButton} from "@mui/material";
 import axios from "axios";
+import placeholderimage from '../../pages/images/placeholder.jpg'
 
 const Navbar = () => {
 	const [loading, setLoading] = useState(true);
@@ -33,6 +34,8 @@ const Navbar = () => {
 
 		});
 		setprofileImgUrl(data.uploadImage)
+		console.log(data.uploadImage)
+		
 		
 
 	}
@@ -108,7 +111,7 @@ const Navbar = () => {
 							</span>
 							<div className="border-2 border-white rounded-full p-1">
 								<img 
-									src={profileImgUrl}
+									src={profileImgUrl ? profileImgUrl : placeholderimage}
 									className="w-8 h-8 object-cover rounded-full"
 								/>
 

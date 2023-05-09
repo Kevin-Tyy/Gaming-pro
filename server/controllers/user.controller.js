@@ -7,6 +7,7 @@ const UserModel = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 const jwtSecret = process.env.JWT_SECRET;
 const bcrypt = require("bcryptjs");
+const userModel = require("../models/user.model");
 
 const loginController = async (req, res) => {
 	const { error } = loginValidationSchema.validate(req.body);
@@ -129,17 +130,23 @@ const registerController = async (req, res) => {
 const findUser = async (req, res) => {
 	const {userId} = req.data
 	const user = await UserModel.findOne({  _id : userId })
-	const {username, email, uploadImage} = user
+	const {username, email, uploadImage } = user
 	res.send({ username : username , email : email , uploadImage : uploadImage });
-
 }
 
 
 const protectedroute = (req, res) => {};
+
+const fetchUser = async (req, res) => {
+	const data = await userModel.find();
+	// console.log(data);
+	res.send(data);
+}
 module.exports = {
 	loginController,
 	registerController,
 	protectedroute,
-	findUser
+	findUser,
+	fetchUser
 
 };

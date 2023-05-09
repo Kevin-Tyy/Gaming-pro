@@ -14,6 +14,7 @@ export default {
     "./src/**/components/**/Skeletons/*.jsx",
     "./src/**/components/**/Sliders/*.jsx",
     "./src/**/components/**/Popups/*.jsx",
+    "./src/**/components/**/User/*.jsx",
 
     
   ],

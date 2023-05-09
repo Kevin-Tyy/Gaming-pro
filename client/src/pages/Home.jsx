@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import GameCard from "../components/cards/GameCard";
 import Navbar from "../components/Fixed/Navbar";
 import Sidebar from "../components/Fixed/Sidebar";
+import UserComponent from "../components/User/UserComponent";
 
 const Home = () => {
 	const [games, setGames] = useState([]);
@@ -24,12 +25,12 @@ const Home = () => {
 		return () => clearInterval(interval);
 	}, [currentSlide, sliderImages]);
 
-	useEffect(() => {
-		fetchFromAPI("games", 1).then((data) => {
-			console.log(data);
-			setGamesArray(data.results.slice(0, 10));
-		});
-	}, []);
+	// useEffect(() => {
+	// 	fetchFromAPI("games", 1).then((data) => {
+	// 		console.log(data);
+	// 		setGamesArray(data.results.slice(0, 6));
+	// 	});
+	// }, []);
 	
 
 	return (
@@ -112,12 +113,13 @@ const Home = () => {
 									</div>
 								</div>
 								<div>
-									<Typography className="text-white border-b-4 border-black/30-700 w-40">
+									<Typography sx={{ fontSize : '30px' , fontFamily : 'fantasy' , marginLeft : '20px'}} className=" text-transparent w-80 border-l-4 px-4 border-sky-500 bg-gradient-to-r from-sky-600 to-violet-700 bg-clip-text ">
 										Play Games online
 									</Typography>
 									<GameCard games={gamesArray} />
 								</div>
 							</div>
+								<UserComponent/>
 						</div>
 					</div>
 				</div>
