@@ -185,6 +185,13 @@ const fetchPosts = async (req, res) => {
 	const data = await PostModel.find().sort({ createdAt : -1});
 	res.send(data)
 }
+const updateProfile = async (req, res) => {
+	res.send('request received')
+	const { newUsername , newEmail } = req.body
+	const { userId } = req.data;
+	const oldUser = await UserModel.find({ _id : userId})
+	console.log(oldUser);
+}
 module.exports = {
 	loginController,
 	registerController,
@@ -192,5 +199,6 @@ module.exports = {
 	getUserInfo,
 	fetchUsers,
 	createPost,
-	fetchPosts
+	fetchPosts,
+	updateProfile
 };

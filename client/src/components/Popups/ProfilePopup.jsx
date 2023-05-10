@@ -35,25 +35,25 @@ const ProfilePopup = ({ handlePopUpShow }) => {
 				className="cursor-pointer absolute top-0 right-0 p-1 hover:bg-neutral-800 rounded-full m-1"
 			/>
 			<ul className="mt-4">
-				<li className="py-3 px-7 hover:bg-neutral-900 rounded-md">
+				<li className="py-3 px-7 hover:bg-neutral-900 rounded-md cursor-pointer">
 					<Link to={popupdata[0].link} className="flex gap-3 ">
 						<span>{popupdata[0].icon}</span>
 						<span>{popupdata[0].title}</span>
 					</Link>
 				</li>
-				<li className="py-3 px-7 hover:bg-neutral-900 rounded-md">
+				<li className="py-3 px-7 hover:bg-neutral-900 rounded-md cursor-pointer">
 					<Link to={popupdata[1].link} className="flex gap-3">
 						<span>{popupdata[1].icon}</span>
 						<span>{popupdata[1].title}</span>
 					</Link>
 				</li>{" "}
-				<li className="py-3 px-7 hover:bg-neutral-900 rounded-md">
+				<li className="py-3 px-7 hover:bg-neutral-900 rounded-md cursor-pointer">
 					<Link to={popupdata[2].link} className="flex gap-3">
 						<span>{popupdata[2].icon}</span>
 						<span>{popupdata[2].title}</span>
 					</Link>
 				</li>{" "}
-				<li className="py-3 px-7 hover:bg-neutral-900 rounded-md" onClick={handleLogout}>
+				<li className="py-3 px-7 hover:bg-neutral-900 rounded-md cursor-pointer" onClick={handleLogout}>
 					<Link to={popupdata[3].link} className="flex gap-3">
 						<span>{popupdata[3].icon}</span>
 						<span>{popupdata[3].title}</span>

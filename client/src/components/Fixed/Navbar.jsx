@@ -9,6 +9,8 @@ import placeholderimage from '../../pages/images/placeholder.jpg'
 import { data } from "autoprefixer";
 import axios from "axios";
 import ProfilePopup from "../Popups/ProfilePopup";
+import NotificationsIcon from '@mui/icons-material/Notifications';
+
 const Navbar = () => {
 	const [loading, setLoading] = useState(true);
 	const [searchString, setSearchString] = useState("");
@@ -16,6 +18,7 @@ const Navbar = () => {
 	const [isLoggedIn , setIsLoggedIn] = useState(false);
 	const [token , setToken] = useState("");
 	const [profilePopup, setprofilePopup] = useState();
+	const [isNotificationSelected , setIsNotificationSelected ] = useState(false)
 
 	const populateProfile = async (token) => {
 		const { data } = await axios.get("http://localhost:4000/api/getuser", {
@@ -26,6 +29,7 @@ const Navbar = () => {
 		setprofileImgUrl(data.uploadImage)
 
 	};
+
 	useEffect(() => {
 		const token = localStorage.getItem("access_token");
 		setToken(token);
@@ -47,6 +51,9 @@ const Navbar = () => {
 	};
 	const handlePopUpShow = () => {
 		setprofilePopup(!profilePopup);
+	}
+	const handleNotificationSelected = () => {
+		setIsNotificationSelected(!isNotificationSelected)
 	}
 
 	return (
@@ -101,11 +108,8 @@ const Navbar = () => {
 				<div className="flex items-center">
 					{isLoggedIn ? (
 						<div className="flex gap-4">
-							<span className="bg-neutral-800 rounded-full cursor-pointer transition hover:bg-neutral-700 w-10 h-10 flex items-center justify-center">
-								<NotificationsNoneIcon
-									sx={{ fontSize: 38 }}
-									className="text-white px-2"
-								/>
+							<span onClick={handleNotificationSelected} className="bg-neutral-800 rounded-full cursor-pointer transition hover:bg-neutral-700 w-10 h-10 flex items-center justify-center">
+						{isNotificationSelected ? <NotificationsIcon/> : <NotificationsNoneIcon/>}
 							</span>
 
 							<span className="bg-blue-800 rounded-full cursor-pointer hover:bg-blue-700  w-10 h-10 flex items-center justify-center">

@@ -4,6 +4,7 @@ import Sidebar from "../components/Fixed/Sidebar";
 import coverImage from "../pages/images/cover.jpg";
 import PostButton from "../components/Buttons/PostButton";
 import PostPopUp from "../components/Popups/PostPopUp";
+import EditProfilePopup from "../components/Popups/EditProfilePopup";
 import axios from "axios";
 import { Typography } from "@mui/material";
 import { Edit } from "@mui/icons-material";
@@ -13,6 +14,7 @@ const Profile = () => {
 	const [userPhoto, setUserPhoto] = useState("");
 	const [userInfo, setUserInfo] = useState([]);
 	const [postToggle, setPostToggle] = useState(false);
+	const [profileToggle, setProfileToggle] = useState(false);
 	const [token , setToken] = useState("")
 
 	const populateProfile = async (token) => {
@@ -38,7 +40,11 @@ const Profile = () => {
 	const handlePostToggle = () => {
 		setPostToggle(!postToggle);
 	};
+	const handleProfileToggle = () => {
+		setProfileToggle(!profileToggle);
 
+	}
+ 
 	return (
 		<div>
 			<div className="h-full bg-black w-full">
@@ -76,7 +82,7 @@ const Profile = () => {
 								</div>
 								<div className="flex justify-center">
 									<div className="absolute bg-neutral-900 h-48 w-full z-20 flex justify-center">
-										<div className="text-white absolute rounded-md p-2 top-2 right-2 cursor-pointer flex gap-2 transition duration-100 hover:bg-neutral-800 ">
+										<div onClick={handleProfileToggle} className="text-white absolute rounded-md p-2 top-2 right-2 cursor-pointer flex gap-2 transition duration-100 hover:bg-neutral-800 ">
 											<Edit />
 											Edit profile
 										</div>
@@ -108,6 +114,7 @@ const Profile = () => {
 										)}
 									</div>
 								</div>
+								{profileToggle && <EditProfilePopup userInfo={userInfo} handleProfileToggle={handleProfileToggle} token={token}/>}
 							</div>
 						</div>
 					</div>
