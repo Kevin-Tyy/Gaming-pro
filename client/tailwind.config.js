@@ -28,6 +28,7 @@ export default {
       },
       height: {
         '700' : '700px',
+        '40vh': '40vh',
         '2': '1px'
       },
       boxShadow : {
@@ -43,6 +44,12 @@ export default {
       maxHeight : {
         '3xl' : '800px'
       },
+      minHeight : {
+        '300' : '300px'
+      },
+      padding : {
+        '2px' : '2px'
+      }
     
       
       

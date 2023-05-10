@@ -70,7 +70,6 @@ const Login = () => {
 			setPasswordVisible(false);
 		}, 1000);
 	}
-	console.log(errorMessage)
 	const signinAuth = (e) => {
 		e.preventDefault()
 		signInWithPopup(auth , provider).then((data)=> {

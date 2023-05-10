@@ -6,13 +6,16 @@ import { Settings } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
 import {IconButton} from "@mui/material";
 import placeholderimage from '../../pages/images/placeholder.jpg'
-
+import { data } from "autoprefixer";
+import axios from "axios";
+import ProfilePopup from "../Popups/ProfilePopup";
 const Navbar = () => {
 	const [loading, setLoading] = useState(true);
 	const [searchString, setSearchString] = useState("");
 	const [profileImgUrl , setprofileImgUrl] = useState("");
 	const [isLoggedIn , setIsLoggedIn] = useState(false);
 	const [token , setToken] = useState("");
+	const [profilePopup, setprofilePopup] = useState();
 
 	const populateProfile = async (token) => {
 		const { data } = await axios.get("http://localhost:4000/api/getuser", {
@@ -21,6 +24,7 @@ const Navbar = () => {
 			},
 		});
 		setprofileImgUrl(data.uploadImage)
+
 	};
 	useEffect(() => {
 		const token = localStorage.getItem("access_token");
@@ -41,10 +45,15 @@ const Navbar = () => {
 		}
 			
 	};
+	const handlePopUpShow = () => {
+		setprofilePopup(!profilePopup);
+	}
 
 	return (
 		<React.Fragment>
 			<div className="w-full flex bg-gradient-to-l from-black via-black/80 to-black/0 backdrop-blur-md text-white p-2  justify-between md:px-10 sticky top-0 z-40">
+			
+			{profilePopup && <ProfilePopup handlePopUpShow={handlePopUpShow}/>}
 				{loading ? (
 					<div className="flex items-center">
 						<Paper
@@ -102,11 +111,14 @@ const Navbar = () => {
 							<span className="bg-blue-800 rounded-full cursor-pointer hover:bg-blue-700  w-10 h-10 flex items-center justify-center">
 								<Settings sx={{ fontSize: 38 }} className="text-white px-2"/>
 							</span>
-							<div className="border-2 border-white rounded-full p-1">
-								<img 
-									src={profileImgUrl ? profileImgUrl : placeholderimage}
-									className="w-8 h-8 object-cover rounded-full"
-								/>
+							<div onClick={handlePopUpShow} className="bg-gradient-to-r from-sky-600 via-blue-700 to-violet-800 rounded-full p-2px cursor-pointer">
+								<div className="bg-black rounded-full p-1">
+									<img 
+										src={profileImgUrl ? profileImgUrl : placeholderimage}
+										className="w-8 h-8 object-cover rounded-full"
+									/>
+
+								</div>
 
 							</div>
 							
@@ -124,6 +136,7 @@ const Navbar = () => {
 								</button>
 							</Link>
 						</div>
+						
 					)}
 				</div>
 			</div>

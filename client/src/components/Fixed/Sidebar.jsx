@@ -14,17 +14,17 @@ const SidebarContent = [
 	{
 		icon: <PeopleIcon fontSize="small" />,
 		title: "Community",
-		link: "/community",
+		link: "/user/community",
 	},
 	{
 		icon: <FeedIcon fontSize="small" />,
 		title: "Feed",
-		link: "/news",
+		link: "/user/news",
 	},
 	{
 		icon: <CollectionsIcon fontSize="small" />,
 		title: "Collection",
-		link: "/collections",
+		link: "/user/collections",
 	},
 	{
 		icon: <SportsEsportsIcon />,

@@ -1,11 +1,38 @@
-import React from 'react'
+import React from "react";
+import placeholderImage from "../../pages/images/placeholder.jpg";
+import { EmojiEmotionsOutlined, Image, VideoCall } from '@mui/icons-material'
+const PostButton = ({ handlePostToggle, userInfo }) => {
+	return (
+		<div className="w-full lg:w-8/12 mx-auto">
+			<div className="p-3 flex flex-col gap-3 bg-neutral-800">
+				<div className=" flex gap-2 items-center border-b border-neutral-700 pb-3 ">
+					<img
+						src={userInfo.uploadImage ? userInfo.uploadImage : placeholderImage}
+						className="w-10 h-10 object-cover rounded-full"
+					/>
+					<div className="flex-1">
+						<div
+							onClick={handlePostToggle}
+							className="text-neutral-500 bg-neutral-700 py-3 px-5 rounded-full w-full cursor-pointer">
+							What's on your mind, {userInfo.username}?
+						</div>
+					</div>
+				</div>
+				<div className="flex gap-3">
+					<div onClick={handlePostToggle} className="text-white hover:bg-neutral-700 w-1/3 py-3 flex justify-center rounded-md gap-3 cursor-pointer">
+						<Image className="text-green-500 "/> Photo
+					</div>
+					<div onClick={handlePostToggle} className="text-white hover:bg-neutral-700 w-1/3 py-3 flex justify-center rounded-md gap-3 cursor-pointer">
+						<VideoCall className="text-violet-600 "/> Live video
+					</div>
+					<div onClick={handlePostToggle} className="text-white hover:bg-neutral-700 w-1/3 py-3 flex justify-center rounded-md gap-3 cursor-pointer">
+						<EmojiEmotionsOutlined className="text-yellow-500"/> Feeling
+					</div>	
+				</div>
+			</div>
 
-const PostButton = ({ handlePostToggle }) => {
-  return (
-        <button onClick={handlePostToggle} className='text-white py-2 px-5 bg-gradient-to-r from-blue-700 to-violet-800 rounded-md'>
-            Create a post
-        </button>
-  )
-}
+		</div>
+	);
+};
 
-export default PostButton
+export default PostButton;

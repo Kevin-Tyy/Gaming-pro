@@ -2,16 +2,11 @@ import React, { useEffect, useState } from "react";
 import { fetchFromAPI } from "../utils/apiFetch";
 import { imagePosterObj, sliderImages } from "../utils/posters";
 import { Button, Typography } from "@mui/material";
-import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
-import { Link, useNavigate } from "react-router-dom";
 import GameCard from "../components/cards/GameCard";
 import Navbar from "../components/Fixed/Navbar";
 import Sidebar from "../components/Fixed/Sidebar";
-import UserComponent from "../components/User/UserComponent";
 import CustomCard from "../components/Cards/CustomCard";
-import PostButton from "../components/Buttons/PostButton";
-import PostPopUp from "../components/Popups/PostPopUp.jsx";
-import Feed from '../components/PostFeed/Feed'
+
 import axios from "axios";
 
 const Home = () => {
@@ -130,20 +125,8 @@ const Home = () => {
 									</Typography>
 									<GameCard games={gamesArray} />
 								</div>
-								<div className="w-full flex justify-center">
-									<PostButton handlePostToggle={handlePostToggle} />
-									{postToggle && (
-										<PostPopUp
-											handlePostToggle={handlePostToggle}
-											userInfo={userInfo}
-											token={token}
-										/>
-									)}
-								</div>
-								<div className="w-full flex justify-between mt-16">
-									<Feed/>
-									<UserComponent />
-								</div>
+				
+							
 							</div>
 						</div>
 					</div>

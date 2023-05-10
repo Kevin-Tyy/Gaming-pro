@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import Navbar from "./components/Fixed/Navbar";
-import Sidebar from "./components/Fixed/Sidebar";
+import Profile from './pages/Profile'
 import Community from "./pages/Community";
 import Collections from "./pages/Collections";
 import News from "./pages/News";
@@ -21,12 +20,13 @@ function App() {
 			<Routes>
 				<Route path="/" element={<Navigate to="/home" />} />
 				<Route path="/home" element={<Home />} />
-				<Route path="/community" element={<Community />} />
-				<Route path="/collections" element={<Collections />} />
-				<Route path="/news" element={<News />} />
+				<Route path="user/community" element={<Community />} />
+				<Route path="user/collections" element={<Collections />} />
+				<Route path="user/news" element={<News />} />
 				<Route path="/games" element={<GamePage />} />
 				<Route path="/games/:id" element={<GameDetails />} />
 				<Route path="/games/search/:searchQuery" element={<SearchPage />} />
+				<Route path="/user/profile" element={<Profile />} />
 				<Route path="/register" element={<Registration />} />
 				<Route path="/login" element={<Login />} />
 			</Routes>

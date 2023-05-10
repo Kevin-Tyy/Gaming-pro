@@ -24,12 +24,12 @@ const Feed = () => {
 		fetchPosts();
 	}, []);
 	return (
-		<div className="flex flex-col w-full mt-14">
+		<div className="flex flex-col w-full my-14">
 			<Typography
 				variant="h5"
 				sx={{ fontFamily: "fantasy" }}
 				className="text-neutral-300 underline text-center">
-				Find friends
+				Your Feed
 			</Typography>
 			<div className="w-full flex justify-center">
 				{posts ? (

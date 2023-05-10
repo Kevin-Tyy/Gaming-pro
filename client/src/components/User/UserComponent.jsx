@@ -16,7 +16,7 @@ const UserComponent = () => {
 		fetchUser();
 	}, []);
 	return (
-		<div>
+		<div className="hidden xl:block">
 			<div className="min-w-md sticky top-0 pt-14">
 				<Typography variant="h5" sx={{ fontFamily : 'fantasy'}} className="text-neutral-300 underline">
 					Find friends
