@@ -8,6 +8,7 @@ import EditProfilePopup from "../components/Popups/EditProfilePopup";
 import axios from "axios";
 import { Typography } from "@mui/material";
 import { Edit } from "@mui/icons-material";
+import placeholderImage from '../pages/images/placeholder.jpg'
 const Profile = () => {
 	const [userName, setUserName] = useState("");
 	const [userEmail, setUserEmail] = useState("");
@@ -67,7 +68,7 @@ const Profile = () => {
 										<div className="bg-gradient-to-r from-sky-400 via-blue-900  to-purple-900 rounded-full p-1">
 											<div className="bg-black rounded-full p-1">
 												<img
-													src={userPhoto}
+													src={userPhoto || placeholderImage}
 													className="rounded-full h-44 w-44 object-cover"
 												/>
 											</div>

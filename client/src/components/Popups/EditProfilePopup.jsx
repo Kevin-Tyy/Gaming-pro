@@ -4,6 +4,7 @@ import axios from "axios";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import { CircularProgress } from "@mui/material";
 import { ToastContainer, toast } from "react-toastify";
+import placeholderImage from '../../pages/images/placeholder.jpg'
 const EditProfilePopup = ({ userInfo, handleProfileToggle , token}) => {
 	
 	const [userName, setUserName] = useState("");
@@ -52,7 +53,7 @@ const EditProfilePopup = ({ userInfo, handleProfileToggle , token}) => {
 
 					<form onSubmit={handleSubmit} className="relative py-10 flex flex-col items-center w-full px-9 ">
 						<img
-							src={ newProfileImage ? newProfileImage : userPhoto }
+							src={ newProfileImage ? newProfileImage : userPhoto || placeholderImage }
 							className="w-44 h-44 object-cover rounded-full"
 						/>
 						<label htmlFor="file" className="cursor-pointer">

@@ -22,6 +22,7 @@ const UserSchema = new mongoose.Schema(
 		uploadImage : {
 			type: String,
 			trim: true,
+			required : false
 		}
 	},
 	{timestamps : true}

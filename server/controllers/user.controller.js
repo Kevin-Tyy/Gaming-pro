@@ -80,12 +80,6 @@ const registerController = async (req, res) => {
 				folder: "user_profiles",
 			});
 
-		}else {
-			const placeholderImagePath = path.resolve(__dirname, './Images/placeholder.jpg');
-			const placeholderImage = fs.readFileSync(placeholderImagePath);
-			uploadedResponse = await cloudinary.v2.uploader.upload(placeholderImage, {
-				folder: "user_profiles",
-			})
 		}
 		console.log(uploadedResponse);
 		const hashedPassword = await bcrypt.hash(password, 10);
@@ -106,7 +100,7 @@ const registerController = async (req, res) => {
 						email: email,
 						password: hashedPassword,
 						username: username,
-						uploadImage: uploadedResponse.secure_url,
+						uploadImage: uploadedResponse?.secure_url,
 					});
 
 					createdUser
