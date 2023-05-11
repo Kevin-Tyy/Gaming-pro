@@ -2,14 +2,16 @@ const {
 	registerValidationSchema,
 	loginValidationSchema,
 } = require("../validation/validationSchema");
-const { cloudinary } = require("../utils/cloudinary");
 const UserModel = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 const jwtSecret = process.env.JWT_SECRET;
 const bcrypt = require("bcryptjs");
 const userModel = require("../models/user.model");
 const PostModel = require("../models/post.model");
-const loginController = async (req, res) => {
+const { cloudinary } = require("../utils/cloudinary");
+const fs = require("fs");
+const path = require("path")
+ const loginController = async (req, res) => {
 	const { error } = loginValidationSchema.validate(req.body);
 	if (error) {
 		const errorMessage = error.details[0].message;
@@ -69,14 +71,24 @@ const registerController = async (req, res) => {
 
 	const { username, password, email, uploadImage } = req.body;
 
-	const fileStr = uploadImage;
-
-	const uploadedResponse = await cloudinary.v2.uploader.upload(fileStr, {
-		folder: "user_profiles",
-	});
-
-	const hashedPassword = await bcrypt.hash(password, 10);
 	try {
+		let uploadedResponse;
+
+		if (uploadImage) {
+			const fileStr = uploadImage;
+			uploadedResponse = await cloudinary.v2.uploader.upload(fileStr, {
+				folder: "user_profiles",
+			});
+
+		}else {
+			const placeholderImagePath = path.resolve(__dirname, './Images/placeholder.jpg');
+			const placeholderImage = fs.readFileSync(placeholderImagePath);
+			uploadedResponse = await cloudinary.v2.uploader.upload(placeholderImage, {
+				folder: "user_profiles",
+			})
+		}
+		console.log(uploadedResponse);
+		const hashedPassword = await bcrypt.hash(password, 10);
 		const user = await UserModel.findOne({ username: username });
 
 		if (user) {
@@ -120,16 +132,18 @@ const registerController = async (req, res) => {
 								}
 							)
 						)
-						.catch((err) => console.log(err));
+						.catch((err) => {
+							res.send({ msg : 'Something went wrong', status : 'bad'})
+							console.log(err)});
 				}
 			} catch (error) {
 				console.log(error);
-				res.send({ message: "Something went wrong", status: "bad" });
+				res.send({ message: "Something went wrong1", status: "bad" });
 			}
 		}
 	} catch (error) {
 		console.log(error);
-		res.send({ message: "Something went wrong", status: "bad" });
+		res.send({ message: "Something went wrong2", status: "bad" });
 	}
 };
 
@@ -152,20 +166,20 @@ const fetchUsers = async (req, res) => {
 	res.send(data);
 };
 const createPost = async (req, res) => {
-	const { postTextData, userId, previewSource , profileImgUrl, profileName} = req.body;
+	const { postTextData, userId, previewSource, profileImgUrl, profileName } =
+		req.body;
 	try {
-		
 		const imagepUloadResponse = await cloudinary.v2.uploader.upload(
 			previewSource,
 			{ folder: "user_posts" }
 		);
-	
+
 		const newPost = new PostModel({
 			creatorId: userId,
 			postText: postTextData,
 			postImage: imagepUloadResponse.secure_url,
-			creatorImgUrl : profileImgUrl,
-			creatorName : profileName
+			creatorImgUrl: profileImgUrl,
+			creatorName: profileName,
 		});
 		newPost
 			.save()
@@ -176,22 +190,44 @@ const createPost = async (req, res) => {
 				console.error(err);
 			});
 	} catch (error) {
-		res.send({ msg : 'Internal server error, please try again later' });
+		res.send({ msg: "Internal server error, please try again later" });
 		console.log(error);
 	}
-
 };
+
 const fetchPosts = async (req, res) => {
-	const data = await PostModel.find().sort({ createdAt : -1});
-	res.send(data)
-}
+	const data = await PostModel.find().sort({ createdAt: -1 });
+	res.send(data);
+};
+
 const updateProfile = async (req, res) => {
-	res.send('request received')
-	const { newUsername , newEmail } = req.body
+	const { newProfileImage, newUsername, newEmail } = req.body;
 	const { userId } = req.data;
-	const oldUser = await UserModel.find({ _id : userId})
-	console.log(oldUser);
-}
+	try {
+		const fileStr = newProfileImage;
+
+		const uploadedResponse = await cloudinary.v2.uploader.upload(fileStr, {
+			folder: "user_profiles",
+		});
+
+		const oldUser = await UserModel.find({ _id: userId });
+		console.log(oldUser);
+		const newUser = await UserModel.findByIdAndUpdate(
+			{ _id: userId },
+			{
+				username: newUsername,
+				email: newEmail,
+				uploadImage: uploadedResponse.secure_url,
+			}
+		);
+		console.log(newUser);
+	} catch (error) {
+		res.send({
+			msg: "Something went wrong, Check your internet connection or try again later.",
+		});
+		console.log(error);
+	}
+};
 module.exports = {
 	loginController,
 	registerController,
@@ -200,5 +236,5 @@ module.exports = {
 	fetchUsers,
 	createPost,
 	fetchPosts,
-	updateProfile
+	updateProfile,
 };

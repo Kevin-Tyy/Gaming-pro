@@ -181,6 +181,7 @@ const Login = () => {
 				</Typography>
 			</form>
 			{isModalVisible && <UploadModal handleToggle={handleToggle} setUploadImage={setUploadImage}/>}
+			<ToastContainer toastStyle={{ backgroundColor: "#111" }} />
 			
 
 		</div>

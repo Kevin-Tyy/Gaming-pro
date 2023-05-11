@@ -3,6 +3,7 @@ import { PersonOutline, EmailOutlined, Close } from "@mui/icons-material";
 import axios from "axios";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import { CircularProgress } from "@mui/material";
+import { ToastContainer, toast } from "react-toastify";
 const EditProfilePopup = ({ userInfo, handleProfileToggle , token}) => {
 	
 	const [userName, setUserName] = useState("");
@@ -24,7 +25,7 @@ const EditProfilePopup = ({ userInfo, handleProfileToggle , token}) => {
 		setLoading(true);
 		console.log('submitting..')
 		const { data } = await axios.put('http://localhost:4000/api/updateprofile' ,
-		 { newUsername, newEmail},
+		 { newUsername, newEmail , newProfileImage},
 		 {
 			headers : {
 				Authorization : 'Bearer ' + token
@@ -34,13 +35,15 @@ const EditProfilePopup = ({ userInfo, handleProfileToggle , token}) => {
 		
 	}
 	const handleFileInput = (e) => {
-		setNewProfileImage(e.target.files[0]);
+		const files = e.target.files[0];
 		const reader = new FileReader()
-		reader.readAsDataURL(newProfileImage);
-		reader.onloadend(()=> {
+		reader.readAsDataURL(files);
+		reader.onloadend= () => {
+			setNewProfileImage (reader.result)
 			console.log(reader.result)
-		})
+		}
 	}
+	
 	return (
 		<div onClick={handleProfileToggle} className=" fixed top-0 bottom-0 right-0 left-0 h-screen w-full bg-neutral-950/70 z-50 flex items-center justify-center">
 			<div onClick={(e)=> e.stopPropagation()} className="bg-neutral-800 w-full max-w-sm rounded-md">
@@ -49,11 +52,11 @@ const EditProfilePopup = ({ userInfo, handleProfileToggle , token}) => {
 
 					<form onSubmit={handleSubmit} className="relative py-10 flex flex-col items-center w-full px-9 ">
 						<img
-							src={userPhoto}
+							src={ newProfileImage ? newProfileImage : userPhoto }
 							className="w-44 h-44 object-cover rounded-full"
 						/>
 						<label htmlFor="file" className="cursor-pointer">
-							<AddAPhotoIcon fontSize="large" className="text-white absolute top-44 right-28" onChange={handleFileInput}/>
+							<AddAPhotoIcon fontSize="large" className="text-white absolute top-44 right-28" />
 						</label>
 						<div className="w-full">
 							<input
@@ -61,6 +64,7 @@ const EditProfilePopup = ({ userInfo, handleProfileToggle , token}) => {
 								accept="image/png, image/jpeg"
 								id="file"
 								className="hidden"
+								onChange={handleFileInput}
 							/>
 							<div className="flex border-2 gap-4 border-white p-2  my-5 rounded-md w-full">
 								<PersonOutline className="text-white " />
