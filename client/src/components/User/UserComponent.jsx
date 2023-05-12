@@ -17,15 +17,15 @@ const UserComponent = () => {
 	}, []);
 	return (
 		<div className="hidden xl:block">
-			<div className="min-w-md sticky top-0 pt-14">
+			<div className="min-w-md sticky top-0 pt-16">
 				<Typography variant="h5" sx={{ fontFamily : 'fantasy'}} className="text-neutral-300 underline">
 					Find friends
 				</Typography>
 				<div className="mt-10">
 
 					{minUserArr.map((user) => (
-						<div className="flex items-center justify-between">
-							<div className="flex items-center gap-4 mb-5" key={user._id}>
+						<div className="flex items-center justify-between pl-2 pt-2 pr-10 transition duration-400 hover:bg-neutral-800/20">
+							<div className="flex items-center gap-4 mb-2" key={user._id}>
 							
 								<img src={user.uploadImage ? user.uploadImage : placeholderImage} alt={user.username} className="w-16 h-16 object-cover rounded-full"/>
 								<div>

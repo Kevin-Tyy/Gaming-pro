@@ -9,6 +9,7 @@ import axios from "axios";
 import { Typography } from "@mui/material";
 import { Edit } from "@mui/icons-material";
 import placeholderImage from '../pages/images/placeholder.jpg'
+import UserPosts from "../components/User/UserPosts";
 const Profile = () => {
 	const [userName, setUserName] = useState("");
 	const [userEmail, setUserEmail] = useState("");
@@ -29,7 +30,7 @@ const Profile = () => {
 		setUserName(data.username);
 		setUserEmail(data.email);
 	};
-
+	
 	useEffect(() => {
 		const token = localStorage.getItem("access_token");
 		setToken(token);
@@ -57,12 +58,12 @@ const Profile = () => {
 					<div className="col-span-7 h-full">
 						<Navbar />
 
-						<div className="h-screen">
+						<div>
 							<img
 								src={coverImage}
 								className="top-0 left-0 right-0 min-h-300 h-40vh object-cover w-full"
 							/>
-							<div className="relative ">
+							<div className="relative">
 								<div className="absolute -top-32 mx-auto w-full flex flex-col justify-center items-center">
 									<div className={`flex flex-col items-center  justify-center ${ postToggle ? 'z-20' : 'z-30' }`}>
 										<div className="bg-gradient-to-r from-sky-400 via-blue-900  to-purple-900 rounded-full p-1">
@@ -82,7 +83,7 @@ const Profile = () => {
 									</div>
 								</div>
 								<div className="flex justify-center">
-									<div className="absolute bg-neutral-900 h-48 w-full z-20 flex justify-center">
+									<div className="absolute bg-neutral-900 h-48 w-full z-20 flex justify-center rounded-xl mr-2">
 										<div onClick={handleProfileToggle} className="text-white absolute rounded-md p-2 top-2 right-2 cursor-pointer flex gap-2 transition duration-100 hover:bg-neutral-800 ">
 											<Edit />
 											Edit profile
@@ -116,6 +117,7 @@ const Profile = () => {
 										)}
 								</div>
 								{profileToggle && <EditProfilePopup userInfo={userInfo} handleProfileToggle={handleProfileToggle} token={token}/>}
+								<UserPosts token={token}/>
 							</div>
 						</div>
 					</div>
