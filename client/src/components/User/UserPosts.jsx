@@ -10,11 +10,12 @@ import {
 	Reply,
 	ThumbUpAltSharp,
 } from "@mui/icons-material";
+import { fetchAPI } from "../../utils/apiFetch";
 const UserPosts = ({ token }) => {
 	const [UserPosts, setUserPosts] = useState([]);
 	const fetchUserPosts = async () => {
 		const { data } = await axios.get(
-			"http://localhost:4000/api/fetchuserposts",
+			`${fetchAPI}/post/fetchuserposts`,
 			{
 				headers: {
 					Authorization: "Bearer " + token,

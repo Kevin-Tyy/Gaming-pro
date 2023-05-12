@@ -6,7 +6,7 @@ import GameCard from "../components/cards/GameCard";
 import Navbar from "../components/Fixed/Navbar";
 import Sidebar from "../components/Fixed/Sidebar";
 import CustomCard from "../components/Cards/CustomCard";
-
+import { fetchAPI } from "../utils/apiFetch";
 import axios from "axios";
 
 const Home = () => {
@@ -44,7 +44,7 @@ const Home = () => {
 	}, []);
 
 	const populateProfile = async (token) => {
-		const { data } = await axios.get("http://localhost:4000/api/getuser", {
+		const { data } = await axios.get(`${fetchAPI}/user/getuser`, {
 			headers: {
 				Authorization: "Bearer " + token,
 			},

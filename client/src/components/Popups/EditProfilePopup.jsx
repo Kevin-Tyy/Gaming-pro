@@ -5,6 +5,7 @@ import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import { CircularProgress, Typography } from "@mui/material";
 import { ToastContainer, toast } from "react-toastify";
 import placeholderImage from '../../pages/images/placeholder.jpg'
+import { fetchAPI } from '../../utils/apiFetch'
 const EditProfilePopup = ({ userInfo, handleProfileToggle , token}) => {
 	
 	const [userName, setUserName] = useState("");
@@ -25,7 +26,7 @@ const EditProfilePopup = ({ userInfo, handleProfileToggle , token}) => {
 		e.preventDefault()
 		setLoading(true);
 		console.log('submitting..')
-		const { data } = await axios.put('http://localhost:4000/api/updateprofile' ,
+		const { data } = await axios.put(`${fetchAPI}/user/updateprofile` ,
 		 { newUsername, newEmail , newProfileImage},
 		 {
 			headers : {

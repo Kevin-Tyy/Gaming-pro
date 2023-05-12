@@ -5,11 +5,11 @@ import PostButton from "../components/Buttons/PostButton";
 import PostPopUp from "../components/Popups/PostPopUp.jsx";
 import Feed from '../components/PostFeed/Feed'
 import UserComponent from "../components/User/UserComponent";
-import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
+
 
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import { fetchAPI } from "../utils/apiFetch";
 const News = () => {
 	const [postToggle, setPostToggle] = useState(false);
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -26,7 +26,7 @@ const News = () => {
 		
 	}, []);
 	const populateProfile = async (token) => {
-		const { data } = await axios.get("http://localhost:4000/api/getuser", {
+		const { data } = await axios.get(`${fetchAPI}/user/getuser`, {
 			headers: {
 				Authorization: "Bearer " + token,
 			},

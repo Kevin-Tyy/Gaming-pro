@@ -12,6 +12,8 @@ import {
 	PeopleAlt,
 } from "@mui/icons-material";
 import axios from "axios";
+import { fetchAPI } from '../../utils/apiFetch'
+
 const PostPopUp = ({ handlePostToggle, userInfo, token }) => {
 	const [profileImgUrl, setprofileImgUrl] = useState("");
 	const [profileName, setprofileName] = useState("");
@@ -31,7 +33,7 @@ const PostPopUp = ({ handlePostToggle, userInfo, token }) => {
 		// if (!previewSource) return;
 		setLoading(true);
 		const { data } = await axios.post(
-			"http://localhost:4000/api/createpost",
+			`${fetchAPI}/post/createpost`,
 			{ postTextData, userId, previewSource,profileImgUrl,profileName},	
 			{
 				headers : {

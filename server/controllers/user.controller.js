@@ -6,11 +6,9 @@ const UserModel = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 const jwtSecret = process.env.JWT_SECRET;
 const bcrypt = require("bcryptjs");
-const userModel = require("../models/user.model");
 const PostModel = require("../models/post.model");
 const { cloudinary } = require("../utils/cloudinary");
-const fs = require("fs");
-const path = require("path");
+
 const loginController = async (req, res) => {
 	const { error } = loginValidationSchema.validate(req.body);
 	if (error) {
@@ -159,49 +157,6 @@ const fetchUsers = async (req, res) => {
 	const data = await userModel.find();
 	res.send(data);
 };
-const createPost = async (req, res) => {
-	const { postTextData, userId, previewSource, profileImgUrl, profileName } =
-		req.body;
-	try {
-		let imagepUloadResponse;
-		if (previewSource) {
-			imagepUloadResponse = await cloudinary.v2.uploader.upload(previewSource, {
-				folder: "user_posts",
-			});
-		}
-		if (imagepUloadResponse) {
-			const newPost = new PostModel({
-				creatorId: userId,
-				postText: postTextData,
-				postImage: imagepUloadResponse?.secure_url,
-				creatorImgUrl: profileImgUrl,
-				creatorName: profileName,
-			});
-			await newPost.save();
-			res.send({ msg: "Post added successfully", status: "ok" });
-		} else {
-			const newPost = new PostModel({
-				creatorId: userId,
-				postText: postTextData,
-				creatorImgUrl: profileImgUrl,
-				creatorName: profileName,
-			});
-			await newPost.save();
-			res.send({ msg: "Post added successfully", status: "ok" });
-		}
-	} catch (error) {
-		res.send({
-			msg: "Something went wrong. Please try again later",
-			status: "bad",
-		});
-		console.log(error);
-	}
-};
-
-const fetchPosts = async (req, res) => {
-	const data = await PostModel.find().sort({ createdAt: -1 });
-	res.send(data);
-};
 
 const updateProfile = async (req, res) => {
 	const { newProfileImage, newUsername, newEmail } = req.body;
@@ -261,22 +216,12 @@ const updateProfile = async (req, res) => {
 		console.log(error);
 	}
 };
-const fetchUserPosts = async (req, res) => {
-	console.log(req.data);
-	const { userId } = req.data;
-	const data = await PostModel.find({ creatorId: userId }).sort({
-		createdAt: -1,
-	});
-	res.send(data);
-};
 module.exports = {
 	loginController,
 	registerController,
 	protectedroute,
 	getUserInfo,
 	fetchUsers,
-	createPost,
-	fetchPosts,
 	updateProfile,
-	fetchUserPosts,
+
 };

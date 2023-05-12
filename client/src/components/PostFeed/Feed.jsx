@@ -10,14 +10,14 @@ import {
 	Reply,
 	ThumbUpAltSharp,
 } from "@mui/icons-material";
-
+import { fetchAPI } from "../../utils/apiFetch";
 const Feed = () => {
 	const [posts, setPosts] = useState();
 
 	const options = { year: "numeric", month: "long", day: "numeric" };
 	useEffect(() => {
 		const fetchPosts = async () => {
-			const { data } = await axios.get("http://localhost:4000/api/getposts");
+			const { data } = await axios.get(`${fetchAPI}/post/getposts`);
 			setPosts(data);
 			console.log(data);
 		};

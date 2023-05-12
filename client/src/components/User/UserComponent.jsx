@@ -3,11 +3,12 @@ import axios from "axios";
 import { Typography } from "@mui/material";
 import placeholderImage from '../../pages/images/placeholder.jpg'
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import { fetchAPI } from "../../utils/apiFetch";
 const UserComponent = () => {
 	const [userArr, setUserArr] = useState([]);
 	const [minUserArr, setMinUserArr] = useState([]);
 	const fetchUser = async () => {
-		const response = await axios.get("http://localhost:4000/api/fetchUsers");
+		const response = await axios.get(`${fetchAPI}/user/fetchUsers`);
 		const { data } = response;
 		setUserArr(data);
 		setMinUserArr(data.slice(0, 10));

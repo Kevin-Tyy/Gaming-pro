@@ -1,15 +1,12 @@
 const express = require('express');
-const router = express.Router();
-const {registerController, loginController, protectedroute , getUserInfo , fetchUsers, createPost, fetchPosts, updateProfile, fetchUserPosts } = require('../controllers/user.controller')
+const userRouter = express.Router();
+const {registerController, loginController, protectedroute , getUserInfo , fetchUsers, updateProfile} = require('../controllers/user.controller')
 const jwtAuth = require('../middlewares/jwtAuth')
 
-router.post('/register', registerController )
-router.post('/login', loginController)
-router.post('/protectedroute' , jwtAuth, protectedroute);
-router.get('/getuser',jwtAuth , getUserInfo);
-router.get('/fetchUsers', fetchUsers)
-router.post('/createpost', jwtAuth, createPost);
-router.get('/getposts' , fetchPosts);
-router.put('/updateprofile' , jwtAuth , updateProfile);
-router.get('/fetchuserposts', jwtAuth , fetchUserPosts);
-module.exports = router;
+userRouter.post('/register', registerController )
+userRouter.post('/login', loginController)
+userRouter.post('/protectedroute' , jwtAuth, protectedroute);
+userRouter.get('/getuser',jwtAuth , getUserInfo);
+userRouter.get('/fetchUsers', fetchUsers)
+userRouter.put('/updateprofile' , jwtAuth , updateProfile);
+module.exports = userRouter;

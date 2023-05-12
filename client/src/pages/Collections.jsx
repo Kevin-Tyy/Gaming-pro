@@ -3,11 +3,12 @@ import Navbar from "../components/Fixed/Navbar";
 import Sidebar from "../components/Fixed/Sidebar";
 import { useNavigate } from "react-router-dom";
 import AuthPopUp from "../components/Popups/AuthenticationPopup";
+import { fetchAPI } from "../utils/apiFetch";
 const Collections = (props) => {
 	const navigate = useNavigate();
 	const populateDashboard = async () => {
 		const token = localStorage.getItem("token");
-		const data = await axios.get("http://localhost:4000/api/protectedroute", {
+		const data = await axios.get(`${fetchAPI}/user/protectedroute`, {
 			headers: {
 				Authorization: "Bearer " + token,
 			},

@@ -10,6 +10,7 @@ import GameDetails from "./pages/GameDetails";
 import SearchPage from "./pages/SearchPage";
 import Registration from "./pages/Auth/Registration";
 import Login from "./pages/Auth/Login";
+
 function App() {
 	console.info(
 		"%c Hello developer,👋👋👋 Welcome to GameGeekz🎮",	

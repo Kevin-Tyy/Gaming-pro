@@ -6,10 +6,10 @@ import { Settings } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
 import {IconButton} from "@mui/material";
 import placeholderimage from '../../pages/images/placeholder.jpg'
-import { data } from "autoprefixer";
 import axios from "axios";
 import ProfilePopup from "../Popups/ProfilePopup";
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import { fetchAPI } from "../../utils/apiFetch";
 
 const Navbar = () => {
 	const [loading, setLoading] = useState(true);
@@ -21,7 +21,7 @@ const Navbar = () => {
 	const [isNotificationSelected , setIsNotificationSelected ] = useState(false)
 
 	const populateProfile = async (token) => {
-		const { data } = await axios.get("http://localhost:4000/api/getuser", {
+		const { data } = await axios.get(`${fetchAPI}/user/getuser`, {
 			headers: {
 				Authorization: "Bearer " + token,
 			},

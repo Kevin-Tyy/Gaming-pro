@@ -10,6 +10,7 @@ import { Typography } from "@mui/material";
 import { Edit } from "@mui/icons-material";
 import placeholderImage from '../pages/images/placeholder.jpg'
 import UserPosts from "../components/User/UserPosts";
+import { fetchAPI } from "../utils/apiFetch";
 const Profile = () => {
 	const [userName, setUserName] = useState("");
 	const [userEmail, setUserEmail] = useState("");
@@ -20,7 +21,7 @@ const Profile = () => {
 	const [token , setToken] = useState("")
 
 	const populateProfile = async (token) => {
-		const { data } = await axios.get("http://localhost:4000/api/getuser", {
+		const { data } = await axios.get(`${fetchAPI}/user/getuser`, {
 			headers: {
 				Authorization: "Bearer " + token,
 			},
