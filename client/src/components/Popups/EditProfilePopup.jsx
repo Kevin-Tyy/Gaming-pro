@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { PersonOutline, EmailOutlined, Close } from "@mui/icons-material";
 import axios from "axios";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, Typography } from "@mui/material";
 import { ToastContainer, toast } from "react-toastify";
 import placeholderImage from '../../pages/images/placeholder.jpg'
 const EditProfilePopup = ({ userInfo, handleProfileToggle , token}) => {
@@ -32,6 +32,16 @@ const EditProfilePopup = ({ userInfo, handleProfileToggle , token}) => {
 				Authorization : 'Bearer ' + token
 			}	
 		})
+		if(data.status === 'bad'){
+			toast.error(data.msg , {
+				position : toast.POSITION.TOP_RIGHT
+			})
+		}
+		else{
+			toast.success(data.msg , {
+				position : toast.POSITION.TOP_RIGHT
+			})
+		}
 		setLoading(false)
 		
 	}
@@ -52,12 +62,15 @@ const EditProfilePopup = ({ userInfo, handleProfileToggle , token}) => {
 					<Close onClick={handleProfileToggle} fontSize="large" className="text-white absolute top-2 right-2 p-1 hover:bg-neutral-700 cursor-pointer rounded-full z-20 "/>
 
 					<form onSubmit={handleSubmit} className="relative py-10 flex flex-col items-center w-full px-9 ">
+						<Typography sx={{ pb : '20px', mb: '20px' , fontWeight : 900}} className="text-neutral-400 border-b border-neutral-600 w-full text-center ">
+							Update your profile
+						</Typography>
 						<img
 							src={ newProfileImage ? newProfileImage : userPhoto || placeholderImage }
 							className="w-44 h-44 object-cover rounded-full"
 						/>
 						<label htmlFor="file" className="cursor-pointer">
-							<AddAPhotoIcon fontSize="large" className="text-white absolute top-44 right-28" />
+							<AddAPhotoIcon fontSize="large" className="text-white absolute top-60 right-28" />
 						</label>
 						<div className="w-full">
 							<input
@@ -87,11 +100,13 @@ const EditProfilePopup = ({ userInfo, handleProfileToggle , token}) => {
 									required={true}
 								/>
 							</div>
-							<button type="submit" disabled={ !newEmail && !newUsername && loading} className="p-2  my-5 bg-violet-950 text-white rounded-md cursor-pointer w-full transition duration-200 hover:bg-violet-900">
-								{loading ? "Loading ...	" : "Save"}
+							<button type="submit" disabled={ !newEmail && !newUsername && loading} className="p-2 my-5 bg-violet-950 text-white rounded-md cursor-pointer w-full transition duration-200 hover:bg-violet-900">
+								{loading ? <p className="text-neutral-400">Submitting...</p> : "Save"}
 							</button>
+							<p className="text-neutral-500 underline cursor-pointer text-center" onClick={handleProfileToggle}>Cancel</p>
 						</div>
 					</form>
+					<ToastContainer toastStyle={{ backgroundColor: "#222", color : '#fff', fontFamily : 'revert', borderRadius : '10px' }}/>
 				</div>
 			</div>
 		</div>

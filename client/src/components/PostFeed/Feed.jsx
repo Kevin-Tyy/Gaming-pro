@@ -13,7 +13,7 @@ import {
 
 const Feed = () => {
 	const [posts, setPosts] = useState();
-	
+
 	const options = { year: "numeric", month: "long", day: "numeric" };
 	useEffect(() => {
 		const fetchPosts = async () => {
@@ -67,10 +67,12 @@ const Feed = () => {
 									{post.postText}
 								</Typography>
 								<div className="max-w-lg">
-									<img
-										src={post.postImage}
-										className="w-full h-96 object-cover"
-									/>
+									{post.postImage && (
+										<img
+											src={post.postImage}
+											className="w-full h-96 object-cover"
+										/>
+									)}
 								</div>
 								<div className="flex justify-between px-4 pt-2">
 									<div className="flex gap-3">
@@ -92,7 +94,7 @@ const Feed = () => {
 												placeholder="Add a comment"></input>
 											<SendOutlined
 												fontSize="large"
-												className="text-white cursor-pointer rounded-full hover:bg-neutral-800 p-1"
+												className="text-white cursor-pointer rounded-full hover:bg-neutral-800 p-2"
 											/>
 										</div>
 									</form>

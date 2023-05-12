@@ -106,6 +106,7 @@ const Profile = () => {
 											handlePostToggle={handlePostToggle}
 											userInfo={userInfo}
 										/>
+									</div>
 										{postToggle && (
 											<PostPopUp
 												handlePostToggle={handlePostToggle}
@@ -113,7 +114,6 @@ const Profile = () => {
 												token={token}
 											/>
 										)}
-									</div>
 								</div>
 								{profileToggle && <EditProfilePopup userInfo={userInfo} handleProfileToggle={handleProfileToggle} token={token}/>}
 							</div>

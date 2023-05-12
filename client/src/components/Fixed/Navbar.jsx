@@ -112,7 +112,7 @@ const Navbar = () => {
 						{isNotificationSelected ? <NotificationsIcon/> : <NotificationsNoneIcon/>}
 							</span>
 
-							<span className="bg-blue-800 rounded-full cursor-pointer hover:bg-blue-700  w-10 h-10 flex items-center justify-center">
+							<span className="bg-violet-800 rounded-full cursor-pointer hover:bg-violet-700  w-10 h-10 flex items-center justify-center">
 								<Settings sx={{ fontSize: 38 }} className="text-white px-2"/>
 							</span>
 							<div onClick={handlePopUpShow} className="bg-gradient-to-r from-sky-600 via-blue-700 to-violet-800 rounded-full p-2px cursor-pointer">

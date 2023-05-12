@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import placeholderImage from "../../pages/images/placeholder.jpg";
 import { CircularProgress, Typography } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import { ToastContainer , toast } from "react-toastify";
 import {
 	CloseSharp,
 	EmojiEmotionsOutlined,
@@ -38,6 +39,18 @@ const PostPopUp = ({ handlePostToggle, userInfo, token }) => {
 				}
 			}
 		);
+		console.log(data)
+		if(data.status === "bad"){
+			toast.error(data.msg, {
+				position : toast.POSITION.TOP_RIGHT
+			})
+		}
+		else{
+			toast.success(data.msg , {
+				position : toast.POSITION.TOP_RIGHT
+			})
+		}
+		
 		setLoading(false);
 	};
 
@@ -52,7 +65,7 @@ const PostPopUp = ({ handlePostToggle, userInfo, token }) => {
 	return (
 		<div
 			onClick={handlePostToggle}
-			className="h-screen w-screen fixed top-0 bottom-0 right-0 left-0 bg-neutral-950/90   flex justify-center items-center z-50">
+			className="h-screen w-full fixed top-0 bottom-0 right-0 left-0 bg-neutral-950/90  flex justify-center items-center z-50">
 			<div
 				onClick={(e) => e.stopPropagation()}
 				className="bg-neutral-800 w-full max-w-lg h-auto rounded-xl border border-neutral-700 px-5">
@@ -88,6 +101,7 @@ const PostPopUp = ({ handlePostToggle, userInfo, token }) => {
 				<form onSubmit={handlePostSubmit}>
 					<div>
 						<textarea
+							required="true"
 							placeholder={`What's on your mind, ${profileName ? profileName : ''}?`}
 							onChange={(e) => setPostTextData(e.target.value)}
 							className={`resize-none w-full bg-transparent outline-none text-white text-xl ${
@@ -138,6 +152,7 @@ const PostPopUp = ({ handlePostToggle, userInfo, token }) => {
 					</button>
 				</form>
 			</div>
+			<ToastContainer toastStyle={{ backgroundColor : '#222' , color : '#fff', fontFamily : 'revert', borderRadius : '10px' }}/>
 		</div>
 	);
 };

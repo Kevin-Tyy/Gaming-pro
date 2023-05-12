@@ -148,7 +148,7 @@ const Login = () => {
 					</Link>
 				</Typography>
 			</form>
-			<ToastContainer toastStyle={{ backgroundColor: "#111" }} />
+			<ToastContainer toastStyle={{ backgroundColor: "#222", color : '#fff', fontFamily : 'revert', borderRadius : '10px' }}/>
 		</div>
 	);
 };

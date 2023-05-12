@@ -160,31 +160,44 @@ const fetchUsers = async (req, res) => {
 	res.send(data);
 };
 const createPost = async (req, res) => {
-	const { postTextData, userId, previewSource, profileImgUrl, profileName } =
-		req.body;
+	const { postTextData, userId, previewSource, profileImgUrl, profileName } =req.body;
 	try {
-		const imagepUloadResponse = await cloudinary.v2.uploader.upload(
-			previewSource,
-			{ folder: "user_posts" }
-		);
+		let imagepUloadResponse
+		if(previewSource){
 
-		const newPost = new PostModel({
-			creatorId: userId,
-			postText: postTextData,
-			postImage: imagepUloadResponse.secure_url,
-			creatorImgUrl: profileImgUrl,
-			creatorName: profileName,
-		});
-		newPost
-			.save()
-			.then((savedData) => {
-				res.send({ msg: "Post added successfully" });
-			})
-			.catch((err) => {
-				console.error(err);
+		imagepUloadResponse = await cloudinary.v2.uploader.upload(
+				previewSource,
+				{ folder: "user_posts" }
+			);
+		}
+		if(imagepUloadResponse){
+
+			const newPost = new PostModel({
+				creatorId: userId,
+				postText: postTextData,
+				postImage: imagepUloadResponse?.secure_url,
+				creatorImgUrl: profileImgUrl,
+				creatorName: profileName,
 			});
+			await newPost
+				.save()			
+				res.send({ msg: "Post added successfully" , status: 'ok' });
+		}
+		else{
+			
+			const newPost = new PostModel({
+				creatorId: userId,
+				postText: postTextData,
+				creatorImgUrl: profileImgUrl,
+				creatorName: profileName,
+			});
+			await newPost
+				.save()			
+				res.send({ msg: "Post added successfully" , status: 'ok' });
+		}
+
 	} catch (error) {
-		res.send({ msg: "Internal server error, please try again later" });
+		res.send({ msg: "Something went wrong. Please try again later" , status: 'bad' });
 		console.log(error);
 	}
 };
@@ -198,26 +211,46 @@ const updateProfile = async (req, res) => {
 	const { newProfileImage, newUsername, newEmail } = req.body;
 	const { userId } = req.data;
 	try {
-		const fileStr = newProfileImage;
+		let uploadedResponse
+		
+		if(newProfileImage){
+			const fileStr = newProfileImage;
+			uploadedResponse = await cloudinary.v2.uploader.upload(fileStr, {
+				folder: "user_profiles",
+			});
 
-		const uploadedResponse = await cloudinary.v2.uploader.upload(fileStr, {
-			folder: "user_profiles",
-		});
-
-		const oldUser = await UserModel.find({ _id: userId });
-		console.log(oldUser);
-		const newUser = await UserModel.findByIdAndUpdate(
-			{ _id: userId },
-			{
-				username: newUsername,
-				email: newEmail,
-				uploadImage: uploadedResponse.secure_url,
+		}
+		const user = await UserModel.findOne({ username : newUsername})
+		console.log(user);
+		if(user){	
+			res.send({ msg : `Username ${newUsername} is not available` , status : 'bad'})
+		}
+		else{
+			const user = await UserModel.findOne({ email : newEmail})
+			if(user){
+				res.send({ msg : `Email ${newEmail} is already in use` , status : 'bad' })
 			}
-		);
-		console.log(newUser);
+			else{
+				
+				const newUser = await UserModel.findByIdAndUpdate(
+					{ _id: userId },
+					{
+						username: newUsername,
+						email: newEmail,
+						uploadImage: uploadedResponse?.secure_url,
+					}
+				);
+				console.log(newUser);
+				
+				res.send({ msg : 'Profile updated successfully' , status: 'ok' , user : newUser})
+
+			}
+
+		}
 	} catch (error) {
 		res.send({
 			msg: "Something went wrong, Check your internet connection or try again later.",
+			status : 'bad'
 		});
 		console.log(error);
 	}
