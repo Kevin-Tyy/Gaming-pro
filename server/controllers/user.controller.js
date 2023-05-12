@@ -154,7 +154,7 @@ const getUserInfo = async (req, res) => {
 const protectedroute = (req, res) => {};
 
 const fetchUsers = async (req, res) => {
-	const data = await userModel.find();
+	const data = await UserModel.find();
 	res.send(data);
 };
 

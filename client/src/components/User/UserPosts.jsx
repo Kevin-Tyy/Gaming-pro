@@ -34,11 +34,11 @@ const UserPosts = ({ token }) => {
 	return (
 			<div className="flex justify-center">
 				{UserPosts ? (
-					<div>
+					<div className="w-full flex flex-col items-center">
 						{UserPosts.map((post) => (
 							<div
 								key={post._id}
-								className=" border border-neutral-700 my-5 rounded-lg bg-neutral-950">
+								className=" border border-neutral-700 my-5 rounded-lg bg-neutral-950 w-full max-w-lg">
 								<div className="flex items-center justify-between w-full p-4 border-b border-neutral-700">
 									<div className="flex items-center justify-between gap-2">
 										<img

@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Close, Edit, Feed, Logout, PersonOutlined } from "@mui/icons-material";
 import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
 import { Link, useNavigate } from "react-router-dom";
-
+import placeholderImage from '../../pages/images/placeholder.jpg'
 const popupdata = [
 	{ icon: <Feed />, title: "Go to feed", link: "/user/news" },
 	{
@@ -20,13 +20,16 @@ const popupdata = [
 		},
 	},
 ];
-const ProfilePopup = ({ handlePopUpShow }) => {
+const ProfilePopup = ({ handlePopUpShow , userInfo}) => {
 	const navigate = useNavigate();
 	const handleLogout = () => {
 		localStorage.removeItem("access_token");
         localStorage.setItem('logged_in', false);
 		navigate("/home");
 	};
+	useEffect(()=> {
+		console.log(userInfo)
+	})
 	return (
 		<div className="fixed right-16 top-14 bg-neutral-950 p-2 text-white rounded-b-2xl rounded-tl-2xl">
 			<Close
@@ -34,6 +37,13 @@ const ProfilePopup = ({ handlePopUpShow }) => {
 				onClick={handlePopUpShow}
 				className="cursor-pointer absolute top-0 right-0 p-1 hover:bg-neutral-800 rounded-full m-1"
 			/>
+			<div className="flex">
+				<img src={userInfo?.uploadImage || placeholderImage} className="w-10 h-10 rounded-full object-cover"/>
+				<div>
+					<span>Logged in as : {userInfo.username}</span>
+				</div>
+
+			</div>
 			<ul className="mt-4">
 				<li className="py-3 px-7 hover:bg-neutral-900 rounded-md cursor-pointer">
 					<Link to={popupdata[0].link} className="flex gap-3 ">

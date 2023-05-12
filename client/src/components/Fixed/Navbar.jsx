@@ -19,6 +19,7 @@ const Navbar = () => {
 	const [token , setToken] = useState("");
 	const [profilePopup, setprofilePopup] = useState();
 	const [isNotificationSelected , setIsNotificationSelected ] = useState(false)
+	const [userInfo , setUseInfo] = useState({})
 
 	const populateProfile = async (token) => {
 		const { data } = await axios.get(`${fetchAPI}/user/getuser`, {
@@ -26,6 +27,7 @@ const Navbar = () => {
 				Authorization: "Bearer " + token,
 			},
 		});
+		setUseInfo(data)
 		setprofileImgUrl(data.uploadImage)
 
 	};
@@ -60,7 +62,7 @@ const Navbar = () => {
 		<React.Fragment>
 			<div className="w-full flex bg-gradient-to-l from-black via-black/80 to-black/0 backdrop-blur-md text-white p-2  justify-between md:px-10 sticky top-0 z-40">
 			
-			{profilePopup && <ProfilePopup handlePopUpShow={handlePopUpShow}/>}
+			{profilePopup && <ProfilePopup handlePopUpShow={handlePopUpShow} userInfo={userInfo}/>}
 				{loading ? (
 					<div className="flex items-center">
 						<Paper
