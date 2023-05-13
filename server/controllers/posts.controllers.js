@@ -48,7 +48,6 @@ const fetchPosts = async (req, res) => {
 
 
 const fetchUserPosts = async (req, res) => {
-	console.log(req.data);
 	const { userId } = req.data;
 	const data = await PostModel.find({ creatorId: userId }).sort({
 		createdAt: -1,

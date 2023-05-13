@@ -67,7 +67,7 @@ const Sidebar = () => {
 				)}
 
 				{loading ? (
-					<div className="md:mb-80 flex items-center md:block ">
+					<div className="md:mb-60 flex items-center md:block ">
 						{SidebarContent.map((content) => (
 							<NavLink to={content.link} key={content.link}>
 								<div className="flex gap-2 my-3 items-center md:py-2 md:pl-2 mx-3 rounded-lg transition duration-300 hover:bg-neutral-800/60 shadow-neutral-900 shadow-sm">

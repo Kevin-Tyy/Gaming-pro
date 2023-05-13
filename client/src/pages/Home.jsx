@@ -40,7 +40,6 @@ const Home = () => {
 			populateProfile(token);
 			setIsLoggedIn(true);
 		}
-		
 	}, []);
 
 	const populateProfile = async (token) => {
@@ -52,7 +51,6 @@ const Home = () => {
 		setUserInfo(data);
 	};
 
-	
 	const handlePostToggle = () => {
 		setPostToggle(!postToggle);
 	};
@@ -77,9 +75,9 @@ const Home = () => {
 						<div>
 							<div className="lg:p-10">
 								<div className="h-screen flex flex-col lg:flex-row justify-center items-start gap-4">
-									<div className="h-96  lg:h-700 w-4/5 relative flex items-start md:items-center justify-center">
-										<div className="w-full h-3/5 max-w-5xl rounded-3xl p-10">
-											<Typography variant="h2" sx={{ fontFamily: "fantasy" }}>
+									<div className="h-96  lg:h-700 w-full relative flex items-start md:items-center ">
+										<div className="w-full h-3/5 max-w-5xl rounded-3xl p-2 md:p-10">
+											<Typography  sx={{ fontFamily: "fantasy", fontSize : { xs : '30px', sm: '40px' , md: '50px' , lg : '60px'} }}>
 												<span className="text-transparent  text-center bg-gradient-to-r from-blue-800 via-sky-700 to-violet-950 bg-clip-text">
 													Games, unnecessary obstacles that we volunteer to
 													tackle.
@@ -101,18 +99,8 @@ const Home = () => {
 											</button>
 										</div>
 									</div>
-									<div className="w-full max-w-sm px-5 pb-5 pt-2 rounded-xl  border-gradient-to-r hidden lg:block">
-										<Typography
-											variant="body1"
-											sx={{ color: "white", ml: 2 }}
-											className="border-b-4 border-black/30-700 w-32 ">
-											Popular games
-										</Typography>
-										<div className=" flex flex-row lg:flex-col gap-3">
-											<CustomCard imagePosterObj={imagePosterObj} />
-										</div>
-									</div>
 								</div>
+					
 								<div>
 									<Typography
 										sx={{
@@ -125,8 +113,6 @@ const Home = () => {
 									</Typography>
 									<GameCard games={gamesArray} />
 								</div>
-				
-							
 							</div>
 						</div>
 					</div>

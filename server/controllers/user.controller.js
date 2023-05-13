@@ -78,7 +78,6 @@ const registerController = async (req, res) => {
 				folder: "user_profiles",
 			});
 		}
-		console.log(uploadedResponse);
 		const hashedPassword = await bcrypt.hash(password, 10);
 		const user = await UserModel.findOne({ username: username });
 

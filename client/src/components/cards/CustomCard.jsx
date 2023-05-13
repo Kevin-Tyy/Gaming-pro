@@ -3,7 +3,7 @@ import { Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 const CustomCard = ({imagePosterObj}) => {
 	return (
-		<div>
+		<div className="flex">
 			{imagePosterObj.map((posterObj, index) => (
 				<div
 					className="relative flex flex-col items-center w-full p-4 rounded-md"
