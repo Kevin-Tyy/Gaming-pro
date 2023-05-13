@@ -17,7 +17,7 @@ const GameCard = ({ games }) => {
 						<div className="w-full flex flex-col gap-4 py-3 px-6 justify-center items-start backdrop-blur-md rounded-b-lg">
 							<div>
 								<Typography className="text-white whitespace-nowrap ">{item.name}</Typography>
-								<Rating value={item.rating} precision={0.5} readOnly size='small'/>
+								<Rating value={parseInt(item.rating)} precision={0.5} readOnly size='small'/>
 								<Typography className="text-neutral-400">
 									<span className="text-blue-600 font-black">
 										{item.ratings_count}{" "}

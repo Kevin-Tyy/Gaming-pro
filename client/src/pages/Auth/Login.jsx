@@ -16,6 +16,7 @@ import gmail from "./gmail.png";
 import axios from "axios";
 import { auth, provider } from "../../config/firebase";
 import { signInWithPopup } from "firebase/auth";
+import { fetchAPI } from "../../utils/apiFetch";
 
 const Login = () => {
 	const [username, setUsername] = useState("");
@@ -28,7 +29,7 @@ const Login = () => {
 		e.preventDefault();
 		setLoading(true);
 
-		const response = await axios.post("http://localhost:4000/api/login", {
+		const response = await axios.post(`${fetchAPI}/user/login`, {
 			username,
 			password,
 		});

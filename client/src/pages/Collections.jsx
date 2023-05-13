@@ -1,20 +1,66 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/Fixed/Navbar";
 import Sidebar from "../components/Fixed/Sidebar";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AuthPopUp from "../components/Popups/AuthenticationPopup";
 import { fetchAPI } from "../utils/apiFetch";
+import axios from "axios";
+import { CircularProgress, Rating, Typography } from "@mui/material";
+import { SportsEsportsOutlined } from "@mui/icons-material";
+import { toast, ToastContainer } from "react-toastify";
 const Collections = (props) => {
 	const navigate = useNavigate();
-	const populateDashboard = async () => {
-		const token = localStorage.getItem("token");
-		const data = await axios.get(`${fetchAPI}/user/protectedroute`, {
+	const [token, setToken] = useState("");
+	const [gameId, setGameId] = useState("");
+	const [savedGames, setSavedGames] = useState([]);
+	const populatePage = async () => {
+		const { data } = await axios.get(`${fetchAPI}/game/fetchsavedgames`, {
 			headers: {
 				Authorization: "Bearer " + token,
 			},
 		});
+		console.log(data);
+		setSavedGames(data.games);
+		setGameId(data.games[0]?.gameId)
 	};
 
+	const handleRemove = async () => {
+		const { data } = await axios.post(
+			`${fetchAPI}/game/removegame`,
+			{ gameId },
+			{
+				headers: {
+					Authorization: "Bearer " + token,
+				},
+			}
+		);
+		
+		if (data.status == "ok") {
+			toast.success(data.msg, {
+				position: toast.POSITION.TOP_RIGHT,
+			});
+
+			localStorage.removeItem("savedGame");
+			localStorage.setItem("savedGame", false);
+
+		} else if (data.status == "warning") {
+			toast.warning(data.msg, {
+				position: toast.POSITION.TOP_RIGHT,
+			});
+		} else {
+			toast.error(data.msg, {
+				position: toast.POSITION.TOP_RIGHT,
+			});
+		}
+	};
+	useEffect(() => {
+		const access_token = localStorage.getItem("access_token");
+		setToken(access_token);
+
+		if (token) {
+			populatePage();
+		}
+	}, [token]);
 	return (
 		<div>
 			<div className="h-full bg-light w-full">
@@ -25,8 +71,81 @@ const Collections = (props) => {
 					<div className="col-span-7 h-full">
 						<Navbar />
 
-						<div>Collections</div>
+						<div>
+							{savedGames && (
+								
+								<div className="p-6">
+									{savedGames.map((game) => (
+										<div
+											key={game._id}
+											className="h-80 p-5 my-5 bg-neutral-800 flex justify-between items-center rounded-lg">
+											<img
+												src={game.gameImgUrl}
+												alt="image"
+												className="h-full w-96 object-cover"
+											/>
+											<div>
+												<Typography className="text-white">
+													Name :{" "}
+													<span className="text-neutral-400">
+														{game.gameName}
+													</span>
+												</Typography>
+												<Typography className="text-white">
+													Developers :{" "}
+													{game.developers.map((dev, index) => (
+														<span key={index} className="text-neutral-400">
+															{dev}
+														</span>
+													))}
+												</Typography>
+												<Typography className="text-white">
+													Released at :{" "}
+													<span className="text-neutral-400">
+														{game.releaseDate}
+													</span>
+												</Typography>
+												<Typography className="text-white">
+													Rating :{" "}
+													<span className="text-neutral-400">
+														{game.gameRating}/5
+													</span>
+												</Typography>
+												<Rating value={parseInt(game.gameRating)} />
+											</div>
+											<div className="flex flex-col gap-3">
+												<button
+													onClick={handleRemove}
+													className="bg-red-500 text-white p-3 ">
+													Remove from your saved Games
+												</button>
+												<Link to={`/games/${game.gameId}`}>
+													<button className="py-3 bg-neutral-950/50 w-full text-white flex gap-2 justify-center transition duration-500 hover:bg-neutral-950">
+														<SportsEsportsOutlined />
+														View game
+													</button>
+												</Link>
+												<a href={game.website} target="blank">
+													<button className="py-3 bg-neutral-950/50 w-full text-white flex gap-2 justify-center transition duration-500 hover:bg-neutral-950">
+														<SportsEsportsOutlined />
+														Play game
+													</button>
+												</a>
+											</div>
+										</div>
+									))}
+								</div>
+							)}
+						</div>
 					</div>
+					<ToastContainer
+						toastStyle={{
+							backgroundColor: "#222",
+							color: "#fff",
+							fontFamily: "revert",
+							borderRadius: "6px",
+						}}
+					/>
 				</div>
 			</div>
 		</div>

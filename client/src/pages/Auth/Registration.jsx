@@ -17,6 +17,7 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { auth , provider } from "../../config/firebase"
 import { signInWithPopup } from "firebase/auth";
+import { fetchAPI } from "../../utils/apiFetch";
 import UploadModal from './UploadModal'
 
 const Login = () => {
@@ -32,7 +33,7 @@ const Login = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		setLoading(true);
-		const response = await axios.post("http://localhost:4000/api/register", {
+		const response = await axios.post(`${fetchAPI}/api/register`, {
 			username,
 			email,
 			password,

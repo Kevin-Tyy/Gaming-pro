@@ -13,19 +13,19 @@ const PostButton = ({ handlePostToggle, userInfo }) => {
 					<div className="flex-1">
 						<div
 							onClick={handlePostToggle}
-							className="text-neutral-500 bg-neutral-900/40 py-3 px-5 rounded-full w-full cursor-pointer transition duration-300 hover:bg-neutral-700">
+							className="text-neutral-500 bg-neutral-900/40 py-3 px-5 rounded-full w-full cursor-pointer transition duration-300 hover:bg-neutral-700 whitespace-nowrap">
 							What's on your mind, {userInfo.username}?
 						</div>
 					</div>
 				</div>
 				<div className="flex gap-3">
-					<div onClick={handlePostToggle} className="text-white transition duration-300 hover:bg-neutral-700 w-1/3 py-3 flex justify-center rounded-md gap-3 cursor-pointer">
+					<div onClick={handlePostToggle} className="text-white transition duration-300 hover:bg-neutral-700 w-1/3 py-3 flex justify-center rounded-md gap-1 md:gap-3 cursor-pointer whitespace-nowrap">
 						<Image className="text-green-500 "/> Photo
 					</div>
-					<div onClick={handlePostToggle} className="text-white transition duration-300 hover:bg-neutral-700 w-1/3 py-3 flex justify-center rounded-md gap-3 cursor-pointer">
+					<div onClick={handlePostToggle} className="text-white transition duration-300 hover:bg-neutral-700 w-1/3 py-3 flex justify-center rounded-md gap-1 md:gap-3 cursor-pointer whitespace-nowrap">
 						<VideoCall className="text-violet-600 "/> Live video
 					</div>
-					<div onClick={handlePostToggle} className="text-white transition duration-300 hover:bg-neutral-700 w-1/3 py-3 flex justify-center rounded-md gap-3 cursor-pointer">
+					<div onClick={handlePostToggle} className="text-white transition duration-300 hover:bg-neutral-700 w-1/3 py-3 flex justify-center rounded-md gap-1 md:gap-3 cursor-pointer whitespace-nowrap">
 						<EmojiEmotionsOutlined className="text-yellow-500"/> Feeling
 					</div>	
 				</div>

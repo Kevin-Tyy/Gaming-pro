@@ -17,7 +17,8 @@ import Comments from "../components/DetailComponents/Comments";
 
 const GameDetails = () => {
 	const [gameDetails, setGameDetails] = useState([]);
-	const [suggested, setSuggested] = useState([]);
+	const [token, setToken] = useState([]);
+
 	const [screenShots, setScreenShots] = useState([]);
 	const [toggleModal, setToggleModal] = useState(false);
 	const { id } = useParams();
@@ -30,8 +31,10 @@ const GameDetails = () => {
 		fetchDetail(`games/${id}/screenshots`).then((data) => {
 			setScreenShots(data.results);
 		});
+		const access_token = localStorage.getItem("access_token");
+		setToken(access_token);
 	}, []);
-	const token = localStorage.getItem("access_token");
+	
 
 	const handleToggle = () => {
 		setToggleModal(!toggleModal);
@@ -46,14 +49,15 @@ const GameDetails = () => {
 					<div className="col-span-7 h-full">
 						<Navbar />
 
-						<div
-							className={`bg-[url(${gameDetails.background_image_additional})] bg-cover`}>
-							<div className="w-full flex flex-col xl:flex-row items-start  gap-10 p-6  mt-6  ">
+						<div>
+							{/* <img src={gameDetails.background_image_additional} className="absolute "/> */}
+							<div className="w-full flex flex-col xl:flex-row items-start  gap-10 p-6  mt-6 ">
 								{gameDetails.background_image ? (
 									<img
 										src={gameDetails.background_image}
 										className="w-full object-fill rounded-2xl md:min-w-md max-w-3xl"
 									/>
+									
 								) : (
 									<Skeleton
 										sx={{ width: "100%", height: 750, bgcolor: "#222222" }}
@@ -62,7 +66,7 @@ const GameDetails = () => {
 									/>
 								)}
 								{gameDetails.name ? (
-									<Gamedesc gameDetails={gameDetails} />
+									<Gamedesc gameDetails={gameDetails} token={token}/>
 								) : (
 									<div style={{ marginTop: "-200px" }}>
 										<SkeletonComponent width={500} height={60} className={""} />

@@ -8,16 +8,36 @@ const jwtAuth = (req, res, next) => {
 		const bearer = header.split(" ");
 		const token = bearer[1];
 		if (!token) {
-			res.status(403).json({
+			res.status(403).send({
 				msg: "User not logged in, token not provided",
 			});
 		} else {
-			const data = jwt.verify(token, jwtSecret);
-			if (!data) {
-				res.status(401).send({ msg: "Invalid token" });
-			} else {
-				req.data = data;
-				next();
+			try {
+				const data = jwt.verify(token, jwtSecret);
+				if (!data) {
+					res.status(401).send({ msg: "Invalid token" });
+				} else {
+					req.data = data;
+					next();
+				}
+			} catch (err) {
+				if (
+					err.name === "JsonWebTokenError" &&
+					err.message === "jwt malformed"
+				) {
+					return res
+						.send({
+							msg: "Invalid authentication token. Please log in again.",
+							status : 'bad'
+						});
+				} else {
+					return res
+
+						.send({
+							msg: "An unexpected error occurred. Please try again later.",
+							status : 'bad'
+						});
+				}
 			}
 		}
 	} else {
