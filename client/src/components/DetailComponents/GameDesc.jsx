@@ -25,8 +25,8 @@ const Gamedesc = ({ gameDetails, token }) => {
 				})
 				
 				setAddGame(false);
-				localStorage.removeItem("gameSaved");
-				localStorage.setItem("gameSaved", false);
+				localStorage.removeItem("savedGameId");
+				localStorage.setItem("savedGame", false);
 			}
 			else if (data.status == 'warning'){
 				toast.warning( data.msg , {
@@ -68,8 +68,6 @@ const Gamedesc = ({ gameDetails, token }) => {
 	};
 	useEffect(()=> {
 		const savedGameId = localStorage.getItem('savedGameId');
-		console.log(savedGameId);
-		console.log(gameId);
 		if(savedGameId == gameId) {
 			setAddGame(true)
 		}

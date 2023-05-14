@@ -13,8 +13,8 @@ const SidebarContent = [
 	{ icon: <HomeIcon fontSize="small" />, title: "Home", link: "/home" },
 	{
 		icon: <PeopleIcon fontSize="small" />,
-		title: "Community",
-		link: "/user/community",
+		title: "Developers",
+		link: "/user/developers",
 	},
 	{
 		icon: <FeedIcon fontSize="small" />,

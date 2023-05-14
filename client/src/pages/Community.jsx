@@ -4,6 +4,7 @@ import Sidebar from "../components/Fixed/Sidebar";
 import { fetchFromAPI } from "../utils/apiFetch";
 import NextPrevBtns from "../components/Buttons/NextPrevBtns";
 import { CircularProgress } from "@mui/material";
+import { Link } from "react-router-dom";
 const Community = () => {
 	const [developers, setDevelopers] = useState([]);
 	const [page, setPage] = useState(1);
@@ -18,7 +19,6 @@ const Community = () => {
 			setIsPrevPage(data.previous);
 			setLoading(false);
 
-			console.log(results);
 		});
 	}, [page]);
 
@@ -42,14 +42,18 @@ const Community = () => {
 											<div className="h-64 flex justify-between p-7 rounded-lg bg-neutral-800 m-5">
 												<img src={dev.image_background} alt="couldn't load image"  className=" w-80 object-cover "/>
 												<div>
-													<h5>Name :</h5>
-													<h5>{dev.name}</h5>
+													<h5 className="text-white font-black">Name :</h5>
+													<h4 className="text-stone-400 text-lg">{dev.name}</h4>
 												</div>	
 												<div className="">
 													<div className="flex flex-row max-w-2xl flex-wrap">
 
 														{dev.games.map((game)=> (
-															<p className="bg-black text-white p-2 m-1">{game.name}</p>
+															<Link to={`/games/${game.id}`}>
+																<p className="bg-neutral-900 text-white p-1.5 m-1">{game.name}</p>
+															
+															</Link>
+
 														))}
 													</div>
 												</div>
