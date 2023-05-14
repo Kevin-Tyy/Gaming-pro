@@ -25,8 +25,8 @@ const UserComponent = () => {
 				<div className="mt-10">
 
 					{minUserArr.map((user) => (
-						<div className="flex items-center justify-between pl-2 pt-2 pr-10 transition duration-400 hover:bg-neutral-800/20">
-							<div className="flex items-center gap-4 mb-2" key={user._id}>
+						<div key={user._id} className="flex items-center justify-between pl-2 pt-2 pr-10 transition duration-400 hover:bg-neutral-800/20">
+							<div className="flex items-center gap-4 mb-2" >
 							
 								<img src={user.uploadImage ? user.uploadImage : placeholderImage} alt={user.username} className="w-16 h-16 object-cover rounded-full"/>
 								<div>

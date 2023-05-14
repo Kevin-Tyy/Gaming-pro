@@ -6,6 +6,7 @@ import { CircularProgress, Typography } from "@mui/material";
 import SkeletonComponent from "../components/skeletons/SkeletonComponent";
 import Navbar from "../components/Fixed/Navbar";
 import Sidebar from "../components/Fixed/Sidebar";
+import NextPrevBtns from "../components/Buttons/NextPrevBtns";
 
 const Home = () => {
 	const [games, setgames] = useState([]);
@@ -26,30 +27,8 @@ const Home = () => {
 			})
 			.catch((err) => console.log(err));
 	}, [page]);
-	console.log(isNextPage);
-	console.log(isPrevPage);
 
-	const handlePrevPageClick = () => {
-		window.scrollTo({
-			top: 0,
-			behavior: "smooth",
-		});
-		if (page > 1) {
-			setPage(page - 1);
-		}
-		setLoading(true);
-	};
 
-	const handleNextPageClick = () => {
-		window.scrollTo({
-			top: 0,
-			behavior: "smooth",
-		});
-		if (isNextPage) {
-			setPage(page + 1);
-		}
-		setLoading(true);
-	};
 
 	return (
 		<div>
@@ -89,20 +68,7 @@ const Home = () => {
 												</ul>
 											</div>
 											<GameCard games={games} />
-											<div className="flex justify-center items-center mb-14">
-												<div className="w-full bg-black p-4 rounded-md flex justify-center mt-9">
-													<button
-														onClick={handlePrevPageClick}
-														className="border border-white py-2 px-7 text-white rounded-sm mr-1 hover:bg-neutral-900 active:scale-95">
-														Prev
-													</button>
-													<button
-														onClick={handleNextPageClick}
-														className="border border-white py-2 px-7 text-white rounded-sm hover:bg-neutral-900 ml-1 active:scale-95">
-														Next
-													</button>
-												</div>
-											</div>
+											<NextPrevBtns page={page} setPage={setPage} isNextPage={isNextPage} isPrevPage={isPrevPage} setLoading={setLoading}/>
 										</div>
 									)}
 								</div>

@@ -51,7 +51,7 @@ const loginController = async (req, res) => {
 					res.send({ message: "Oops ! Something went wrong", status: "bad" });
 				});
 		} else {
-			res.send({ message: "User does not exist", status: "bad" });
+			res.send({ message: "User not found", status: "bad" });
 		}
 	} catch (error) {
 		console.log(error);

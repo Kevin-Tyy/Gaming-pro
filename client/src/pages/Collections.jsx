@@ -61,6 +61,8 @@ const Collections = (props) => {
 			populatePage();
 		}
 	}, [token]);
+
+
 	return (
 		<div>
 			<div className="h-full bg-light w-full">
