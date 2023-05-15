@@ -79,7 +79,7 @@ const Gamedesc = ({ gameDetails, token }) => {
 	}, [])
 
 	return (
-		<div className="text-white flex flex-col gap-1 ">
+		<div className="text-white flex flex-col gap-1 z-10">
 			<Typography variant="h5" sx={{ mb: 2 }}>
 				{gameDetails.name}
 			</Typography>
@@ -162,7 +162,7 @@ const Gamedesc = ({ gameDetails, token }) => {
 					target="_blank"
 					rel="noopener noreferrer">
 					<div className="bg-gradient-to-r from-sky-500 to-violet-900 p-0.5 ">
-						<button className="py-3 px-3 md:px-4 flex items-center gap-1 transition bg-neutral-900 duration-300 hover:bg-neutral-800">
+						<button className="py-3 px-4 md:px-5 flex items-center gap-1 transition bg-neutral-950 duration-300 hover:bg-neutral-900">
 							<SportsEsportsIcon fontSize="small"/>
 							<Typography variant="caption" className="whitespace-nowrap">
 								Play the game

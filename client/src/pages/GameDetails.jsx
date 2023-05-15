@@ -41,21 +41,23 @@ const GameDetails = () => {
 	};
 	return (
 		<div>
-			<div className="h-full bg-light w-full">
+			<div className="h-full bg-black w-full">
 				<div className="grid grid-cols-7 md:grid-cols-8">
-					<div className="h-14 md:h-screen fixed bottom-0 w-full md:w-20 bg-neutral-950 md:sticky md:top-0 xl:w-full z-40">
+					<div className="h-14 md:h-screen fixed bottom-0 w-full md:w-20  md:sticky md:top-0 xl:w-full z-40">
 						<Sidebar />
 					</div>
 					<div className="col-span-7 h-full">
 						<Navbar />
 
 						<div>
-							{/* <img src={gameDetails.background_image_additional} className="absolute "/> */}
+							<img src={gameDetails.background_image_additional} className="absolute top-0 bottom-0 right-0 left-0 w-full h-full object-cover"/>
+							<div className="absolute top-0 bottom-0 right-0 left-0 w-full h-full bg-gradient-to-r from-black to-black/40"></div>
+							<div className="bg-gradient-to-t from-black to-black/0 absolute top-0 bottom-0 left-0 right-0 w-full h-full"></div>
 							<div className="w-full flex flex-col xl:flex-row items-start  gap-10 p-6  mt-6 ">
 								{gameDetails.background_image ? (
 									<img
 										src={gameDetails.background_image}
-										className="w-full object-fill rounded-2xl md:min-w-md max-w-3xl"
+										className="w-full object-fill rounded-2xl md:min-w-md max-w-3xl z-20"
 									/>
 									
 								) : (
@@ -88,7 +90,7 @@ const GameDetails = () => {
 										<Typography
 											variant="caption"
 											sx={{ mt: 2, lineHeight: 2 }}
-											className="text-white pt-10 p-4 md:p-10">
+											className="text-white pt-10 p-4 md:p-10 z-20">
 											{gameDetails.description_raw}
 										</Typography>
 									</div>

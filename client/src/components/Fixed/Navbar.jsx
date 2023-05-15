@@ -1,4 +1,4 @@
-import { Avatar, Paper, Skeleton, Typography } from "@mui/material";
+import { Avatar, Paper, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
@@ -11,8 +11,9 @@ import ProfilePopup from "../Popups/ProfilePopup";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { fetchAPI } from "../../utils/apiFetch";
 import MenuIcon from "@mui/icons-material/Menu";
+import Skeleton from "react-loading-skeleton";
 const Navbar = () => {
-	const [loading, setLoading] = useState(true);
+	const [loading, setLoading] = useState(false);
 	const [searchString, setSearchString] = useState("");
 	const [profileImgUrl, setprofileImgUrl] = useState("");
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -61,50 +62,42 @@ const Navbar = () => {
 				{profilePopup && (
 					<ProfilePopup handlePopUpShow={handlePopUpShow} userInfo={userInfo} />
 				)}
-				{loading ? (
-					<div className="flex items-center ">
-						<span className="block sm:hidden hover:bg-neutral-700 rounded-full">
-							<IconButton>
-								<MenuIcon className="text-white" />
-							</IconButton>
-						</span>
-						<Paper
-							component="form"
-							onSubmit={handleSubmit}
-							sx={{
-								bgcolor: "#3333334d",
-								border: "none",
-								shadow: "none",
-								width: {
-									sx: "250px",
-									md: "450px",
-								},
-								fontSize: "10px",
-								display: "flex",
-								alignItems: "center",
-								borderRadius: "60px",
-								pl: 3,
-								pr: "2px",
-								py: "1px",
-							}}>
-							<input
-								className="bg-transparent w-full oultine outline-0 text-white pl-2 mr-2.5"
-								placeholder="Search for your favorite games"
-								onChange={(e) => setSearchString(e.target.value)}
-							/>
-							<IconButton sx={{ color: "white" }} type="submit">
-								<SearchIcon />
-							</IconButton>
-						</Paper>
-					</div>
-				) : (
-					<Skeleton
-						width={"99%"}
-						height={100}
-						sx={{ bgcolor: "#424242", mx: 1, mt: "-13px" }}
-						animation="wave"
-					/>
-				)}
+
+				<div className="flex items-center ">
+					<span className="block sm:hidden hover:bg-neutral-700 rounded-full">
+						<IconButton>
+							<MenuIcon className="text-white"  /> || <Skeleton/>
+						</IconButton>
+					</span>
+					<Paper
+						component="form"
+						onSubmit={handleSubmit}
+						sx={{
+							bgcolor: "#3333334d",
+							border: "none",
+							shadow: "none",
+							width: {
+								sx: "250px",
+								md: "450px",
+							},
+							fontSize: "10px",
+							display: "flex",
+							alignItems: "center",
+							borderRadius: "60px",
+							pl: 3,
+							pr: "2px",
+							py: "1px",
+						}}>
+						<input
+							className="bg-transparent w-full oultine outline-0 text-white pl-2 mr-2.5"
+							placeholder="Search for your favorite games"
+							onChange={(e) => setSearchString(e.target.value)}
+						/>
+						<IconButton sx={{ color: "white" }} type="submit">
+							<SearchIcon />
+						</IconButton>
+					</Paper>
+				</div>
 
 				<div className="flex items-center">
 					{isLoggedIn ? (
@@ -113,12 +106,11 @@ const Navbar = () => {
 								onClick={handleNotificationSelected}
 								className="bg-neutral-800 rounded-full cursor-pointer transition hover:bg-neutral-700 w-10 h-10 hidden sm:flex items-center justify-center ">
 								{isNotificationSelected ? (
-									<NotificationsIcon />
+									<NotificationsIcon /> 
 								) : (
 									<NotificationsNoneIcon />
 								)}
 							</span>
-
 							<span className="bg-violet-800 rounded-full cursor-pointer hover:bg-violet-700  w-10 h-10  items-center justify-center hidden sm:flex">
 								<SettingsOutlined
 									sx={{ fontSize: 38 }}

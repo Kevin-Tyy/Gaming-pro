@@ -8,6 +8,7 @@ import Sidebar from "../components/Fixed/Sidebar";
 import CustomCard from "../components/Cards/CustomCard";
 import { fetchAPI } from "../utils/apiFetch";
 import axios from "axios";
+import Skeleton from "react-loading-skeleton";
 
 const Home = () => {
 	const [games, setGames] = useState([]);
@@ -84,7 +85,6 @@ const Home = () => {
 												</span>
 												🎮
 											</Typography>
-
 											<Typography
 												sx={{ py: 5 }}
 												className="text-white border-b-2 pb-3 border-white ">

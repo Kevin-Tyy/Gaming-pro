@@ -16,9 +16,6 @@ const posterSlider = ({ screenShots }) => {
 			<Swiper
 				spaceBetween={20}
 				slidesPerView={1}
-				navigation
-
-				pagination={{ clickable: true }}
 				autoplay={{ delay: 3000 }}
 				breakpoints={{
 					500 : {

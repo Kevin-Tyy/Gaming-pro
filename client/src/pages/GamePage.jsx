@@ -76,14 +76,14 @@ const Home = () => {
 								<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 items-center justify-center pl-10 ">
 									{Array(20)
 										.fill()
-										.map((_, index) => (
+										.map((_ , index) => (
 											<div key={index} className="w-11/12 p-0">
 												<SkeletonComponent width={"100%"} height={"300px"} />
 											</div>
 										))}
 								</div>
 							)}
-						</div>
+						</div>r
 					</div>
 				</div>
 			</div>

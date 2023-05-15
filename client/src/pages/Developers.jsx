@@ -6,7 +6,7 @@ import NextPrevBtns from "../components/Buttons/NextPrevBtns";
 import { CircularProgress } from "@mui/material";
 import { Link } from "react-router-dom";
 import DevSkeleton from "../components/Skeletons/devSkeleton";
-const Community = () => {
+const Developers = () => {
 	const [developers, setDevelopers] = useState([]);
 	const [page, setPage] = useState(1);
 	const [isNextPage, setIsNextPage] = useState(null);
@@ -80,4 +80,4 @@ const Community = () => {
 	);
 };
 
-export default Community;
+export default Developers;

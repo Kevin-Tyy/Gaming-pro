@@ -58,7 +58,7 @@ const EditProfilePopup = ({ userInfo, handleProfileToggle , token}) => {
 	
 	return (
 		<div onClick={handleProfileToggle} className=" fixed top-0 bottom-0 right-0 left-0 h-screen w-full bg-neutral-950/80 z-50 flex items-center justify-center">
-			<div onClick={(e)=> e.stopPropagation()} className="bg-neutral-800 w-full max-w-sm rounded-md">
+			<div onClick={(e)=> e.stopPropagation()} className="bg-neutral-800 w-full max-w-md rounded-md">
 				<div className="relative flex flex-col items-center">
 					<Close onClick={handleProfileToggle} fontSize="large" className="text-white absolute top-2 right-2 p-1 hover:bg-neutral-700 cursor-pointer rounded-full z-20 "/>
 
