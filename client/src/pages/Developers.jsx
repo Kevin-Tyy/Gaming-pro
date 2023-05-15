@@ -11,7 +11,7 @@ const Developers = () => {
 	const [page, setPage] = useState(1);
 	const [isNextPage, setIsNextPage] = useState(null);
 	const [isPrevPage, setIsPrevPage] = useState(null);
-	const [loading, setLoading] = useState(false);
+	const [loading, setLoading] = useState(true);
 	useEffect(() => {
 		setLoading(true);
 		fetchFromAPI("developers", page).then((data) => {
@@ -19,7 +19,7 @@ const Developers = () => {
 			setDevelopers(results)
 			setIsNextPage(data.next);
 			setIsPrevPage(data.previous);
-			setLoading(false);
+			// setLoading(false);
 
 		});
 	}, [page]);

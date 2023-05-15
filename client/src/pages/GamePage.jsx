@@ -48,9 +48,9 @@ const Home = () => {
 											<CircularProgress sx={{ color: "gray", mb: 40 }} />
 										</div>
 									) : (
-										<div className="xl:m-16">
+										<div className="xl:mx-1 mt-10">
 											<div className="overflow-x-scroll md:overflow-x-auto">
-												<ul className="flex m-3 justify-center">
+												<ul className="flex justify-center">
 													{categoryBtns.map((name, index) => (
 														<li
 															className="text-white capitalize m-2 bg-transparent border border-neutral-500 px-6  py-1 rounded-sm cursor-pointer transition duration-300 hover:bg-neutral-800  "
@@ -73,12 +73,12 @@ const Home = () => {
 									)}
 								</div>
 							) : (
-								<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 items-center justify-center pl-10 ">
+								<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 items-center justify-center p-10 gap-5">
 									{Array(20)
 										.fill()
 										.map((_ , index) => (
-											<div key={index} className="w-11/12 p-0">
-												<SkeletonComponent width={"100%"} height={"300px"} />
+											<div key={index} className="">
+												<SkeletonComponent/>
 											</div>
 										))}
 								</div>

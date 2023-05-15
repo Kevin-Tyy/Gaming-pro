@@ -8,12 +8,15 @@ import axios from "axios";
 import { CircularProgress, Rating, Typography } from "@mui/material";
 import { SportsEsportsOutlined } from "@mui/icons-material";
 import { toast, ToastContainer } from "react-toastify";
-const Collections = (props) => {
+import DevSkeleton from "../components/Skeletons/devSkeleton";
+const Collections = () => {
 	const navigate = useNavigate();
 	const [token, setToken] = useState("");
 	const [gameId, setGameId] = useState("");
 	const [savedGames, setSavedGames] = useState([]);
+	const [loading, setLoading] = useState(false);
 	const populatePage = async () => {
+		setLoading(true);
 		const { data } = await axios.get(`${fetchAPI}/game/fetchsavedgames`, {
 			headers: {
 				Authorization: "Bearer " + token,
@@ -22,6 +25,7 @@ const Collections = (props) => {
 		console.log(data);
 		setSavedGames(data.games);
 		setGameId(data.games[0]?.gameId);
+		setLoading(false);
 	};
 
 	const handleRemove = async () => {
@@ -34,6 +38,7 @@ const Collections = (props) => {
 				},
 			}
 		);
+		populatePage();
 		if (data.status == "ok") {
 			toast.success(data.msg, {
 				position: toast.POSITION.TOP_RIGHT,
@@ -69,13 +74,14 @@ const Collections = (props) => {
 					</div>
 					<div className="col-span-7 h-full">
 						<Navbar />
-
-						<div>
-							{savedGames && (
+						{loading ? (
+							<DevSkeleton />
+						) : (
+							<div>
 								<div className="p-6">
 									{savedGames.length < 1 ? (
 										<div className="text-center text-white text-2xl">
-											No games found !
+											No games found in your collection! 😟
 										</div>
 									) : (
 										<div>
@@ -141,8 +147,8 @@ const Collections = (props) => {
 										</div>
 									)}
 								</div>
-							)}
-						</div>
+							</div>
+						)}
 					</div>
 					<ToastContainer
 						toastStyle={{

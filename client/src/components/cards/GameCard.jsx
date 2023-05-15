@@ -23,7 +23,7 @@ const GameCard = ({ games }) => {
 										{item.ratings_count}{" "}
 									</span>
 									Rating Count
-								</Typography>ww
+								</Typography>
 							</div>
 							<Link to={`/games/${item.id}`} className="w-full">
 								<button className="bg-violet-950 py-2 font-sans text-md  w-full transition duration-100 active:scale-95 whitespace-nowrap">

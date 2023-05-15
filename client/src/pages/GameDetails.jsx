@@ -51,7 +51,7 @@ const GameDetails = () => {
 
 						<div>
 							<img src={gameDetails.background_image_additional} className="absolute top-0 bottom-0 right-0 left-0 w-full h-full object-cover"/>
-							<div className="absolute top-0 bottom-0 right-0 left-0 w-full h-full bg-gradient-to-r from-black to-black/40"></div>
+							<div className="absolute top-0 bottom-0 right-0 left-0 w-full h-full bg-gradient-to-r from-black to-black/40  backdrop-blur-sm"></div>
 							<div className="bg-gradient-to-t from-black to-black/0 absolute top-0 bottom-0 left-0 right-0 w-full h-full"></div>
 							<div className="w-full flex flex-col xl:flex-row items-start  gap-10 p-6  mt-6 ">
 								{gameDetails.background_image ? (

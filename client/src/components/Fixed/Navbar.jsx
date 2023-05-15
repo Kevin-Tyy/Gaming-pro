@@ -66,7 +66,7 @@ const Navbar = () => {
 				<div className="flex items-center ">
 					<span className="block sm:hidden hover:bg-neutral-700 rounded-full">
 						<IconButton>
-							<MenuIcon className="text-white"  /> || <Skeleton/>
+							<MenuIcon className="text-white"  />
 						</IconButton>
 					</span>
 					<Paper
