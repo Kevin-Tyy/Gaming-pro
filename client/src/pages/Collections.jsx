@@ -78,8 +78,8 @@ const Collections = (props) => {
 								
 								<div className="p-6">
 									{savedGames.length < 1 ? 
-										<div>
-											No games found
+										<div className="text-center text-white text-2xl">
+											No games found !
 
 										</div>
 									

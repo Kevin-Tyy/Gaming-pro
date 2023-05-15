@@ -5,6 +5,7 @@ import { fetchFromAPI } from "../utils/apiFetch";
 import NextPrevBtns from "../components/Buttons/NextPrevBtns";
 import { CircularProgress } from "@mui/material";
 import { Link } from "react-router-dom";
+import DevSkeleton from "../components/Skeletons/devSkeleton";
 const Community = () => {
 	const [developers, setDevelopers] = useState([]);
 	const [page, setPage] = useState(1);
@@ -12,6 +13,7 @@ const Community = () => {
 	const [isPrevPage, setIsPrevPage] = useState(null);
 	const [loading, setLoading] = useState(false);
 	useEffect(() => {
+		setLoading(true);
 		fetchFromAPI("developers", page).then((data) => {
 			const { results } = data;
 			setDevelopers(results)
@@ -33,9 +35,7 @@ const Community = () => {
 						<Navbar />
 						{developers && <div>
 								{loading ? (
-									<div className="flex items-center justify-center h-screen">
-										<CircularProgress sx={{ color: "gray", mb: 40 }} />
-									</div>
+									<DevSkeleton/>
 								) : 
 									<div>
 										{developers.map((dev)=>(

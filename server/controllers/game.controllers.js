@@ -3,7 +3,6 @@ const gameModel = require('../models/game.model')
 
 const addGame = async (req , res) => {
     const { userId , username } = req.data
-    // console.log(userId, username)
     const {gameDetails} = req.body;
     const { id , name , released , background_image , website , rating , developers  } = gameDetails
 
@@ -11,7 +10,6 @@ const addGame = async (req , res) => {
     developers.map((dev) => {
         devArray.push(dev.name) 
     })
-    // console.log(name, released , background_image , website , rating , devArray  )
     try {
         const game = await gameModel.findOne({ gameName : name})
         if(!game){
@@ -42,9 +40,7 @@ const addGame = async (req , res) => {
 }
 const removeGame = async (req, res) => {
     try {
-      const { gameId } = req.body;
-      console.log(gameId);
-      
+      const { gameId } = req.body;      
       const game = await gameModel.findOne({ gameId: gameId });
     
       const { _id } = game;
