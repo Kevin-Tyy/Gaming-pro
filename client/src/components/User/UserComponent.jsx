@@ -19,13 +19,13 @@ const UserComponent = () => {
 	return (
 		<div className="hidden xl:block">
 			<div className="min-w-md sticky top-0 pt-16">
-				<Typography variant="h5" sx={{ fontFamily : 'fantasy'}} className="text-slate-300 underline">
+				<Typography variant="h5" sx={{ fontFamily : 'fantasy'}} className="text-neutral-300 underline">
 					Find friends
 				</Typography>
 				<div className="mt-10">
 
 					{minUserArr.map((user) => (
-						<div key={user._id} className="flex items-center justify-between pl-2 pt-2 pr-10 transition duration-400 hover:bg-slate-800/20">
+						<div key={user._id} className="flex items-center justify-between pl-2 pt-2 pr-10 transition duration-400 hover:bg-neutral-800/20">
 							<div className="flex items-center gap-4 mb-2" >
 							
 								<img src={user.uploadImage ? user.uploadImage : placeholderImage} alt={user.username} className="w-16 h-16 object-cover rounded-full"/>
@@ -38,7 +38,7 @@ const UserComponent = () => {
 									</Typography>
 								</div>
 							</div>
-							<PersonAddIcon fontSize="large" className="text-violet-900 hover:bg-slate-900 p-1 rounded-full cursor-pointer "/>
+							<PersonAddIcon fontSize="large" className="text-violet-900 hover:bg-neutral-900 p-1 rounded-full cursor-pointer "/>
 
 						</div>
 					))}

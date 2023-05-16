@@ -40,7 +40,7 @@ const GameDetails = () => {
 	};
 	return (
 		<div>
-			<div className="h-full bg-slate-950 w-full">
+			<div className="h-full bg-black w-full">
 				<div className="grid grid-cols-7 md:grid-cols-8">
 					<div className="h-14 md:h-screen fixed bottom-0 w-full md:w-20  md:sticky md:top-0 xl:w-full z-40">
 						<Sidebar />
@@ -53,8 +53,8 @@ const GameDetails = () => {
 								src={gameDetails.background_image_additional}
 								className="absolute top-0 bottom-0 right-0 left-0 w-full h-full object-cover"
 							/>
-							<div className="absolute top-0 bottom-0 right-0 left-0 w-full h-full bg-gradient-to-r from-slate-950 to-slate-950/10  backdrop-blur-sm"></div>
-							<div className="bg-gradient-to-t from-slate-950 to-slate-950/0 absolute top-0 bottom-0 left-0 right-0 w-full h-full"></div>
+							<div className="absolute top-0 bottom-0 right-0 left-0 w-full h-full bg-gradient-to-r from-black to-black/10  backdrop-blur-sm"></div>
+							<div className="bg-gradient-to-t from-black black-950/0 absolute top-0 bottom-0 left-0 right-0 w-full h-full"></div>
 							<div className="w-full flex flex-col xl:flex-row items-start  gap-10 p-6  mt-6 ">
 								{gameDetails.background_image ? (
 									<img
@@ -67,7 +67,7 @@ const GameDetails = () => {
 											width: "100%",
 											maxWidth: "900px",
 											height: 750,
-											bgcolor: "#222",
+											bgcolor: "#222647",
 										}}
 										className="relative bottom-40"
 										animation="pulse"
@@ -81,25 +81,25 @@ const GameDetails = () => {
 											variant="text"
 											width={500}
 											height={60}
-											sx={{ bgcolor: "#222" }}
+											sx={{ bgcolor: "#222647" }}
 										/>
 										<Skeleton
 											variant="text"
 											width={500}
 											height={60}
-											sx={{ bgcolor: "#222" }}
+											sx={{ bgcolor: "#222647" }}
 										/>
 										<Skeleton
 											variant="text"
 											width={500}
 											height={60}
-											sx={{ bgcolor: "#222" }}
+											sx={{ bgcolor: "#222647" }}
 										/>
 										<Skeleton
 											variant="text"
 											width={500}
 											height={60}
-											sx={{ bgcolor: "#222" }}
+											sx={{ bgcolor: "#222647" }}
 										/>
 									</div>
 								)}
@@ -127,13 +127,13 @@ const GameDetails = () => {
 										variant="rectangular"
 										width={""}
 										height={100}
-										sx={{ bgcolor: "#222" }}
+										sx={{ bgcolor: "#222647" }}
 									/>
 									<Skeleton
 										variant="rectangular"
 										width={""}
 										height={100}
-										sx={{ bgcolor: "#222" }}
+										sx={{ bgcolor: "#222647" }}
 									/>
 								</div>
 							)}
@@ -148,17 +148,17 @@ const GameDetails = () => {
 									</div>
 								) : (
 									<div className="flex">
-										<Skeleton variant="rectangular" sx={{ bgcolor: "#222" }} />
+										<Skeleton variant="rectangular" sx={{ bgcolor: "#222647" }} />
 										<Skeleton
 											variant="rectangular"
-											sx={{ bgcolor: "#222" }}
+											sx={{ bgcolor: "#222647" }}
 										/>{" "}
-										<Skeleton variant="rectangular" sx={{ bgcolor: "#222" }} />
-										<Skeleton variant="rectangular" sx={{ bgcolor: "#222" }} />
+										<Skeleton variant="rectangular" sx={{ bgcolor: "#222647" }} />
+										<Skeleton variant="rectangular" sx={{ bgcolor: "2B38564d" }} />
 									</div>
 								)}
 							</div>
-							<div className="w-full bg-slate-950/30  p-4 lg:p-10 flex flex-col gap-10">
+							<div className="w-full bg-neutral-950/30  p-4 lg:p-10 flex flex-col gap-10">
 								<Stores gameDetails={gameDetails} />
 								{gameDetails.reddit_url && (
 									<div className="text-white">
@@ -166,7 +166,7 @@ const GameDetails = () => {
 										<Link
 											to={gameDetails.reddit_url}
 											target="blank"
-											className="flex gap-3 bg-slate-950/40 absolute p-1 ">
+											className="flex gap-3 bg-neutral-950/40 absolute p-1 ">
 											<RedditIcon className="text-white " />#
 											{gameDetails.reddit_name}
 										</Link>

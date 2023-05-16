@@ -58,7 +58,7 @@ const Navbar = () => {
 
 	return (
 		<React.Fragment>
-			<div className="w-full flex bg-dark backdrop-blur-md text-white p-2  justify-between md:px-10 sticky top-0 z-40">
+			<div className="w-full flex backdrop-blur-3xl text-white p-2  justify-between md:px-10 sticky top-0 z-40">
 				{profilePopup && (
 					<ProfilePopup handlePopUpShow={handlePopUpShow} userInfo={userInfo} />
 				)}

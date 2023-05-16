@@ -53,7 +53,7 @@ const Home = () => {
 												<ul className="flex justify-center">
 													{categoryBtns.map((name, index) => (
 														<li
-															className="text-white capitalize m-2 bg-transparent border border-slate-500 px-6  py-1 rounded-sm cursor-pointer transition duration-300 hover:bg-slate-800  "
+															className="text-white capitalize m-2 bg-transparent border border-neutral-500 px-6  py-1 rounded-sm cursor-pointer transition duration-300 hover:bg-neutral-800  "
 															key={index}>
 															<button
 																onClick={() =>

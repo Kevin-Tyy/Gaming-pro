@@ -23,8 +23,8 @@ export default {
     extend: {
 
       backgroundColor :{
-        'light': '#000218',
-        'dark': '#000110'
+        'light': '#111',
+        'dark': '#111'
         
         
 

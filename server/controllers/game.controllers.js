@@ -39,6 +39,7 @@ const addGame = async (req, res) => {
 		});
 	}
 };
+
 const removeGame = async (req, res) => {
 	try {
 		const { gameId } = req.body;

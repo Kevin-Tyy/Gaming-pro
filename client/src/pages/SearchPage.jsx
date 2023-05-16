@@ -13,13 +13,11 @@ const SearchPage = () => {
 	const [isPrevPage, setIsPrevPage] = useState(null);
 	const { searchQuery } = useParams();
 
-	console.log(searchQuery);
 	const url = "games";
 
 	useEffect(() => {
 		searchAPI(url, searchQuery).then((data) => {
 			setGames(data.results);
-			console.log(data);
 			setIsNextPage(data.next);
 			setIsPrevPage(data.previous);
 			setLoading(false);
@@ -70,7 +68,7 @@ const SearchPage = () => {
 											<div className="flex justify-center">
 												<Typography variant="h6" sx={{ fontFamily : 'fantasy'}} className="text-white text-center">
 													Search results for {" "}
-													<span className="text-violet-900  ">
+													<span className="text-violet-900 font-light ">
 														{searchQuery}
 													</span>
 												</Typography>
@@ -95,7 +93,7 @@ const SearchPage = () => {
 									)}
 								</div>
 							) : (
-								<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 items-center justify-center pl-10 ">
+								<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 items-center justify-center pl-10 ">
 									{Array(20)
 										.fill()
 										.map((_, index) => (

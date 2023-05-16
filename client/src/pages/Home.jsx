@@ -9,6 +9,7 @@ import CustomCard from "../components/Cards/CustomCard";
 import { fetchAPI } from "../utils/apiFetch";
 import axios from "axios";
 import Skeleton from "react-loading-skeleton";
+import { Link } from "react-router-dom";
 
 const Home = () => {
 	const [games, setGames] = useState([]);
@@ -31,7 +32,6 @@ const Home = () => {
 
 	useEffect(() => {
 		fetchFromAPI("games", 1).then((data) => {
-			console.log(data);
 			setGamesArray(data.results.slice(0, 6));
 		});
 
@@ -75,7 +75,7 @@ const Home = () => {
 
 						<div>
 							<div className="lg:p-10">
-								<div className="h-screen flex flex-col lg:flex-row justify-center items-start gap-4">
+								<div className="h-screen md:h-auto flex flex-col lg:flex-row justify-center items-start gap-4">
 									<div className="h-96  lg:h-700 w-full relative flex items-start md:items-center ">
 										<div className="w-full h-3/5 max-w-5xl rounded-3xl p-2 md:p-10">
 											<Typography  sx={{ fontFamily: "fantasy", fontSize : { xs : '30px', sm: '40px' , md: '50px' , lg : '60px'} }}>
@@ -100,17 +100,23 @@ const Home = () => {
 										</div>
 									</div>
 								</div>
-					
+								<CustomCard imagePosterObj={imagePosterObj}/>
 								<div>
-									<Typography
-										sx={{
-											fontSize: "30px",
-											fontFamily: "fantasy",
-											marginLeft: "20px",
-										}}
-										className=" text-transparent w-80 border-l-4 px-4 border-sky-500 bg-gradient-to-r from-sky-600 to-violet-700 bg-clip-text ">
-										Play Games online
-									</Typography>
+									<div className="flex items-center">
+										<Typography
+											sx={{
+												fontSize: "30px",
+												fontFamily: "fantasy",
+												marginLeft: "20px",
+											}}
+											className=" text-transparent w-80 border-l-4 px-4 border-sky-500 bg-gradient-to-r from-sky-600 to-violet-700 bg-clip-text z-20">
+											Play Games online
+										</Typography>
+										<Link to={'/games'} className="text-white border-b border-white transition hover:border-none hover:scale-105">
+											View More &rarr;
+										</Link>
+
+									</div>
 									<GameCard games={gamesArray} />
 								</div>
 							</div>

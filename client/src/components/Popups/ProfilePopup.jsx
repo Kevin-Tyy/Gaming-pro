@@ -30,11 +30,11 @@ const ProfilePopup = ({ handlePopUpShow , userInfo}) => {
 		navigate("/home");
 	};
 	return (
-		<div className="fixed right-0 md:right-6 top-14 bg-slate-950 p-2 text-white rounded-b-2xl rounded-tl-2xl">
+		<div className="fixed right-0 md:right-6 top-14 bg-neutral-950 p-2 text-white rounded-b-2xl rounded-tl-2xl">
 			<Close
 				fontSize="large"
 				onClick={handlePopUpShow}
-				className="cursor-pointer absolute top-0 right-0 p-1 hover:bg-slate-800 rounded-full m-1"
+				className="cursor-pointer absolute top-0 right-0 p-1 hover:bg-neutral-800 rounded-full m-1"
 			/>
 			<div className="flex gap-3 p-2 pr-10 items-center">
 				<div className="bg-gradient-to-r from-sky-600 to-violet-950 p-0.5 rounded-full">
@@ -45,36 +45,36 @@ const ProfilePopup = ({ handlePopUpShow , userInfo}) => {
 				</div>
 				<div className="flex flex-col">
 					<span>{userInfo.username}</span>
-					<span className="text-slate-600">{userInfo.email}</span>
+					<span className="text-neutral-600">{userInfo.email}</span>
 				</div>
 
 			</div>
 			<ul className="mt-4">
-				<li className="py-3 px-7 hover:bg-slate-900 rounded-md cursor-pointer">
+				<li className="py-3 px-7 hover:bg-neutral-900 rounded-md cursor-pointer">
 					<Link to={popupdata[0].link} className="flex gap-3 ">
 						<span>{popupdata[0].icon}</span>
 						<span>{popupdata[0].title}</span>
 					</Link>
 				</li>
-				<li className="py-3 px-7 hover:bg-slate-900 rounded-md cursor-pointer">
+				<li className="py-3 px-7 hover:bg-neutral-900 rounded-md cursor-pointer">
 					<Link to={popupdata[1].link} className="flex gap-3">
 						<span>{popupdata[1].icon}</span>
 						<span>{popupdata[1].title}</span>
 					</Link>
 				</li>{" "}
-				<li className="py-3 px-7 hover:bg-slate-900 rounded-md cursor-pointer">
+				<li className="py-3 px-7 hover:bg-neutral-900 rounded-md cursor-pointer">
 					<Link to={popupdata[2].link} className="flex gap-3">
 						<span>{popupdata[2].icon}</span>
 						<span>{popupdata[2].title}</span>
 					</Link>
 				</li>{" "}
-				<li className="py-3 px-7 hover:bg-slate-900 rounded-md cursor-pointer" onClick={handleLogout}>
+				<li className="py-3 px-7 hover:bg-neutral-900 rounded-md cursor-pointer" onClick={handleLogout}>
 					<Link to={popupdata[3].link} className="flex gap-3">
 						<span>{popupdata[3].icon}</span>
 						<span>{popupdata[3].title}</span>
 					</Link>
 				</li>
-				<li className="py-3 px-7 hover:bg-slate-900 rounded-md cursor-pointer" onClick={handleLogout}>
+				<li className="py-3 px-7 hover:bg-neutral-900 rounded-md cursor-pointer" onClick={handleLogout}>
 					<Link to={popupdata[4].link} className="flex gap-4">
 						<span>{popupdata[4].icon}</span>
 						<span>{popupdata[4].title}</span>

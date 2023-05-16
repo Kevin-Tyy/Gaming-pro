@@ -39,7 +39,7 @@ const UploadModal = ({ handleToggle, setUploadImage }) => {
 		<div>
 			<div
 				onClick={handleToggle}
-				className="h-screen w-full top-0 bottom-0 left-0 right-0 fixed bg-slate-900/50 backdrop-blur-sm  flex items-center justify-center ">
+				className="h-screen w-full top-0 bottom-0 left-0 right-0 fixed bg-neutral-900/50 backdrop-blur-sm  flex items-center justify-center ">
 				<div
 					className="md:w-auto flex flex-col md:flex-row"
 					onClick={(e) => e.stopPropagation()}>
@@ -48,10 +48,10 @@ const UploadModal = ({ handleToggle, setUploadImage }) => {
 						className="md:w-60 max-h-72 object-cover"
 						alt="couldn't load image try refreshing the page"
 					/>
-					<div className="bg-slate-950 pt-4 relative w-auto ">
+					<div className="bg-neutral-950 pt-4 relative w-auto ">
 						<CloseRounded
 							onClick={handleToggle}
-							className="absolute top-4 right-6 text-white hover:bg-slate-800 rounded-full cursor-pointer "
+							className="absolute top-4 right-6 text-white hover:bg-neutral-800 rounded-full cursor-pointer "
 						/>
 						<div className="flex items-center justify-center">
 							<UploadOutlined className="text-sky-600" />
@@ -65,7 +65,7 @@ const UploadModal = ({ handleToggle, setUploadImage }) => {
 						<form
 							className="flex flex-col items-center gap-4 max-w-lg p-6"
 							onSubmit={handleSubmitFile}>
-							<Typography className=" text-slate-400 text-center ">
+							<Typography className=" text-neutral-400 text-center ">
 								It will be easier for your friends to recognise you if you
 								upload your real photos to. You can upload the image in JPG, GIF
 								or PNG format
@@ -73,7 +73,7 @@ const UploadModal = ({ handleToggle, setUploadImage }) => {
 							<div className="flex flex-wrap gap-1 ">
 								<label
 									htmlFor="files"
-									className="py-3 px-2 bg-slate-950 flex items-center justify-center gap-1 cursor-pointer w-full transition duration-100 hover:bg-slate-900/70 outline-dashed outline-1 outline-slate-800">
+									className="py-3 px-2 bg-neutral-950 flex items-center justify-center gap-1 cursor-pointer w-full transition duration-100 hover:bg-neutral-900/70 outline-dashed outline-1 outline-neutral-800">
 									<PhotoOutlined className="text-sky-800" />
 									<span className="bg-gradient-to-r from-sky-400 to-violet-800 text-transparent bg-clip-text font-bold">
 										{previewSource ? "Change" : "Upload"} Image
@@ -89,14 +89,14 @@ const UploadModal = ({ handleToggle, setUploadImage }) => {
 
 								<div className="flex gap-2 w-full justify-center pt-3">
 									<div
-										className="bg-slate-900 cursor-pointer text-white py-2 px-8 w-full whitespace-nowrap transition duration-100 hover:bg-slate-800 flex  items-center justify-center"
+										className="bg-neutral-900 cursor-pointer text-white py-2 px-8 w-full whitespace-nowrap transition duration-100 hover:bg-neutral-800 flex  items-center justify-center"
 										onClick={handleToggle}>
 										<ArrowLeftTwoTone />
 										Go back
 									</div>
 									<button
 										type="submit"
-										className="bg-slate-900 text-white py-2 px-8 w-full  transition duration-100 hover:bg-slate-800"
+										className="bg-neutral-900 text-white py-2 px-8 w-full  transition duration-100 hover:bg-neutral-800"
 										disabled={!previewSource}>
 										Done
 									</button>
