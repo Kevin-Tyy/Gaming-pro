@@ -26,15 +26,15 @@ const NextPrevBtns = ({ isNextPage , setPage , page , isPrevPage , setLoading}) 
 	return (
 		<div>
 			<div className="flex justify-center items-center mb-14">
-				<div className="w-full bg-black p-4 rounded-md flex justify-center mt-9">
+				<div className="w-full bg-slate-950 p-4 rounded-md flex justify-center mt-9">
 					<button
 						onClick={handlePrevPageClick}
-						className="border border-white py-2 px-7 text-white rounded-sm mr-1 hover:bg-neutral-900 active:scale-95">
+						className="border border-white py-2 px-7 text-white rounded-sm mr-1 hover:bg-slate-900 active:scale-95">
 						Prev
 					</button>
 					<button
 						onClick={handleNextPageClick}
-						className="border border-white py-2 px-7 text-white rounded-sm hover:bg-neutral-900 ml-1 active:scale-95">
+						className="border border-white py-2 px-7 text-white rounded-sm hover:bg-slate-900 ml-1 active:scale-95">
 						Next
 					</button>
 				</div>

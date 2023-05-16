@@ -28,7 +28,7 @@ const Developers = () => {
 		<div>
 			<div className="h-full bg-light w-full">
 				<div className="grid grid-cols-7 md:grid-cols-8">
-					<div className="h-14 md:h-screen fixed bottom-0 w-full md:w-20 bg-neutral-950 md:sticky md:top-0 xl:w-full z-50">
+					<div className="h-14 md:h-screen fixed bottom-0 w-full md:w-20 bg-slate-950 md:sticky md:top-0 xl:w-full z-50">
 						<Sidebar />
 					</div>
 					<div className="col-span-7 h-full">
@@ -39,7 +39,7 @@ const Developers = () => {
 								) : 
 									<div>
 										{developers.map((dev)=>(
-											<div className="h-64 flex justify-between p-7 rounded-lg bg-neutral-800 m-5">
+											<div className="h-64 flex justify-between p-7 rounded-lg bg-slate-800 m-5">
 												<img src={dev.image_background} alt="couldn't load image"  className=" w-80 object-cover "/>
 												<div>
 													<h5 className="text-white font-black">Name :</h5>
@@ -50,7 +50,7 @@ const Developers = () => {
 
 														{dev.games.map((game)=> (
 															<Link to={`/games/${game.id}`}>
-																<p className="bg-neutral-900 text-white p-1.5 m-1">{game.name}</p>
+																<p className="bg-slate-900 text-white p-1.5 m-1">{game.name}</p>
 															
 															</Link>
 

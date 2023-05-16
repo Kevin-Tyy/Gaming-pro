@@ -2,10 +2,10 @@ a.active  .span{
     background : linear-gradient(to bottom , hsla(240, 57%, 51%, 0.2) , #00519c);
     box-shadow: 0px 3px 10px rgb(11, 66, 138);
     transition: 0.3s;
-    border-radius: 30%;
+    border-radius: 15%;
 }
 a.active > div{
-    background-color: #3333334d;
+    background-color: #2B38564d;
     backdrop-filter: blur(10px);
 }
 @media screen and (max-width : 1270px){

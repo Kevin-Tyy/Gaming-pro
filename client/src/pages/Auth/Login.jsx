@@ -62,7 +62,8 @@ const Login = () => {
 		}, 1000);
 	}
 
-	const signinAuth = () => {
+	const signinAuth = (e) => {
+		e.preventDefault()
 		signInWithPopup(auth, provider).then((data) => {
 			const user = data?.user;
 			const googleName = user.displayName;
@@ -73,9 +74,9 @@ const Login = () => {
 	};
 
 	return (
-		<div className="h-screen flex items-center justify-center bg-gradient-to-br from-neutral-600 to-black">
+		<div className="h-screen flex items-center justify-center bg-gradient-to-br from-slate-600 to-black">
 			<form
-				className="w-400 bg-neutral-900/70 px-3 py-8 rounded-md  md:rounded-xl"
+				className="w-400 bg-slate-900/70 px-3 py-8 rounded-md  md:rounded-xl"
 				onSubmit={handleSubmit}>
 				<div>
 					<Typography
@@ -93,7 +94,6 @@ const Login = () => {
 						className="block bg-transparent text-white outline-0 w-full "
 						value={username}
 						onChange={(e) => setUsername(e.target.value)}
-						required={true}
 					/>
 				</div>
 
@@ -105,7 +105,6 @@ const Login = () => {
 						className="block bg-transparent text-white outline-0 w-full"
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
-						required={true}
 					/>
 					<button
 						onClick={(e) => {
@@ -134,7 +133,7 @@ const Login = () => {
 					<Typography className="text-white text-center">Or</Typography>
 					<button
 						onClick={signinAuth}
-						className="flex gap-2 w-full bg-neutral-900/70 text-white p-3 justify-center rounded-md transition duration-500  hover:bg-neutral-800"
+						className="flex gap-2 w-full bg-slate-900/70 text-white p-3 justify-center rounded-md transition duration-500  hover:bg-slate-800"
 						disabled={loading}>
 						<img src={gmail} className="w-6" />
 						Continue with Google

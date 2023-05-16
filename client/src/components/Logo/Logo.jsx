@@ -7,9 +7,9 @@ const Logo = () => {
     <div className='text-white absolute top-3 left-8'>
       <Link to="/">
         <Typography variant='h5' sx={{ fontFamily: "cursive", fontWeight : "bold" }}>
-          <span>Game</span>
-          <span className='text-violet-950'>Geekz</span>
-
+          {/* <span>Game</span>
+          <span className='text-violet-950'>Geekz</span> */}
+          XPlay
         </Typography>
       </Link>
     </div>

@@ -88,10 +88,10 @@ const Login = () => {
 	}
 	
 	return (
-		<div className="h-screen flex items-center justify-center bg-gradient-to-br from-neutral-600 to-black">
+		<div className="h-screen flex items-center justify-center bg-gradient-to-br from-slate-600 to-black">
 			<form
 				onSubmit={handleSubmit}
-				className="w-400  bg-neutral-900/70 px-3 py-8 rounded-md md:rounded-xl">
+				className="w-400  bg-slate-900/70 px-3 py-8 rounded-md md:rounded-xl">
 				<div>
 					<Typography
 						variant="h4"
@@ -146,7 +146,7 @@ const Login = () => {
 					</button>
 				</div>
 				<div className="p-3">
-					<button onClick={handleToggle} disabled={loading} className="	bg-neutral-950/50 outline-dashed outline-1 outline-neutral-700 text-white w-full py-3 rounded-md flex gap-2 items-center justify-center">
+					<button onClick={handleToggle} disabled={loading} className="	bg-slate-950/50 outline-dashed outline-1 outline-slate-700 text-white w-full py-3 rounded-md flex gap-2 items-center justify-center">
 						{ uploadImage && <CheckCircleOutlineTwoTone className="text-green-500"/>}
 						{ uploadImage ? 'Image Uploaded' : 'Upload a photo' }
 						 
@@ -166,7 +166,7 @@ const Login = () => {
 					<Typography className="text-white text-center">Or</Typography>
 					<button
 						onClick={signinAuth}
-						className="flex gap-2 w-full bg-neutral-900/70 text-white p-3 justify-center rounded-md transition duration-500  hover:bg-neutral-800"
+						className="flex gap-2 w-full bg-slate-900/70 text-white p-3 justify-center rounded-md transition duration-500  hover:bg-slate-800"
 						disabled={loading}>
 						<img src={gmail} className="w-6" />
 						Continue with Google

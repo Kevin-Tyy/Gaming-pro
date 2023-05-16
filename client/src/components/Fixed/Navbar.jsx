@@ -58,13 +58,13 @@ const Navbar = () => {
 
 	return (
 		<React.Fragment>
-			<div className="w-full flex bg-gradient-to-l from-black via-black/80 to-black/0 backdrop-blur-md text-white p-2  justify-between md:px-10 sticky top-0 z-40">
+			<div className="w-full flex bg-dark backdrop-blur-md text-white p-2  justify-between md:px-10 sticky top-0 z-40">
 				{profilePopup && (
 					<ProfilePopup handlePopUpShow={handlePopUpShow} userInfo={userInfo} />
 				)}
 
 				<div className="flex items-center ">
-					<span className="block sm:hidden hover:bg-neutral-700 rounded-full">
+					<span className="block sm:hidden hover:bg-slate-700 rounded-full">
 						<IconButton>
 							<MenuIcon className="text-white"  />
 						</IconButton>
@@ -104,7 +104,7 @@ const Navbar = () => {
 						<div className=" flex gap-4">
 							<span
 								onClick={handleNotificationSelected}
-								className="bg-neutral-800 rounded-full cursor-pointer transition hover:bg-neutral-700 w-10 h-10 hidden sm:flex items-center justify-center ">
+								className="bg-slate-800 rounded-full cursor-pointer transition hover:bg-slate-700 w-10 h-10 hidden sm:flex items-center justify-center ">
 								{isNotificationSelected ? (
 									<NotificationsIcon /> 
 								) : (
@@ -131,12 +131,12 @@ const Navbar = () => {
 					) : (
 						<div className="flex items-center  gap-2 md:gap-3">
 							<Link to="/login">
-								<button className="px-5 py-2 bg-gradient-to-b shadow-sm shadow-neutral-700 rounded-sm text-sm transititon duration-300 hover:bg-neutral-900">
+								<button className="px-5 py-2 bg-gradient-to-b shadow-sm shadow-slate-700 rounded-sm text-sm transititon duration-300 hover:bg-slate-900">
 									Login
 								</button>
 							</Link>
 							<Link to="/register">
-								<button className="px-5 py-2 bg-neutral-900 rounded-sm text-sm duration-300 transition hover:bg-neutral-800 shadow-sm shadow-neutral-700">
+								<button className="px-5 py-2 bg-slate-900 rounded-sm text-sm duration-300 transition hover:bg-slate-800 shadow-sm shadow-slate-700">
 									Sign Up
 								</button>
 							</Link>

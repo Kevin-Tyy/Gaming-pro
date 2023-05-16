@@ -78,14 +78,14 @@ const Profile = () => {
 										<Typography variant="h6" className="text-white capitalize">
 											{userName}
 										</Typography>
-										<Typography variant="body1" className="text-neutral-500">
+										<Typography variant="body1" className="text-slate-500">
 											{userEmail}
 										</Typography>
 									</div>
 								</div>
 								<div className="flex justify-center">
-									<div className="absolute bg-neutral-900 h-48 w-full z-20 flex justify-center rounded-xl mr-2">
-										<div onClick={handleProfileToggle} className="text-white absolute rounded-md p-2 top-2 right-2 cursor-pointer flex gap-2 transition duration-100 hover:bg-neutral-800 ">
+									<div className="absolute bg-slate-900 h-48 w-full z-20 flex justify-center rounded-xl mr-2">
+										<div onClick={handleProfileToggle} className="text-white absolute rounded-md p-2 top-2 right-2 cursor-pointer flex gap-2 transition duration-100 hover:bg-slate-800 ">
 											<Edit />
 											Edit profile
 										</div>

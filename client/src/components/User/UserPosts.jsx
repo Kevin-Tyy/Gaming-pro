@@ -38,8 +38,8 @@ const UserPosts = ({ token }) => {
 						{UserPosts.map((post) => (
 							<div
 								key={post._id}
-								className=" border border-neutral-700 my-5 rounded-lg bg-neutral-950 w-full max-w-lg">
-								<div className="flex items-center justify-between w-full p-4 border-b border-neutral-700">
+								className=" border border-slate-700 my-5 rounded-lg bg-slate-950 w-full max-w-lg">
+								<div className="flex items-center justify-between w-full p-4 border-b border-slate-700">
 									<div className="flex items-center justify-between gap-2">
 										<img
 											src={
@@ -61,7 +61,7 @@ const UserPosts = ({ token }) => {
 									</div>
 									<MoreVertIcon
 										fontSize="large"
-										className="text-gray-300 cursor-pointer rounded-full hover:bg-neutral-800 p-1"
+										className="text-gray-300 cursor-pointer rounded-full hover:bg-slate-800 p-1"
 									/>
 								</div>
 								<Typography sx={{ m: 2 }} className="text-white">
@@ -84,10 +84,10 @@ const UserPosts = ({ token }) => {
 								</div>
 								<div className="px-4 py-3">
 									<form>
-										<div className="w-full h-14 flex items-center bg-neutral-900 p-3 rounded-full gap-2">
+										<div className="w-full h-14 flex items-center bg-slate-900 p-3 rounded-full gap-2">
 											<EmojiEmotionsOutlined
 												fontSize="large"
-												className="text-white cursor-pointer rounded-full hover:bg-neutral-800 p-1"
+												className="text-white cursor-pointer rounded-full hover:bg-slate-800 p-1"
 											/>
 											<input
 												type="text"
@@ -95,7 +95,7 @@ const UserPosts = ({ token }) => {
 												placeholder="Add a comment"></input>
 											<SendOutlined
 												fontSize="large"
-												className="text-white cursor-pointer rounded-full hover:bg-neutral-800 p-2"
+												className="text-white cursor-pointer rounded-full hover:bg-slate-800 p-2"
 											/>
 										</div>
 									</form>

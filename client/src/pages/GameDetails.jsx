@@ -34,14 +34,13 @@ const GameDetails = () => {
 		const access_token = localStorage.getItem("access_token");
 		setToken(access_token);
 	}, []);
-	
 
 	const handleToggle = () => {
 		setToggleModal(!toggleModal);
 	};
 	return (
 		<div>
-			<div className="h-full bg-black w-full">
+			<div className="h-full bg-slate-950 w-full">
 				<div className="grid grid-cols-7 md:grid-cols-8">
 					<div className="h-14 md:h-screen fixed bottom-0 w-full md:w-20  md:sticky md:top-0 xl:w-full z-40">
 						<Sidebar />
@@ -50,31 +49,58 @@ const GameDetails = () => {
 						<Navbar />
 
 						<div>
-							<img src={gameDetails.background_image_additional} className="absolute top-0 bottom-0 right-0 left-0 w-full h-full object-cover"/>
-							<div className="absolute top-0 bottom-0 right-0 left-0 w-full h-full bg-gradient-to-r from-black to-black/40  backdrop-blur-sm"></div>
-							<div className="bg-gradient-to-t from-black to-black/0 absolute top-0 bottom-0 left-0 right-0 w-full h-full"></div>
+							<img
+								src={gameDetails.background_image_additional}
+								className="absolute top-0 bottom-0 right-0 left-0 w-full h-full object-cover"
+							/>
+							<div className="absolute top-0 bottom-0 right-0 left-0 w-full h-full bg-gradient-to-r from-slate-950 to-slate-950/10  backdrop-blur-sm"></div>
+							<div className="bg-gradient-to-t from-slate-950 to-slate-950/0 absolute top-0 bottom-0 left-0 right-0 w-full h-full"></div>
 							<div className="w-full flex flex-col xl:flex-row items-start  gap-10 p-6  mt-6 ">
 								{gameDetails.background_image ? (
 									<img
 										src={gameDetails.background_image}
 										className="w-full object-fill rounded-2xl md:min-w-md max-w-3xl z-20"
 									/>
-									
 								) : (
 									<Skeleton
-										sx={{ width: "100%", height: 750, bgcolor: "#222222" }}
+										sx={{
+											width: "100%",
+											maxWidth: "900px",
+											height: 750,
+											bgcolor: "#222",
+										}}
 										className="relative bottom-40"
-										animation="wave"
+										animation="pulse"
 									/>
 								)}
 								{gameDetails.name ? (
-									<Gamedesc gameDetails={gameDetails} token={token}/>
+									<Gamedesc gameDetails={gameDetails} token={token} />
 								) : (
-									<div style={{ marginTop: "-200px" }}>
-										<SkeletonComponent width={500} height={60} className={""} />
-										<SkeletonComponent width={500} height={60} className={""} />
-										<SkeletonComponent width={500} height={60} className={""} />
-										<SkeletonComponent width={500} height={60} className={""} />
+									<div style={{ p: "20px" }}>
+										<Skeleton
+											variant="text"
+											width={500}
+											height={60}
+											sx={{ bgcolor: "#222" }}
+										/>
+										<Skeleton
+											variant="text"
+											width={500}
+											height={60}
+											sx={{ bgcolor: "#222" }}
+										/>
+										<Skeleton
+											variant="text"
+											width={500}
+											height={60}
+											sx={{ bgcolor: "#222" }}
+										/>
+										<Skeleton
+											variant="text"
+											width={500}
+											height={60}
+											sx={{ bgcolor: "#222" }}
+										/>
 									</div>
 								)}
 							</div>
@@ -96,16 +122,18 @@ const GameDetails = () => {
 									</div>
 								</div>
 							) : (
-								<div className="pl-2">
-									<SkeletonComponent
+								<div className="p-2 flex flex-col gap-3">
+									<Skeleton
+										variant="rectangular"
 										width={""}
-										height={150}
-										className={"relative w-full"}
+										height={100}
+										sx={{ bgcolor: "#222" }}
 									/>
-									<SkeletonComponent
+									<Skeleton
+										variant="rectangular"
 										width={""}
-										height={70}
-										className={"relative  w-full"}
+										height={100}
+										sx={{ bgcolor: "#222" }}
 									/>
 								</div>
 							)}
@@ -119,16 +147,18 @@ const GameDetails = () => {
 										<PosterSlider screenShots={screenShots} />
 									</div>
 								) : (
-									<div className="flex justify-center">
-										<SkeletonComponent
-											width={350}
-											height={80}
-											className={"relative"}
-										/>
+									<div className="flex">
+										<Skeleton variant="rectangular" sx={{ bgcolor: "#222" }} />
+										<Skeleton
+											variant="rectangular"
+											sx={{ bgcolor: "#222" }}
+										/>{" "}
+										<Skeleton variant="rectangular" sx={{ bgcolor: "#222" }} />
+										<Skeleton variant="rectangular" sx={{ bgcolor: "#222" }} />
 									</div>
 								)}
 							</div>
-							<div className="w-full bg-black/30  p-4 lg:p-10 flex flex-col gap-10">
+							<div className="w-full bg-slate-950/30  p-4 lg:p-10 flex flex-col gap-10">
 								<Stores gameDetails={gameDetails} />
 								{gameDetails.reddit_url && (
 									<div className="text-white">
@@ -136,7 +166,7 @@ const GameDetails = () => {
 										<Link
 											to={gameDetails.reddit_url}
 											target="blank"
-											className="flex gap-3 bg-black/40 absolute p-1 ">
+											className="flex gap-3 bg-slate-950/40 absolute p-1 ">
 											<RedditIcon className="text-white " />#
 											{gameDetails.reddit_name}
 										</Link>
