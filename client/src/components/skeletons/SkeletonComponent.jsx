@@ -11,8 +11,6 @@ const SkeletonComponent = () => {
 					<Skeleton variant="text" width={"100%"} sx={{ bgcolor : '#191919'}} animation="wave"/>
 
 				</p>
-				
-
 			</div>
 		</div>
 	);

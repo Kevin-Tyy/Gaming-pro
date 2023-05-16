@@ -103,7 +103,7 @@ const PostPopUp = ({ handlePostToggle, userInfo, token }) => {
 				<form onSubmit={handlePostSubmit}>
 					<div>
 						<textarea
-							required="true"
+							required={true}
 							placeholder={`What's on your mind, ${profileName ? profileName : ''}?`}
 							onChange={(e) => setPostTextData(e.target.value)}
 							className={`resize-none w-full bg-transparent outline-none text-white text-xl ${

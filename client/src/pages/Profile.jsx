@@ -8,7 +8,7 @@ import EditProfilePopup from "../components/Popups/EditProfilePopup";
 import axios from "axios";
 import { Typography } from "@mui/material";
 import { Edit } from "@mui/icons-material";
-import placeholderImage from '../pages/images/placeholder.jpg'
+import placeholderImage from "../pages/images/placeholder.jpg";
 import UserPosts from "../components/User/UserPosts";
 import { fetchAPI } from "../utils/apiFetch";
 const Profile = () => {
@@ -18,7 +18,8 @@ const Profile = () => {
 	const [userInfo, setUserInfo] = useState([]);
 	const [postToggle, setPostToggle] = useState(false);
 	const [profileToggle, setProfileToggle] = useState(false);
-	const [token , setToken] = useState("")
+	const [token, setToken] = useState("");
+	const [posts, setPosts] = useState([]);
 
 	const populateProfile = async (token) => {
 		const { data } = await axios.get(`${fetchAPI}/user/getuser`, {
@@ -31,7 +32,7 @@ const Profile = () => {
 		setUserName(data.username);
 		setUserEmail(data.email);
 	};
-	
+
 	useEffect(() => {
 		const token = localStorage.getItem("access_token");
 		setToken(token);
@@ -45,9 +46,21 @@ const Profile = () => {
 	};
 	const handleProfileToggle = () => {
 		setProfileToggle(!profileToggle);
+	};
+	const fetchUserPosts = async (token) => {
+		const { data } = await axios.get(`${fetchAPI}/post/fetchuserposts`, {
+			headers: {
+				Authorization: "Bearer " + token,
+			},
+		});
+		setPosts(data);
+	};
+	useEffect(() => {
+		if (token) {
+			fetchUserPosts(token);
+		}
+	}, [token]);
 
-	}
- 
 	return (
 		<div>
 			<div className="h-full bg-black w-full">
@@ -66,7 +79,10 @@ const Profile = () => {
 							/>
 							<div className="relative">
 								<div className="absolute -top-32 mx-auto w-full flex flex-col justify-center items-center">
-									<div className={`flex flex-col items-center  justify-center ${ postToggle ? 'z-20' : 'z-30' }`}>
+									<div
+										className={`flex flex-col items-center  justify-center ${
+											postToggle ? "z-20" : "z-30"
+										}`}>
 										<div className="bg-gradient-to-r from-sky-400 via-blue-900  to-purple-900 rounded-full p-1">
 											<div className="bg-black rounded-full p-1">
 												<img
@@ -85,22 +101,22 @@ const Profile = () => {
 								</div>
 								<div className="flex justify-center">
 									<div className="absolute bg-neutral-900 h-48 w-full z-20 flex justify-center rounded-xl mr-2">
-										<div onClick={handleProfileToggle} className="text-white absolute rounded-md p-2 top-2 right-2 cursor-pointer flex gap-2 transition duration-100 hover:bg-neutral-800 ">
+										<div
+											onClick={handleProfileToggle}
+											className="text-white absolute rounded-md p-2 top-2 right-2 cursor-pointer flex gap-2 transition duration-100 hover:bg-neutral-800 ">
 											<Edit />
 											Edit profile
 										</div>
-										
+
 										<div className="absolute bottom-0 flex gap-7">
 											<div className=" mx-auto text-white border-b-4 border-violet-800 pb-2">
-												Your posts <span className="text-violet-600 font-black">0</span>
+												Your posts{" "}
+												<span className="text-violet-600 font-black">
+													{posts.length}
+												</span>
 											</div>
-											<div className=" mx-auto text-white ">
-												Your friends
-											</div>
-											<div className=" mx-auto text-white ">
-												Your games 
-											</div>
-
+											<div className=" mx-auto text-white ">Your friends</div>
+											<div className=" mx-auto text-white ">Your games</div>
 										</div>
 									</div>
 									<div className="w-4/5 z-20 mt-52">
@@ -109,16 +125,34 @@ const Profile = () => {
 											userInfo={userInfo}
 										/>
 									</div>
-										{postToggle && (
-											<PostPopUp
-												handlePostToggle={handlePostToggle}
-												userInfo={userInfo}
-												token={token}
-											/>
-										)}
+									{postToggle && (
+										<PostPopUp
+											handlePostToggle={handlePostToggle}
+											userInfo={userInfo}
+											token={token}
+										/>
+									)}
 								</div>
-								{profileToggle && <EditProfilePopup userInfo={userInfo} handleProfileToggle={handleProfileToggle} token={token}/>}
-								<UserPosts token={token}/>
+								<div className="flex justify-center my-10">
+									<Typography
+										sx={{
+											fontSize: "30px",
+											fontFamily: "fantasy",
+											marginLeft: "20px",
+										}}
+										className=" text-transparent text-center w-60  px-4 bg-gradient-to-r from-sky-600 to-violet-700 bg-clip-text z-20">
+										Your posts
+									</Typography>
+
+								</div>
+								{profileToggle && (
+									<EditProfilePopup
+										userInfo={userInfo}
+										handleProfileToggle={handleProfileToggle}
+										token={token}
+									/>
+								)}
+								<UserPosts posts={posts} />
 							</div>
 						</div>
 					</div>

@@ -11,24 +11,11 @@ import {
 	ThumbUpAltSharp,
 } from "@mui/icons-material";
 import { fetchAPI } from "../../utils/apiFetch";
-const UserPosts = ({ token }) => {
+const UserPosts = ({ posts }) => {
 	const [UserPosts, setUserPosts] = useState([]);
-	const fetchUserPosts = async () => {
-		const { data } = await axios.get(
-			`${fetchAPI}/post/fetchuserposts`,
-			{
-				headers: {
-					Authorization: "Bearer " + token,
-				},
-			}
-		);
-		setUserPosts(data);
-	};
-	useEffect(() => {
-		if (token) {
-			fetchUserPosts(token);
-		}
-	}, [token]);
+	useEffect(()=> {
+		setUserPosts(posts);
+	}, [posts])
 	const options = { year: "numeric", month: "long", day: "numeric" };
 
 	return (
