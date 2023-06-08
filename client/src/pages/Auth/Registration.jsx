@@ -44,9 +44,7 @@ const Login = () => {
 		if (data?.message) {
 			setLoading(false);
 		}
-		console.log(data)
-		console.log(data.message)
-		console.log(data.status)
+
 		if (data.status === "ok") {
 			setErrorMessage(data.message)
 			const token = data.token;

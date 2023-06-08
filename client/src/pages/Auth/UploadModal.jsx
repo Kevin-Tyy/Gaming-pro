@@ -17,7 +17,7 @@ const UploadModal = ({ handleToggle, setUploadImage }) => {
 
 	const previewFile = (file) => {
 		const reader = new FileReader();
-		reader.readAsDataURL(file);
+		reader.readAsDataURL(file);	
 		reader.onloadend = () => {
 			setPreviewSource(reader.result);
 		};

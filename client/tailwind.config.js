@@ -26,7 +26,6 @@ export default {
         'light': '#111',
         'dark': '#111'
         
-        
 
       },
       height: {
