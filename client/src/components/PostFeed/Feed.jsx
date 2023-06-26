@@ -58,7 +58,7 @@ const Feed = () => {
 							{posts.map((post) => (
 								<div
 									key={post._id}
-									className=" border border-neutral-700 my-5 rounded-lg bg-neutral-900">
+									className=" border border-neutral-700 my-5 rounded-lg bg-neutral-900 md:min-w-[550px]">
 									<div className="flex items-center justify-between w-full p-4 border-b border-neutral-700">
 										<div className="flex items-center justify-between gap-2">
 											<div className="bg-gradient-to-r from-sky-500 to-violet-800 rounded-full p-0.5">

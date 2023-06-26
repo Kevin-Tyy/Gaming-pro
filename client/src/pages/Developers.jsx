@@ -19,7 +19,7 @@ const Developers = () => {
 			setDevelopers(results)
 			setIsNextPage(data.next);
 			setIsPrevPage(data.previous);
-			// setLoading(false);
+			setLoading(false);
 
 		});
 	}, [page]);
@@ -38,6 +38,7 @@ const Developers = () => {
 									<DevSkeleton/>
 								) : 
 									<div>
+										<h1 className="text-xl text-center text-white my-3">Famous Game developers</h1>
 										{developers.map((dev)=>(
 											<div className="h-64 flex justify-between p-7 rounded-lg bg-neutral-800 m-5">
 												<img src={dev.image_background} alt="couldn't load image"  className=" w-80 object-cover "/>

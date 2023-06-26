@@ -16,7 +16,7 @@ const GameCard = ({ games }) => {
 						/>
 						<div className="absolute bottom-0 bg-gradient-to-t from-black via-black/80 to-black/30 h-full w-full flex flex-col gap-4 py-3 px-6 justify-end items-start">
 							<div>
-								<Typography className="text-white whitespace-nowrap " sx={{ fontSize : '14px'}}>{item.name}</Typography>
+								<Typography className="text-white whitespace-normal " sx={{ fontSize : '14px'}}>{item.name}</Typography>
 								{/* <Rating value={parseInt(item.rating)} precision={0.5} readOnly size='small'/> */}
 								<Typography className="text-neutral-400  " sx={{ fontSize : '13px'}} >
 									<span className="text-purple-600 font-bold">
