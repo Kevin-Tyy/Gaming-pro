@@ -18,12 +18,13 @@ import Comments from "../components/DetailComponents/Comments";
 const GameDetails = () => {
 	const [gameDetails, setGameDetails] = useState([]);
 	const [token, setToken] = useState([]);
-
+	const [loading, setLoading] = useState(false);
 	const [screenShots, setScreenShots] = useState([]);
 	const [toggleModal, setToggleModal] = useState(false);
 	const { id } = useParams();
 	const page = 1;
 	useEffect(() => {
+		setLoading(true);
 		fetchFromAPI(`games/${id}`).then((data) => {
 			console.log(data);
 			setGameDetails(data);
@@ -47,65 +48,25 @@ const GameDetails = () => {
 					</div>
 					<div className="col-span-7 h-full">
 						<Navbar />
-
-						<div>
-							<img
-								src={gameDetails.background_image_additional}
-								className="absolute top-0 bottom-0 right-0 left-0 w-full h-full object-cover"
-							/>
-							<div className="absolute top-0 bottom-0 right-0 left-0 w-full h-full bg-gradient-to-r from-black to-black/10  backdrop-blur-sm"></div>
-							<div className="bg-gradient-to-t from-black black-950/0 absolute top-0 bottom-0 left-0 right-0 w-full h-full"></div>
-							<div className="w-full flex flex-col xl:flex-row items-start  gap-10 p-6  mt-6 ">
-								{gameDetails.background_image ? (
+						{loading ? (
+							<p>Loading....</p>
+						) : (
+							<div>
+								<img
+									src={gameDetails.background_image_additional}
+									className="absolute top-0 bottom-0 right-0 left-0 w-full h-full object-cover"
+								/>
+								<div className="absolute top-0 bottom-0 right-0 left-0 w-full h-full bg-gradient-to-r from-black to-black/10  backdrop-blur-sm"></div>
+								<div className="bg-gradient-to-t from-black black-950/0 absolute top-0 bottom-0 left-0 right-0 w-full h-full"></div>
+								<div className="w-full flex flex-col xl:flex-row items-start  gap-10 p-6  mt-6 ">
 									<img
 										src={gameDetails.background_image}
 										className="w-full object-fill rounded-2xl md:min-w-md max-w-3xl z-20"
 									/>
-								) : (
-									<Skeleton
-										sx={{
-											width: "100%",
-											maxWidth: "900px",
-											height: 750,
-											bgcolor: "#222647",
-										}}
-										className="relative bottom-40"
-										animation="pulse"
-									/>
-								)}
-								{gameDetails.name ? (
-									<Gamedesc gameDetails={gameDetails} token={token} />
-								) : (
-									<div style={{ p: "20px" }}>
-										<Skeleton
-											variant="text"
-											width={500}
-											height={60}
-											sx={{ bgcolor: "#222647" }}
-										/>
-										<Skeleton
-											variant="text"
-											width={500}
-											height={60}
-											sx={{ bgcolor: "#222647" }}
-										/>
-										<Skeleton
-											variant="text"
-											width={500}
-											height={60}
-											sx={{ bgcolor: "#222647" }}
-										/>
-										<Skeleton
-											variant="text"
-											width={500}
-											height={60}
-											sx={{ bgcolor: "#222647" }}
-										/>
-									</div>
-								)}
-							</div>
 
-							{gameDetails.description_raw ? (
+									<Gamedesc gameDetails={gameDetails} token={token} />
+								</div>
+
 								<div className=" p-2 md:p-4 lg:p-6 ">
 									<div className=" bg-neutral-800/40 rounded-3xl flex justify-center p-0">
 										<Typography
@@ -121,24 +82,8 @@ const GameDetails = () => {
 										</Typography>
 									</div>
 								</div>
-							) : (
-								<div className="p-2 flex flex-col gap-3">
-									<Skeleton
-										variant="rectangular"
-										width={""}
-										height={100}
-										sx={{ bgcolor: "#222647" }}
-									/>
-									<Skeleton
-										variant="rectangular"
-										width={""}
-										height={100}
-										sx={{ bgcolor: "#222647" }}
-									/>
-								</div>
-							)}
-							<div className="">
-								{gameDetails.genres ? (
+
+								<div className="">
 									<div className="flex justify-center mt-3">
 										<Typography className="text-white text-center border-b-4 border-violet-800 absolute pb-2">
 											Posters
@@ -146,58 +91,48 @@ const GameDetails = () => {
 
 										<PosterSlider screenShots={screenShots} />
 									</div>
-								) : (
-									<div className="flex">
-										<Skeleton variant="rectangular" sx={{ bgcolor: "#222647" }} />
-										<Skeleton
-											variant="rectangular"
-											sx={{ bgcolor: "#222647" }}
-										/>{" "}
-										<Skeleton variant="rectangular" sx={{ bgcolor: "#222647" }} />
-										<Skeleton variant="rectangular" sx={{ bgcolor: "2B38564d" }} />
-									</div>
-								)}
-							</div>
-							<div className="w-full bg-neutral-950/30  p-4 lg:p-10 flex flex-col gap-10">
-								<Stores gameDetails={gameDetails} />
-								{gameDetails.reddit_url && (
-									<div className="text-white">
-										<Typography>View the game on reddit</Typography>
-										<Link
-											to={gameDetails.reddit_url}
-											target="blank"
-											className="flex gap-3 bg-neutral-950/40 absolute p-1 ">
-											<RedditIcon className="text-white " />#
-											{gameDetails.reddit_name}
-										</Link>
-									</div>
-								)}
-								{gameDetails.ratings && (
-									<div className="text-white md:p-3 pb-10">
-										<Typography className="flex items-start pb-2 gap-2 text-gray-400">
-											<StarOutlineIcon className="text-yellow-600" />
-											<StarOutlineIcon className="text-yellow-600" />
-											Ratings: (
-											<span className="text-purple-600 font-extrabold">
-												{gameDetails.ratings_count}
-											</span>{" "}
-											total ratings)
-										</Typography>
-										<Rating
-											gameDetails={gameDetails}
+								</div>
+								<div className="w-full bg-neutral-950/30  p-4 lg:p-10 flex flex-col gap-10">
+									<Stores gameDetails={gameDetails} />
+									{gameDetails.reddit_url && (
+										<div className="text-white">
+											<Typography>View the game on reddit</Typography>
+											<Link
+												to={gameDetails.reddit_url}
+												target="blank"
+												className="flex gap-3 bg-neutral-950/40 absolute p-1 ">
+												<RedditIcon className="text-white " />#
+												{gameDetails.reddit_name}
+											</Link>
+										</div>
+									)}
+									{gameDetails.ratings && (
+										<div className="text-white md:p-3 pb-10">
+											<Typography className="flex items-start pb-2 gap-2 text-gray-400">
+												<StarOutlineIcon className="text-yellow-600" />
+												<StarOutlineIcon className="text-yellow-600" />
+												Ratings: (
+												<span className="text-purple-600 font-extrabold">
+													{gameDetails.ratings_count}
+												</span>{" "}
+												total ratings)
+											</Typography>
+											<Rating
+												gameDetails={gameDetails}
+												handleToggle={handleToggle}
+											/>
+										</div>
+									)}
+									<Comments />
+									{toggleModal && (
+										<RatingPopup
 											handleToggle={handleToggle}
+											bgimage={gameDetails.background_image}
 										/>
-									</div>
-								)}
-								<Comments />
-								{toggleModal && (
-									<RatingPopup
-										handleToggle={handleToggle}
-										bgimage={gameDetails.background_image}
-									/>
-								)}
+									)}
+								</div>
 							</div>
-						</div>
+						)}
 					</div>
 				</div>
 			</div>
