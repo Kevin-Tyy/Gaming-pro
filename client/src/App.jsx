@@ -11,7 +11,7 @@ import SearchPage from "./pages/SearchPage";
 import Registration from "./pages/Auth/Registration";
 import Login from "./pages/Auth/Login";
 import { SkeletonTheme } from "react-loading-skeleton";
-
+import { ToastContainer } from "react-toastify";
 function App() {
 	console.info(
 		"%c Hello developer,👋👋👋 Welcome to GameGeekz🎮",
@@ -33,6 +33,16 @@ function App() {
 					<Route path="/register" element={<Registration />} />
 					<Route path="/login" element={<Login />} />
 				</Routes>
+				
+				<ToastContainer
+					toastStyle={{
+						backgroundColor: "#222",
+						color: "#fff",
+						fontFamily: "revert",
+						borderRadius: "10px",
+
+					}}
+				/>
 			</SkeletonTheme>
 		</div>
 	);

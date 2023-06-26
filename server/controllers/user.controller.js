@@ -14,48 +14,49 @@ const loginController = async (req, res) => {
 	if (error) {
 		const errorMessage = error.details[0].message;
 		res.status(200).send({ message: errorMessage, status: "bad" });
-	}
-	const { username, password } = req.body;
+	} else {
+		const { username, password } = req.body;
 
-	try {
-		const user = await UserModel.findOne({ username: username });
+		try {
+			const user = await UserModel.findOne({ username: username });
 
-		if (user) {
-			const hashedPassword = user.password;
-			bcrypt
-				.compare(password, hashedPassword)
-				.then((isMatch) => {
-					if (isMatch) {
-						jwt.sign(
-							{
-								userId: user._id,
-								username: user.username,
-								password: user.password,
-							},
-							jwtSecret,
-							(err, token) => {
-								if (err) throw err;
-								res.status(200).send({
-									message: "Login successful",
-									token: token,
-									status: "ok",
-								});
-							}
-						);
-					} else {
-						res.send({ message: "Incorrect Password", status: "bad" });
-					}
-				})
-				.catch((err) => {
-					console.log(err);
-					res.send({ message: "Oops ! Something went wrong", status: "bad" });
-				});
-		} else {
-			res.send({ message: "User not found", status: "bad" });
+			if (user) {
+				const hashedPassword = user.password;
+				bcrypt
+					.compare(password, hashedPassword)
+					.then((isMatch) => {
+						if (isMatch) {
+							jwt.sign(
+								{
+									userId: user._id,
+									username: user.username,
+									password: user.password,
+								},
+								jwtSecret,
+								(err, token) => {
+									if (err) throw err;
+									res.status(200).send({
+										message: "Login successful",
+										token: token,
+										status: "ok",
+									});
+								}
+							);
+						} else {
+							res.send({ message: "Incorrect Password", status: "bad" });
+						}
+					})
+					.catch((err) => {
+						console.log(err);
+						res.send({ message: "Oops ! Something went wrong", status: "bad" });
+					});
+			} else {
+				res.send({ message: "User not found", status: "bad" });
+			}
+		} catch (error) {
+			console.log(error);
+			res.send({ message: "Something went wrong", status: "bad" });
 		}
-	} catch (error) {
-		console.log(error);
-		res.send({ message: "Something went wrong", status: "bad" });
 	}
 };
 
@@ -65,76 +66,83 @@ const registerController = async (req, res) => {
 	if (error) {
 		const errorMessage = error.details[0].message;
 		res.status(200).send({ message: errorMessage, status: "bad" });
-	}
+	} else {
+		const { username, password, email, uploadImage } = req.body;
 
-	const { username, password, email, uploadImage } = req.body;
+		try {
+			let uploadedResponse;
 
-	try {
-		let uploadedResponse;
+			if (uploadImage) {
+				const fileStr = uploadImage;
+				uploadedResponse = await cloudinary.v2.uploader.upload(fileStr, {
+					folder: "user_profiles",
+				});
+			}
+			const hashedPassword = await bcrypt.hash(password, 10);
+			const user = await UserModel.findOne({ username: username });
 
-		if (uploadImage) {
-			const fileStr = uploadImage;
-			uploadedResponse = await cloudinary.v2.uploader.upload(fileStr, {
-				folder: "user_profiles",
-			});
-		}
-		const hashedPassword = await bcrypt.hash(password, 10);
-		const user = await UserModel.findOne({ username: username });
+			if (user) {
+				res.send({
+					message: `Username ${username} not available`,
+					status: "bad",
+				});
+			} else {
+				try {
+					const user = await UserModel.findOne({ email: email });
+					if (user) {
+						res.send({
+							message: `Email ${email} already in use`,
+							status: "bad",
+						});
+					} else {
+						const createdUser = new UserModel({
+							email: email,
+							password: hashedPassword,
+							username: username,
+							uploadImage: uploadedResponse?.secure_url,
+						});
 
-		if (user) {
+						createdUser
+							.save()
+							.then(
+								jwt.sign(
+									{
+										userId: createdUser._id,
+										username: username,
+										password: password,
+									},
+									jwtSecret,
+									(err, token) => {
+										if (err) {
+											throw err;
+										} else {
+											res.status(200).send({
+												message: "New account created successfully",
+												token: token,
+												status: "ok",
+											});
+										}
+									}
+								)
+							)
+							.catch((err) => {
+								res.send({ msg: "Something went wrong", status: "bad" });
+								console.log(err);
+							});
+					}
+				} catch (error) {
+					console.log(error);
+					res.send({ message: "Something went wrong", status: "bad" });
+				}
+			}
+		} catch (error) {
+			console.log(error);
 			res.send({
-				message: `Username ${username} not available`,
+				message:
+					"Something went wrong, Check your intenet connection and try again",
 				status: "bad",
 			});
-		} else {
-			try {
-				const user = await UserModel.findOne({ email: email });
-				if (user) {
-					res.send({ message: `Email ${email} already in use`, status: "bad" });
-				} else {
-					const createdUser = new UserModel({
-						email: email,
-						password: hashedPassword,
-						username: username,
-						uploadImage: uploadedResponse?.secure_url,
-					});
-
-					createdUser
-						.save()
-						.then(
-							jwt.sign(
-								{
-									userId: createdUser._id,
-									username: username,
-									password: password,
-								},
-								jwtSecret,
-								(err, token) => {
-									if (err) {
-										throw err;
-									} else {
-										res.status(200).send({
-											message: "Registration successful",
-											token: token,
-											status: "ok",
-										});
-									}
-								}
-							)
-						)
-						.catch((err) => {
-							res.send({ msg: "Something went wrong", status: "bad" });
-							console.log(err);
-						});
-				}
-			} catch (error) {
-				console.log(error);
-				res.send({ message: "Something went wrong", status: "bad" });
-			}
 		}
-	} catch (error) {
-		console.log(error);
-		res.send({ message: "Something went wrong, Check your intenet connection and try again", status: "bad" });
 	}
 };
 
@@ -222,5 +230,4 @@ module.exports = {
 	getUserInfo,
 	fetchUsers,
 	updateProfile,
-
 };

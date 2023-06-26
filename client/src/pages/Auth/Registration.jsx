@@ -15,20 +15,20 @@ import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
-import { auth , provider } from "../../config/firebase"
+import { auth, provider } from "../../config/firebase";
 import { signInWithPopup } from "firebase/auth";
 import { fetchAPI } from "../../utils/apiFetch";
-import UploadModal from './UploadModal'
+import UploadModal from "./UploadModal";
 
 const Login = () => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [email, setEmail] = useState("");
-	const [uploadImage , setUploadImage] = useState("");
+	const [uploadImage, setUploadImage] = useState("");
 	const [loading, setLoading] = useState(false);
 	const [passwordVisible, setPasswordVisible] = useState(false);
-	const [ isModalVisible , setIsModalVisible ] = useState(false);
-	const [errorMessage , setErrorMessage] = useState("");
+	const [isModalVisible, setIsModalVisible] = useState(false);
+	const [errorMessage, setErrorMessage] = useState("");
 	const navigate = useNavigate();
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -37,54 +37,53 @@ const Login = () => {
 			username,
 			email,
 			password,
-			uploadImage
+			uploadImage,
 		});
 		const data = response.data;
-		
+
 		if (data?.message) {
 			setLoading(false);
 		}
 
 		if (data.status === "ok") {
-			setErrorMessage(data.message)
+			setErrorMessage(data.message);
 			const token = data.token;
 			if (data.token) {
 				localStorage.setItem("access_token", token);
 				localStorage.setItem("logged_in", true);
 			}
 			toast.success(data.message, {
-				position: toast.POSITION.TOP_RIGHT,
+				position: toast.POSITION.TOP_CENTER,
 			});
-			setTimeout(() => {
-				navigate("/home");
-			}, 2000);
+
+			navigate("/home");
 		} else if (data.status === "bad") {
 			toast.error(data.message, {
-				position: toast.POSITION.TOP_RIGHT,
+				position: toast.POSITION.TOP_CENTER,
 			});
+			setLoading(false);
 		}
-	}
+	};
 	if (passwordVisible) {
 		setTimeout(() => {
 			setPasswordVisible(false);
 		}, 1000);
 	}
 	const signinAuth = (e) => {
-		e.preventDefault()
-		signInWithPopup(auth , provider).then((data)=> {
+		e.preventDefault();
+		signInWithPopup(auth, provider).then((data) => {
 			const user = data?.user;
-			const googleName = user.displayName
+			const googleName = user.displayName;
 			const googlemail = user.email;
 			setUsername(googleName);
 			setEmail(googlemail);
-			
-		})
-	}
+		});
+	};
 	const handleToggle = (e) => {
 		e.preventDefault();
-		setIsModalVisible(!isModalVisible)
-	}
-	
+		setIsModalVisible(!isModalVisible);
+	};
+
 	return (
 		<div className="h-screen flex items-center justify-center bg-gradient-to-br from-neutral-600 to-black">
 			<form
@@ -144,11 +143,15 @@ const Login = () => {
 					</button>
 				</div>
 				<div className="p-3">
-					<button onClick={handleToggle} disabled={loading} className="	bg-neutral-950/50 outline-dashed outline-1 outline-neutral-700 text-white w-full py-3 rounded-md flex gap-2 items-center justify-center">
-						{ uploadImage && <CheckCircleOutlineTwoTone className="text-green-500"/>}
-						{ uploadImage ? 'Image Uploaded' : 'Upload a photo' }
-						 
-					</button>	
+					<button
+						onClick={handleToggle}
+						disabled={loading}
+						className="	bg-neutral-950/50 outline-dashed outline-1 outline-neutral-700 text-white w-full py-3 rounded-md flex gap-2 items-center justify-center">
+						{uploadImage && (
+							<CheckCircleOutlineTwoTone className="text-green-500" />
+						)}
+						{uploadImage ? "Image Uploaded" : "Upload a photo"}
+					</button>
 				</div>
 				<div className="p-3 flex flex-col gap-3">
 					<button
@@ -179,10 +182,12 @@ const Login = () => {
 					</Link>
 				</Typography>
 			</form>
-			{isModalVisible && <UploadModal handleToggle={handleToggle} setUploadImage={setUploadImage}/>}
-			<ToastContainer toastStyle={{ backgroundColor: "#222", color : '#fff', fontFamily : 'revert', borderRadius : '10px' }} />
-			
-
+			{isModalVisible && (
+				<UploadModal
+					handleToggle={handleToggle}
+					setUploadImage={setUploadImage}
+				/>
+			)}
 		</div>
 	);
 };

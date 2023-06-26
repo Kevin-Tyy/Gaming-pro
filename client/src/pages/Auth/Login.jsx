@@ -38,21 +38,18 @@ const Login = () => {
 			setLoading(false);
 		}
 		if (data.status === "ok") {
-
 			const token = data.token;
 			if (data.token) {
 				localStorage.setItem("access_token", token);
 				localStorage.setItem("logged_in", true);
 			}
 			toast.success(data.message, {
-				position: toast.POSITION.TOP_RIGHT,
+				position: toast.POSITION.TOP_CENTER,
 			});
-			setTimeout(() => {
-				navigate("/home");
-			}, 2000);
+			navigate("/home");
 		} else if (data.status === "bad") {
 			toast.error(data.message, {
-				position: toast.POSITION.TOP_RIGHT,
+				position: toast.POSITION.TOP_CENTER,
 			});
 		}
 	};
@@ -63,14 +60,13 @@ const Login = () => {
 	}
 
 	const signinAuth = (e) => {
-		e.preventDefault()
+		e.preventDefault();
 		signInWithPopup(auth, provider).then((data) => {
 			const user = data?.user;
 			const googleName = user.displayName;
 			setUsername(googleName);
 			setEmail(googlemail);
 		});
-		
 	};
 
 	return (
@@ -148,7 +144,14 @@ const Login = () => {
 					</Link>
 				</Typography>
 			</form>
-			<ToastContainer toastStyle={{ backgroundColor: "#222", color : '#fff', fontFamily : 'revert', borderRadius : '10px' }}/>
+			<ToastContainer
+				toastStyle={{
+					backgroundColor: "#222",
+					color: "#fff",
+					fontFamily: "revert",
+					borderRadius: "10px",
+				}}
+			/>
 		</div>
 	);
 };
