@@ -129,12 +129,12 @@ const registerController = async (req, res) => {
 				}
 			} catch (error) {
 				console.log(error);
-				res.send({ message: "Something went wrong1", status: "bad" });
+				res.send({ message: "Something went wrong", status: "bad" });
 			}
 		}
 	} catch (error) {
 		console.log(error);
-		res.send({ message: "Something went wrong2", status: "bad" });
+		res.send({ message: "Something went wrong, Check your intenet connection and try again", status: "bad" });
 	}
 };
 

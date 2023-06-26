@@ -15,5 +15,5 @@ export const searchAPI = async (url , query) => {
     const {data} = await axios.get(`${BASE_URL}/${url}?key=${key}&search=${query}`);
     return data;
 }
-export const fetchAPI = 'http://localhost:4000'
+export const fetchAPI = 'http://localhost:4000/api'
 

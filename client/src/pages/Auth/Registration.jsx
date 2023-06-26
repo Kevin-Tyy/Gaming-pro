@@ -33,7 +33,7 @@ const Login = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		setLoading(true);
-		const response = await axios.post(`${fetchAPI}/api/register`, {
+		const response = await axios.post(`${fetchAPI}/user/register`, {
 			username,
 			email,
 			password,
