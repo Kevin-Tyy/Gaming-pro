@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import Navbar from "../components/Fixed/Navbar";
 import Sidebar from "../components/Fixed/Sidebar";
 import RedditIcon from "@mui/icons-material/Reddit";
-import SkeletonComponent from "../components/skeletons/SkeletonComponent";
+import SkeletonComponent from "../components/Skeletons/SkeletonComponent";
 import PosterSlider from "../components/sliders/posterSlider";
 import Stores from "../components/DetailComponents/Stores";
 import Gamedesc from "../components/DetailComponents/GameDesc";
