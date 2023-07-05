@@ -33,14 +33,13 @@ function App() {
 					<Route path="/register" element={<Registration />} />
 					<Route path="/login" element={<Login />} />
 				</Routes>
-				
+
 				<ToastContainer
 					toastStyle={{
 						backgroundColor: "#222",
 						color: "#fff",
 						fontFamily: "revert",
 						borderRadius: "10px",
-
 					}}
 				/>
 			</SkeletonTheme>
